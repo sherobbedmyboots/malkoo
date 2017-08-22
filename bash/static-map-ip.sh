@@ -13,7 +13,7 @@ read ip_addr
 
 
 
-ssh userone@10.0.0.1
+ssh <username>@<ip>
 
 # Enter pass for key
 
@@ -21,7 +21,7 @@ ssh userone@10.0.0.1
 configure
 
 # Edit dhcp-server
-edit service dhcp-server shared-network-name LAN subnet 10.0.0.1/24
+edit service dhcp-server shared-network-name LAN subnet <subnet>
 
 set static-mapping $host_name mac-address $mac_addr
 
