@@ -1,4 +1,4 @@
-﻿# Configuration script for analysis boxes
+# Configuration script for analysis boxes
 
 
 # Set time zone
@@ -28,7 +28,7 @@ wget –usebasicparsing https://raw.githubusercontent.com/matthewdunwoody/PS_log
 reg import ps.reg
  
 # Enable Audit Process Creation
-# Auditpol /set /subcategory:”Process Creation” /success:enable  
+auditpol /set /subcategory:”Process Creation” /success:enable  
  
 # Include command line in Process Creation events
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1
