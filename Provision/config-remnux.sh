@@ -25,6 +25,7 @@ sudo sed -i 's/exit 0/\/etc\/init.d\/ssh start\nexit 0/g' /etc/rc.local
 sudo chmod +x /etc/rc.local
 
 # Vagrant
+
 # Zero out free space on hard drive
 # Make sure VM nic1 is in NAT mode
 # Make sure SSH starts on boot
@@ -40,6 +41,6 @@ sudo chmod +x /etc/rc.local
 mkdir ~/logs ~/files
 chmod 777 ~/logs ~/files
 sudo docker run --rm -it -v ~/logs:/home/thug/logs -v ~/files:/home/thug/files remnux/thug bash
-./thug.py -F http://example.com
+thug -FZM <site>
 
 
