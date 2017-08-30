@@ -1,12 +1,12 @@
 # Extract tools
-$ToolDir = "C:\Tools"
-& 7z e $ToolDir\api-monitor-v2r13-x86-x64.zip -o"$ToolDir"\apimonitor -y
-& 7z e $ToolDir\bintext303.zip -o"$ToolDir"\bintext -y
-& 7z e $ToolDir\exeinfope.zip -o"$ToolDir"\exeinfope -y
-& 7z e $ToolDir\lordpe.zip -o"$ToolDir"\lordpe -y
-& 7z e $ToolDir\malzilla_1.2.0.zip -o"$ToolDir"\malzilla -y
-& 7z e $ToolDir\pestudio.zip -o"$ToolDir"\pestudio -y
-& 7z e $ToolDir\procdot_1_2_55_windows.zip -o"$ToolDir"\procdot -y
+cd C:\Tools
+& 7z e api-monitor-v2r13-x86-x64.zip -o"apimonitor" -y
+& 7z e bintext303.zip -o"bintext" -y
+& 7z e exeinfope.zip -o"exeinfope" -y
+& 7z e lordpe.zip -o"lordpe" -y
+& 7z e malzilla_1.2.0.zip -o"malzilla" -y
+& 7z e pestudio.zip -o"pestudio" -y
+& 7z e procdot_1_2_55_windows.zip -o"procdot" -y
 
 # Delete default shortcuts
 ls -fo c:\Users\"$env:username"\Desktop *.lnk | Remove-Item
@@ -50,5 +50,6 @@ MakeShortcut "API Monitor" "C:\Tools\apimonitor\API Monitor (rohitab.com)\apimon
 MakeShortcut "Autoruns64" "C:\ProgramData\chocolatey\bin\autoruns64.exe"
 
 # Clean up
-mkdir c:\tools\extra | Out-Null 
-ls c:\tools *.zip,*.txt,*.ps1,*.xml | %{mv $_ c:\tools\extra\}
+mkdir extra | Out-Null 
+ls *.zip,*.txt,*.ps1,*.xml | %{mv $_ extra\}
+Remove-Item refresh.sh
