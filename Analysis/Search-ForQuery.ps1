@@ -5,10 +5,6 @@
  
 .EXAMPLE
     .\Search-ForQuery.ps1 -queriedsite www.sans.org -sitefile sites.txt
- 
-.NOTES
-    May reach Google's limit of queries
-   
 #>
  
 Param
