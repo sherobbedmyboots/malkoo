@@ -2,8 +2,9 @@
  
 # Linux                     
 iptables –A INPUT –s ! <ip-address> -j DROP
-#To verify
-iptables –L
+
+# Redirect port
+sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8080
  
 # Windows             
 Set-NetFirewallProfile –all –Enabled True
@@ -12,3 +13,5 @@ New-NetFirewallRule -DisplayName AllowMe -Direction Inbound -Action Allow –Pro
 
 #To verify
 Get-NetfirewallRule | ?{$_.Enabled –eq ‘True’} | select profile, direction, action, displayname
+
+
