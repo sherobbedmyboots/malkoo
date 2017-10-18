@@ -11,3 +11,7 @@ git push -u origin master
 
 git remote add origin git@github.com:<user>/<repo>.git
 git push -u origin master
+
+
+# create branch and check out
+git checkout -b fix-issue
