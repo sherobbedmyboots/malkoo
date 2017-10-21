@@ -14,4 +14,14 @@ New-NetFirewallRule -DisplayName AllowMe -Direction Inbound -Action Allow –Pro
 #To verify
 Get-NetfirewallRule | ?{$_.Enabled –eq ‘True’} | select profile, direction, action, displayname
 
+# Configure network adapter
+# $nic = get-wmiobject win32_networkadapterconfiguration | ?{$_.IPEnabled}
+# $nic.IPAddress = "172.0.0.2"
+# $nic.IPSubnet = "255.255.255.0"
+# $nic.DefaultIPGateway = “172.0.0.1”
+# $nic.DNSServerSearchOrder = “172.0.0.1”
+
+# Configure network adapter
+# New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 172.20.0.2 -PrefixLength 24 -DefaultGateway 172.20.0.1
+# Set-DNSClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 172.20.0.1
 

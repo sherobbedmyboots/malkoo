@@ -15,3 +15,7 @@ git push -u origin master
 
 # create branch and check out
 git checkout -b fix-issue
+
+# permission error
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
