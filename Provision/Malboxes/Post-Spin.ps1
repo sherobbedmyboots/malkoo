@@ -6,15 +6,28 @@
 # Powershell script at https://pennprovenance.net/index.php?n=Tracker.Config will specify folders to audit
 # auditpol /Set /subcategory:"File System" /Success:Enable
 
+
 # Install SP1, dotnet4.5, powershell
-if ([Environment]::osversion.Version.Major -eq 6){
-    choco install kb976932 -y
-    Restart-Computer
-    choco install kb976932 -y -Force
-    Restart-Computer
-    choco install dotnet4.5 -y
-    Restart-Computer
-    choco install powershell -y
+workflow Install-PowerShell5
+{
+    if ([Environment]::osversion.Version.Major -eq 6){
+        choco install kb976932 -y
+        Restart-Computer -Wait
+        choco install kb976932 -y -force
+        Restart-Computer -Wait
+        choco install dotnet4.5 -y
+        Restart-Computer -Wait
+        choco install powershell -y
+        Restart-Computer -Wait
+}
+
+$AtStartup = New-JobTrigger -AtStartup
+Register-ScheduledJob -Name ResumeScript -Trigger $AtStartup -ScriptBlock{Import-Module PSWorkflow; Get-Job InstallPowerShell5 -State Suspended | Resume-Job}
+Install-PowerShell5 -Jobname InstallPowerShell5
+
+if ($host.version.major -ne 5){
+    Write-Host -Fore Yellow "PowerShell 5 not installed. Exiting..."
+    Exit 
 }
 
 # Enable bypass policy
@@ -183,6 +196,7 @@ Invoke-WebRequest https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinD
 Invoke-WebRequest http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip -O C:\tools\graphviz-2.38.zip
 Invoke-WebRequest https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip -O floss.zip
 
+choco install python2 python pip -y
 $env:PATH += ';C:\Python27\;C:\Python36\;C:\Python27\scripts\;C:\Python36\scripts\'
 pip install virtualenv
 pip install rekal
@@ -250,3 +264,5 @@ MakeShortcut "FLOSS" "C:\Tools\floss\floss64.exe"
 mkdir extra | Out-Null 
 ls *.zip,*.txt,*.ps1,*.xml | %{mv $_ extra\}
 Remove-Item refresh.sh
+
+
