@@ -8,93 +8,20 @@
 
 
 # Install SP1, dotnet4.5, powershell
-workflow Install-PowerShell5
-{
-    if ([Environment]::osversion.Version.Major -eq 6){
-        choco install kb976932 -y
-        Restart-Computer -Wait
-        choco install kb976932 -y -force
-        Restart-Computer -Wait
-        choco install dotnet4.5 -y
-        Restart-Computer -Wait
-        choco install powershell -y
-        Restart-Computer -Wait
-}
-
-$AtStartup = New-JobTrigger -AtStartup
-Register-ScheduledJob -Name ResumeScript -Trigger $AtStartup -ScriptBlock{Import-Module PSWorkflow; Get-Job InstallPowerShell5 -State Suspended | Resume-Job}
-Install-PowerShell5 -Jobname InstallPowerShell5
-
 if ($host.version.major -ne 5){
-    Write-Host -Fore Yellow "PowerShell 5 not installed. Exiting..."
+    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\tools\1.ps1"
     Exit 
 }
 
 # Enable bypass policy
 Set-ExecutionPolicy -Scope LocalMachine Bypass -Force
 Set-ExecutionPolicy -Scope CurrentUser Bypass -Force
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Execution Policy set to Bypass"
+
 
 # Disable screen lock
 New-Item -Path "HKLM:\software\Policies\Microsoft\Windows\personalization" | Out-Null
 Set-ItemProperty -Path "HKLM:\software\Policies\Microsoft\Windows\personalization" -Name "NoLockScreen" -Type DWord -Value 1
-
-# Remove search bar
-If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"){
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-}
-
-# Remove taskview button
-If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
-}
-
-# Show hidden files
-If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 1
-}
-
-# Stop explorer
-Stop-Process -name explorer
-
-# Stop Windows Update Service
-Stop-Service -Name wuauserv
-Set-Service -Name wuauserv -StartUpType Disabled
-
-# Disable OneDrive
-If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
-    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
-}
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
- 
-# Disable Telemetry
-If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection"){
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-} 
-
-# Disable Bing Search in Start Menu
-If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"){
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
-}
-
-# Disable Location Tracking
-If (Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}"){
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
-}
-If (Test-Path "HKLM:\System\CurrentControlSet\Services\lfsvc\Service\Configuration"){
-    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
-}
-
-# Disable Feedback
-If (!(Test-Path "HKCU:\Software\Microsoft\Siuf\Rules")) {
-    New-Item -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Force | Out-Null
-}
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -Type DWord -Value 0
- 
-# Disable Advertising ID
-If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
-}
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
  
 # Disable Cortana
 If (!(Test-Path "HKCU:\Software\Microsoft\Personalization\Settings")) {
@@ -104,26 +31,54 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Personalization\Settings" -Name
 If (!(Test-Path "HKCU:\Software\Microsoft\InputPersonalization")) {
     New-Item -Path "HKCU:\Software\Microsoft\InputPersonalization" -Force | Out-Null
 }
-
 If (Test-Path "HKCU:\Software\Microsoft\InputPersonalization"){
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 1
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 1
 }
-
 If (!(Test-Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore")) {
     New-Item -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore" -Force | Out-Null
 }
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore" -Name "HarvestContacts" -Type DWord -Value 0
- 
-# Disable Windows Update automatic restart
-If (Test-Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings"){
-    Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 1
-}
 
-# Disable Windows Defender
-If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows Defender"){
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
+# Show known file extensions
+If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
 }
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Personalization settings changed"
+
+
+
+# Disable OneDrive
+If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
+}
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
+# Disable Telemetry
+If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection"){
+    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+} 
+# Disable Bing Search in Start Menu
+If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"){
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
+}
+# Disable Location Tracking
+If (Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}"){
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0
+}
+If (Test-Path "HKLM:\System\CurrentControlSet\Services\lfsvc\Service\Configuration"){
+    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0
+}
+# Disable Feedback
+If (!(Test-Path "HKCU:\Software\Microsoft\Siuf\Rules")) {
+    New-Item -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Force | Out-Null
+}
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -Type DWord -Value 0
+
+# Disable Advertising ID
+If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
+    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" | Out-Null
+}
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 0
 
 # Stop and disable Home Groups services
 if (Get-Service HomeGroupListener){
@@ -134,11 +89,36 @@ if (Get-Service HomeGroupProvider){
     Stop-Service "HomeGroupProvider"
     Set-Service "HomeGroupProvider" -StartupType Disabled
 }
-
-# Show known file extensions
-If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
+# Disable Windows Update automatic restart
+If (Test-Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings"){
+    Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 1
 }
+# Disable Windows Defender
+If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows Defender"){
+    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
+}
+# Stop Windows Update Service
+Stop-Service -Name wuauserv
+Set-Service -Name wuauserv -StartUpType Disabled
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Unwanted services disabled"
+
+
+# Remove search bar
+If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"){
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+}
+# Remove taskview button
+If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+}
+# Show hidden files
+If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"){
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 1
+}
+# Stop explorer
+Stop-Process -name explorer
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Additional configuration settings changed"
+
  
 # Remove unwanted MS applications
 if ([Environment]::osversion.Version.Major -eq 10){
@@ -174,27 +154,31 @@ if ([Environment]::osversion.Version.Major -eq 10){
     Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
     Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
     Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
+    Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Unwanted Microsoft applications removed"
 }
 
 # Enable PowerShell Module, Script Block, and Full Transcription Logging
-try {wget –usebasicparsing https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg -O ps.reg}
-catch {(new-object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg") >> ps.reg}
-finally {reg import ps.reg}
+Invoke-WebRequest https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg -O ps.reg
+reg import ps.reg
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"
 
 # Audit Process Creation
 auditpol /set /subcategory:”Process Creation” /success:enable
 
 # Include command line in Process Creation events
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process creation event logging enabled"
 
 # Change time zone
 try {Set-TimeZone -Id "Central Standard Time"}
 catch {tzutil.exe /s "Central Standard Time"}
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Time zone changed"
 
 # Additional tools
 Invoke-WebRequest https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe -O C:\tools\WinDump.exe
 Invoke-WebRequest http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip -O C:\tools\graphviz-2.38.zip
 Invoke-WebRequest https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip -O floss.zip
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloaded files via web request"
 
 choco install python2 python pip -y
 $env:PATH += ';C:\Python27\;C:\Python36\;C:\Python27\scripts\;C:\Python36\scripts\'
@@ -202,6 +186,7 @@ pip install virtualenv
 pip install rekal
 pip install -U oletools
 pip install https://github.com/fireeye/flare-fakenet-ng/zipball/master
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 
 # Extract tools
 cd C:\Tools
