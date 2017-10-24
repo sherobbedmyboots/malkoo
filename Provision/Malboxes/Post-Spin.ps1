@@ -9,7 +9,7 @@
 
 # Install SP1, dotnet4.5, powershell
 if ($host.version.major -ne 5){
-    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\tools\1.ps1"
+    "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" "C:\tools\1.ps1"
     Exit 
 }
 
@@ -158,8 +158,8 @@ if ([Environment]::osversion.Version.Major -eq 10){
 }
 
 # Enable PowerShell Module, Script Block, and Full Transcription Logging
-Invoke-WebRequest -usebasicparsing https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg -O ps.reg
-reg import ps.reg
+Invoke-WebRequest -usebasicparsing "https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg" -O "C:\tools\ps.reg"
+reg import "c:\tools\ps.reg"
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"
 
 # Audit Process Creation
@@ -175,21 +175,21 @@ catch {tzutil.exe /s "Central Standard Time"}
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Time zone changed"
 
 # Additional tools
-Invoke-WebRequest -usebasicparsing "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -O C:\tools\WinDump.exe
-Invoke-WebRequest -usebasicparsing "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -O C:\tools\graphviz-2.38.zip
-Invoke-WebRequest -usebasicparsing "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -O floss.zip
+Invoke-WebRequest -usebasicparsing "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -O "C:\tools\WinDump.exe"
+Invoke-WebRequest -usebasicparsing "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -O "C:\tools\graphviz-2.38.zip"
+Invoke-WebRequest -usebasicparsing "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -O "C:\tools\floss.zip"
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloaded files via web request"
 
 choco install python2 python3 -y
-C:\Python27\Scripts\pip.exe install virtualenv
-cd ~\Desktop
-virtualenv Dev 
-Dev\Scripts\activate
-C:\Python27\Scripts\pip.exe install --upgrade setuptools pip wheel
+$env:PATH += ";C:\Python27;C:\Python27\scripts;C:\Python36;C;\Python36\scripts"
+"C:\Python27\Scripts\pip.exe" install virtualenv
+virtualenv "C:\Users\$env:username\Desktop\Dev"
+"C:\Users\$env:username\Desktop\Dev\Scripts\activate"
+"C:\Python27\Scripts\pip.exe" install --upgrade setuptools pip wheel
 pip install rekall
 deactivate
-C:\Python27\Scripts\pip.exe install -U oletools
-C:\Python27\Scripts\pip.exe install https://github.com/fireeye/flare-fakenet-ng/zipball/master
+"C:\Python27\Scripts\pip.exe" install -U oletools
+"C:\Python27\Scripts\pip.exe" install "https://github.com/fireeye/flare-fakenet-ng/zipball/master"
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 
 # Extract tools
@@ -205,8 +205,8 @@ cd C:\Tools
 & 7z e floss.zip -o"floss" -y
 
 # Delete default shortcuts
-ls -fo c:\Users\"$env:username"\Desktop *.lnk | Remove-Item
-ls -fo c:\Users\Public\Desktop *.lnk | Remove-Item
+ls -fo "c:\Users\$env:username\Desktop" *.lnk | Remove-Item
+ls -fo "c:\Users\Public\Desktop" *.lnk | Remove-Item
 
 # Make Shortcuts
 Function MakeShortcut ($name, $filepath) {
