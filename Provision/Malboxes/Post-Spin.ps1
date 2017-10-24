@@ -9,7 +9,7 @@
 
 # Install SP1, dotnet4.5, powershell
 if ($host.version.major -ne 5){
-    "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" "C:\tools\1.ps1"
+    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\tools\1.ps1"
     Exit 
 }
 
@@ -182,14 +182,14 @@ Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloaded files via web r
 
 choco install python2 python3 -y
 $env:PATH += ";C:\Python27;C:\Python27\scripts;C:\Python36;C;\Python36\scripts"
-"C:\Python27\Scripts\pip.exe" install virtualenv
+C:\Python27\Scripts\pip.exe install virtualenv
 virtualenv "C:\Users\$env:username\Desktop\Dev"
-"C:\Users\$env:username\Desktop\Dev\Scripts\activate"
-"C:\Python27\Scripts\pip.exe" install --upgrade setuptools pip wheel
+C:\Users\$env:username\Desktop\Dev\Scripts\activate
+C:\Python27\Scripts\pip.exe install --upgrade setuptools pip wheel
 pip install rekall
 deactivate
-"C:\Python27\Scripts\pip.exe" install -U oletools
-"C:\Python27\Scripts\pip.exe" install "https://github.com/fireeye/flare-fakenet-ng/zipball/master"
+C:\Python27\Scripts\pip.exe install -U oletools
+C:\Python27\Scripts\pip.exe install "https://github.com/fireeye/flare-fakenet-ng/zipball/master"
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 
 # Extract tools
