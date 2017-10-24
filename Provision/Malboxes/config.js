@@ -52,7 +52,7 @@
 
     // Chocolatey packages to install on the VM
     // TODO re-add dependencywalker and regshot once upstream choco package provides a checksum
-    "choco_packages": "networkmonitor vcpython27 hashmyfiles python python2 pip apimonitor sublimetext3 nodejs.install hxd curl explorersuite dnsquerysniffer sysinternals ollydbg x64dbg.portable 7zip putty.install fiddler4 processhacker apm upx wireshark winpcap regshot googlechrome notepadplusplus.install git.install firefox",
+    "choco_packages": "networkmonitor vcpython27 hashmyfiles python python2 pip apimonitor ida-free sublimetext3 nodejs.install hxd curl explorersuite dnsquerysniffer sysinternals ollydbg x64dbg.portable 7zip putty.install fiddler4 processhacker apm upx wireshark winpcap regshot googlechrome notepadplusplus.install git.install firefox",
 
     // Setting the IDA Path will copy the IDA remote debugging tools into the guest
     //"ida_path": "/path/to/your/ida",

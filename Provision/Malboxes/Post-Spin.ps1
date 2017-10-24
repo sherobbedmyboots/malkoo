@@ -243,7 +243,7 @@ MakeShortcut "ProcMon" "C:\ProgramData\chocolatey\bin\procmon.exe"
 MakeShortcut "HashMyFiles" "C:\ProgramData\chocolatey\bin\HashMyFiles.exe"
 MakeShortcut "DNSQuerySniffer" "C:\ProgramData\chocolatey\bin\DNSQuerySniffer.exe"
 MakeShortcut "Regshot" "C:\ProgramData\chocolatey\lib\RegShot\bin\Regshot-x64-Unicode.exe"
-MakeShortcut "API Monitor" "C:\Tools\apimonitor\apimonitor-x64.exe"
+MakeShortcut "API Monitor" "C:\ProgramData\chocolatey\bin\apimonitor-x64.exe"
 MakeShortcut "Autoruns64" "C:\ProgramData\chocolatey\bin\autoruns64.exe"
 MakeShortcut "Malzilla" "C:\Tools\malzilla\malzilla.exe"
 MakeShortcut "ProcDot" "C:\Tools\procdot\procdot.exe"
@@ -251,7 +251,7 @@ MakeShortcut "FLOSS" "C:\Tools\floss\floss64.exe"
 
 # Clean up
 mkdir extra | Out-Null 
-ls *.zip,*.txt,*.ps1,*.xml | %{mv $_ extra\}
+ls *.zip,*.txt,*.ps1,*.xml,*.reg | %{mv $_ extra\}
 Remove-Item refresh.sh
 
 
