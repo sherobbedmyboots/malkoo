@@ -158,7 +158,7 @@ if ([Environment]::osversion.Version.Major -eq 10){
 }
 
 # Enable PowerShell Module, Script Block, and Full Transcription Logging
-Invoke-WebRequest https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg -O ps.reg
+Invoke-WebRequest -usebasicparsing https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg -O ps.reg
 reg import ps.reg
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"
 
@@ -175,17 +175,21 @@ catch {tzutil.exe /s "Central Standard Time"}
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Time zone changed"
 
 # Additional tools
-Invoke-WebRequest https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe -O C:\tools\WinDump.exe
-Invoke-WebRequest http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip -O C:\tools\graphviz-2.38.zip
-Invoke-WebRequest https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip -O floss.zip
+Invoke-WebRequest -usebasicparsing "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -O C:\tools\WinDump.exe
+Invoke-WebRequest -usebasicparsing "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -O C:\tools\graphviz-2.38.zip
+Invoke-WebRequest -usebasicparsing "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -O floss.zip
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloaded files via web request"
 
-choco install python2 python pip -y
-$env:PATH += ';C:\Python27\;C:\Python36\;C:\Python27\scripts\;C:\Python36\scripts\'
-pip install virtualenv
-pip install rekal
-pip install -U oletools
-pip install https://github.com/fireeye/flare-fakenet-ng/zipball/master
+choco install python2 python3 -y
+C:\Python27\Scripts\pip.exe install virtualenv
+cd ~\Desktop
+virtualenv Dev 
+Dev\Scripts\activate
+C:\Python27\Scripts\pip.exe install --upgrade setuptools pip wheel
+pip install rekall
+deactivate
+C:\Python27\Scripts\pip.exe install -U oletools
+C:\Python27\Scripts\pip.exe install https://github.com/fireeye/flare-fakenet-ng/zipball/master
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 
 # Extract tools
