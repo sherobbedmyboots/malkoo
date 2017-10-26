@@ -216,42 +216,89 @@ Function MakeShortcut ($name, $filepath) {
         $lnk.Save()
 }
 
-MakeShortcut "Tools" "C:\Tools"
-MakeShortcut "SnippingTool" "%windir%\system32\SnippingTool.exe"
-MakeShortcut "PowerShell" "$PSHome\powershell.exe"
-MakeShortcut "Command Prompt" "%windir%\system32\cmd.exe"
-MakeShortcut "Firefox" "C:\Program Files\Mozilla Firefox\firefox.exe"
-MakeShortcut "Chrome" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-MakeShortcut "Internet Explorer" "C:\Program Files\Internet Explorer\iexplore.exe"
-MakeShortcut "x96dbg" "C:\ProgramData\chocolatey\bin\x96dbg.exe"
-MakeShortcut "Ollydbg" "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE"
-MakeShortcut "IDA Pro" "C:\Program Files (x86)\IDA Free\idag.exe"
-MakeShortcut "Wireshark" "C:\Program Files\Wireshark\Wireshark.exe"
-MakeShortcut "Fiddler" "C:\Users\$env:username\AppData\Local\Programs\Fiddler\Fiddler.exe"
-MakeShortcut "Network Monitor" "C:\Program Files\Microsoft Network Monitor 3\netmon.exe"
-MakeShortcut "PEStudio" "C:\Tools\pestudio\pestudio.exe"
-MakeShortcut "CFF Explorer" "C:\Program Files\NTCore\Explorer Suite\CFF Explorer.exe"
-MakeShortcut "PE Detective" "C:\Program Files\NTCore\Explorer Suite\PE Detective.exe"
-MakeShortcut "EXEInfo" "C:\Tools\exeinfope\exeinfope.exe"
-MakeShortcut "BinText" "C:\Tools\bintext\bintext.exe"
-MakeShortcut "HXD" "C:\Program Files (x86)\HxD\HxD.exe"
-MakeShortcut "Node.js" "C:\Program Files\nodejs\node.exe"
-MakeShortcut "Notepad++" "C:\Program Files\Notepad++\notepad++.exe"
-MakeShortcut "Sublime" "C:\Program Files\Sublime Text 3\sublime_text.exe"
-MakeShortcut "Process Hacker" "C:\Program Files\Process Hacker 2\ProcessHacker.exe"
-MakeShortcut "ProcMon" "C:\ProgramData\chocolatey\bin\procmon.exe"
-MakeShortcut "HashMyFiles" "C:\ProgramData\chocolatey\bin\HashMyFiles.exe"
-MakeShortcut "DNSQuerySniffer" "C:\ProgramData\chocolatey\bin\DNSQuerySniffer.exe"
-MakeShortcut "Regshot" "C:\ProgramData\chocolatey\lib\RegShot\bin\Regshot-x64-Unicode.exe"
-MakeShortcut "API Monitor" "C:\ProgramData\chocolatey\bin\apimonitor-x64.exe"
-MakeShortcut "Autoruns64" "C:\ProgramData\chocolatey\bin\autoruns64.exe"
-MakeShortcut "Malzilla" "C:\Tools\malzilla\malzilla.exe"
-MakeShortcut "ProcDot" "C:\Tools\procdot\procdot.exe"
-MakeShortcut "FLOSS" "C:\Tools\floss\floss64.exe"
+$toolnames = @(
+    "Tools",
+    "PowerShell",
+    "Command Prompt",
+    "Firefox",
+    "Chrome",
+    "Internet Explorer",
+    "x96dbg",
+    "Ollydbg",
+    "IDA Pro",
+    "Wireshark",
+    "Fiddler",
+    "Network Monitor",
+    "PEStudio",
+    "CFF Explorer",
+    "PE Detective",
+    "EXEInfo",
+    "BinText",
+    "HXD",
+    "Node.js",
+    "Notepad++",
+    "Sublime",
+    "Process Hacker",
+    "ProcMon",
+    "HashMyFiles",
+    "DNSQuerySniffer",
+    "Regshot",
+    "API Monitor",
+    "API Monitor x86",
+    "Autoruns64",
+    "Malzilla",
+    "ProcDot",
+    "FLOSS",
+    "Dependency Walker",
+    "Folder Changes View"
+)
+
+$shortcuts = @(
+    "C:\Tools",
+    "$PSHome\powershell.exe",
+    "%windir%\system32\cmd.exe",
+    "C:\Program Files\Mozilla Firefox\firefox.exe",
+    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    "C:\Program Files\Internet Explorer\iexplore.exe",
+    "C:\ProgramData\chocolatey\bin\x96dbg.exe",
+    "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE",
+    "C:\Program Files (x86)\IDA Free\idag.exe",
+    "C:\Program Files\Wireshark\Wireshark.exe",
+    "C:\Users\$env:username\AppData\Local\Programs\Fiddler\Fiddler.exe",
+    "C:\Program Files\Microsoft Network Monitor 3\netmon.exe",
+    "C:\Tools\pestudio\pestudio.exe",
+    "C:\Program Files\NTCore\Explorer Suite\CFF Explorer.exe",
+    "C:\Program Files\NTCore\Explorer Suite\PE Detective.exe",
+    "C:\Tools\exeinfope\exeinfope.exe",
+    "C:\Tools\bintext\bintext.exe",
+    "C:\Program Files (x86)\HxD\HxD.exe",
+    "C:\Program Files\nodejs\node.exe",
+    "C:\Program Files\Notepad++\notepad++.exe",
+    "C:\Program Files\Sublime Text 3\sublime_text.exe",
+    "C:\Program Files\Process Hacker 2\ProcessHacker.exe",
+    "C:\ProgramData\chocolatey\bin\procmon.exe",
+    "C:\ProgramData\chocolatey\bin\HashMyFiles.exe",
+    "C:\ProgramData\chocolatey\bin\DNSQuerySniffer.exe",
+    "C:\ProgramData\chocolatey\lib\RegShot\bin\Regshot-x64-Unicode.exe",
+    "C:\ProgramData\chocolatey\bin\apimonitor-x64.exe",
+    "C:\ProgramData\chocolatey\bin\apimonitor-x86.exe",
+    "C:\ProgramData\chocolatey\bin\autoruns64.exe",
+    "C:\Tools\malzilla\malzilla.exe",
+    "C:\Tools\procdot\procdot.exe",
+    "C:\Tools\floss\floss64.exe",
+    "C:\ProgramData\chocolatey\bin\depends.exe",
+    "C:\ProgramData\chocolatey\bin\FolderChangesView.exe"
+)
+
+for ($i=0; $i -lt $toolnames.length; $i++) {
+    MakeShortcut $toolnames[$i] $shortcuts[$i]
+}
 
 # Clean up
+choco install winpcap -y --Force
 mkdir extra | Out-Null 
 ls *.zip,*.txt,*.ps1,*.xml,*.reg | %{mv $_ extra\}
 Remove-Item refresh.sh
+1..5 | %{ rm -fo ".\$_.ps1"}
 
 
