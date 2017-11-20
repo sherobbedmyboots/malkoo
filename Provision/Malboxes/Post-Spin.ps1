@@ -7,17 +7,39 @@
 # auditpol /Set /subcategory:"File System" /Success:Enable
 
 
+
+
+
 # Install SP1, dotnet4.5, powershell
 if ($host.version.major -ne 5){
-    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\tools\1.ps1"
+    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\1.ps1"
     Exit 
 }
+
+if (!(Test-Path C:\Tools)){
+    mkdir C:\Tools | Out-Null
+    Write-Host -Fore Green "[+] " -Nonewline; Write-Host "C:\Tools directory created:"
+    cd C:\Tools
+    Write-Host -Fore Yellow "[+] Enter URL to retrieve tools:"
+    $ToolsUrl = Read-Host "Enter http://url:port"
+    $r = wget -usebasicparsing $ToolsUrl
+    $r.links.href | %{
+        Start-BitsTransfer -Source $ToolsUrl/$_ -Destination .
+    }
+}
+
 
 # Enable bypass policy
 Set-ExecutionPolicy -Scope LocalMachine Bypass -Force
 Set-ExecutionPolicy -Scope CurrentUser Bypass -Force
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Execution Policy set to Bypass"
-
+if ((Get-ExecutionPolicy -Scope LocalMachine) -eq 'bypass'){
+    if ((Get-ExecutionPolicy -Scope CurrentUser) -eq 'bypass'){
+        Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Execution Policy set to Bypass"
+    }
+}
+else{
+    Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Execution Policy not set to Bypass"
+}
 
 # Disable screen lock
 New-Item -Path "HKLM:\software\Policies\Microsoft\Windows\personalization" | Out-Null
@@ -160,41 +182,97 @@ if ([Environment]::osversion.Version.Major -eq 10){
 # Enable PowerShell Module, Script Block, and Full Transcription Logging
 Invoke-WebRequest -usebasicparsing "https://raw.githubusercontent.com/matthewdunwoody/PS_logging_reg/master/PS_logging.reg" -O "C:\tools\ps.reg"
 reg import "c:\tools\ps.reg"
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"
+
+
+# Check ScriptBlock logging
+$sbl = (Get-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging).EnableScriptBlockLogging
+if ($sbl -ne 1){
+    Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell script block logging could not be enabled"
+    Exit
+}
+
+# Check Transcription
+$et = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription).EnableTranscripting
+$eh = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription).EnableInvocationHeader
+# $od = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription).OutputDirectory
+if ($et -ne 1 -or $eh -ne 1 ){
+    Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell transcription logging could not be enabled"
+    Exit
+}
+
+# Check Module Logging
+$eml = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging).EnableModuleLogging
+# $mn = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging).ModuleNames     *=*
+
+if ($eml -ne 1S){
+    Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell module logging could not be enabled"   
+    Exit 
+}
+
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"  
 
 # Audit Process Creation
-auditpol /set /subcategory:”Process Creation” /success:enable
+cmd.exe /c 'auditpol /set /subcategory:"Process Creation" /success:enable'
+
+# Check Process Creation Logging
+$a = cmd.exe /c 'auditpol /get /subcategory:"Process Creation"'
+$b = $a | sls "Success" | %{$_.Matches}
+if (!($b)){
+    Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Process Creation Logging not enabled"
+    Exit
+}
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
+
+# Make network connection private
+$Profile = Get-NetConnectionProfile -InterfaceAlias Ethernet1
+$Profile.NetworkCategory = "Private"
+Set-NetConnectionProfile -InputObject $Profile
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Network Connection set to Private"
 
 # Include command line in Process Creation events
-reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process creation event logging enabled"
+Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit" -Name "ProcessCreationIncludeCmdLine_Enabled" -Type DWord -Value 1 -Force
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process creation event Command Line logging enabled"
 
 # Change time zone
-try {Set-TimeZone -Id "Central Standard Time"}
-catch {tzutil.exe /s "Central Standard Time"}
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Time zone changed"
+if ((Get-TimeZone).Id -ne 'Central Standard Time'){
+    Set-TimeZone -Id "Central Standard Time"
+}
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Time zone changed to Central Standard Time"
+
+# Set Trusted Hosts list
+Set-Item WSMan:\localhost\Client\TrustedHosts -value * -Force
+if ((Get-Item WSMAN:\localhost\client\trustedhosts).Value -eq '*'){
+    Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Trusted Host list changed to '*'"
+}
+else {Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Trusted Host list not set"}
+
 
 # Additional tools
-Invoke-WebRequest -usebasicparsing "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -O "C:\tools\WinDump.exe"
-Invoke-WebRequest -usebasicparsing "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -O "C:\tools\graphviz-2.38.zip"
-Invoke-WebRequest -usebasicparsing "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -O "C:\tools\floss.zip"
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloaded files via web request"
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloading additional tools..."
+Start-BitsTransfer -Source "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -Destination "C:\tools\WinDump.exe"
+Start-BitsTransfer -Source "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -Destination "C:\tools\graphviz-2.38.zip"
+Start-BitsTransfer -Source "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -Destination "C:\tools\floss.zip"
 
+Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Additional tools downloaded"
+$env:PATH += ";C:\ProgramData\chocolatey;C:\ProgramData\chocolatey\bin"
 choco install python2 python3 -y
+
 $env:PATH += ";C:\Python27;C:\Python27\scripts;C:\Python36;C;\Python36\scripts"
 C:\Python27\Scripts\pip.exe install virtualenv
-virtualenv "C:\Users\$env:username\Desktop\Dev"
+C:\Python27\Scripts\virtualenv.exe "C:\Users\$env:username\Desktop\Dev"
 C:\Users\$env:username\Desktop\Dev\Scripts\activate
 C:\Python27\Scripts\pip.exe install --upgrade setuptools pip wheel
-pip install rekall
-deactivate
+C:\Python27\Scripts\pip.exe install rekall
+C:\Users\$env:username\Desktop\Dev\Scripts\deactivate
 C:\Python27\Scripts\pip.exe install -U oletools
 C:\Python27\Scripts\pip.exe install "https://github.com/fireeye/flare-fakenet-ng/zipball/master"
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 
 # Extract tools
 cd C:\Tools
+
 # & 7z e api-monitor-v2r13-x86-x64.zip -o"apimonitor" -y
+try {7z} catch {$env:PATH += ";C:\ProgramData\chocolatey\bin"}
 & 7z e bintext303.zip -o"bintext" -y
 & 7z e exeinfope.zip -o"exeinfope" -y
 & 7z e lordpe.zip -o"lordpe" -y
@@ -295,10 +373,11 @@ for ($i=0; $i -lt $toolnames.length; $i++) {
 }
 
 # Clean up
+try {choco} catch {$env:PATH += ";C:\ProgramData\chocolatey"}
 choco install winpcap -y --Force
 mkdir extra | Out-Null 
 ls *.zip,*.txt,*.ps1,*.xml,*.reg | %{mv $_ extra\}
 Remove-Item refresh.sh
-1..5 | %{ rm -fo ".\$_.ps1"}
+1..5 | %{ rm -fo "C:\Tools\extra\$_.ps1"}
 
 
