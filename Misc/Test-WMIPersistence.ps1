@@ -31,25 +31,25 @@ param
 function checkargs{
     if ($set){
         if (!($Name -and $Hour -and -$Minute)){
-        Write-Host "`nWhen setting persistence, you must enter a name, hour, and minute:      Test-WMIPersistence -set -name Test -hour 09 -minute 15`n"
+        Write-Host -Fore Yellow "`nWhen setting persistence, you must enter a name, hour, and minute:      Test-WMIPersistence -set -name Test -hour 09 -minute 15`n"
         Exit
         }
     }
  
     if ($Hour){
         if ((!(($Hour.ToString()).length -eq 2))){
-            Write-Host "`nYou must enter hours using two digit format:   09 for 9:00 AM, 14 for 2:00 PM`n"
+            Write-Host -Fore Yellow "`nYou must enter hours using two digit format:   09 for 9:00 AM, 14 for 2:00 PM`n"
             exit
         }
     }
     if ($Minute){
         if ((!(($Minute.ToString()).length -eq 2))){
-            Write-Host "`nYou must enter minutes using two digit format:   55 for 09:55, 15 for 10:15`n"
+            Write-Host -Fore Yellow "`nYou must enter minutes using two digit format:   55 for 09:55, 15 for 10:15`n"
             exit
         }
     }
     if (!($set -or $detect -or $remove)){
-        Write-Host "`nYou must choose to either set (-set), detect (-detect), or remove (-remove) persistence`n"
+        Write-Host -Fore Yellow "`nYou must choose to either set (-set), detect (-detect), or remove (-remove) persistence`n"
         exit
     }
 }

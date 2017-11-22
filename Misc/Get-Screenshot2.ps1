@@ -17,12 +17,29 @@ function Get-Hostsname
     $firsttry = (Resolve-DnsName $ipaddress).NameHost
     if ($firsttry)
     {
-        Write-Host "The IP belongs to $firsttry"
+        Write-Host "[+]" -Fore Green -NoNewLine; Write-Host "The IP belongs to $firsttry"
         return $firsttry
     }
     else{
-        Write-Host "The IP could not be resolved."
-        Exit
+        Write-Host "[+]" -Fore Yellow -NoNewLine; Write-Host "No reverse record found... trying ping..."
+        $secondtry = (Test-Connection -Count 1 $ipaddress).PSComputerName
+        if ($secondtry){
+            Write-Host "[+]" -Fore Green -NoNewLine; Write-Host "The IP belongs to $secondtry"
+            return $secondtry
+        }
+        else{
+            Write-Host "[+]" -Fore Yellow -NoNewLine; Write-Host "Can't find using ping... trying port 8081..."
+            $thirdtry = wget $ipaddress | sls hostsname
+            if ($thirdtry){
+                Write-Host "[+]" -Fore Green -NoNewLine; Write-Host "The IP belongs to $thirdtry"
+                return $thirdtry
+            }
+            else{
+                Write-Host "[+]" -Fore Yellow -NoNewLine; $tellme = Read-Host "Can't find using port 8081... Enter the hostname:"
+                Write-Host "[+]" -Fore Green -NoNewLine; Write-Host "You entered: $tellme"
+                return $tellme
+            }
+        }
     }
 }
 
