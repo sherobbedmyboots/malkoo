@@ -23,3 +23,12 @@ OR
 $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}")) 
 $connections = $networkListManager.GetNetworkConnections()
 $connections | % {$_.GetNetwork().SetCategory(1)}
+
+
+# Enable RDP
+(Get–WmiObject Win32_TerminalServiceSetting –Namespace root\cimv2\TerminalServices).SetAllowTsConnections(1,1) | Out–Null
+(Get–WmiObject Win32_TSGeneralSetting -Namespace root\cimv2\TerminalServices –Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) | Out–Null
+
+
+# set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0 -erroraction silentlycontinue
+# set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1 -erroraction silentlycontinue
