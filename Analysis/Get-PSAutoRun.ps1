@@ -2,7 +2,25 @@
 
 https://github.com/p0w3rsh3ll/AutoRuns
 https://github.com/singlethreaded/AutoRuns
-This is basically the Powershell version of SysIntenal's Autoruns. Forked to add backwards compatibility with Powershell 2.0 and CLR 2.0 for inclusion in the PSHunt Project.
+This is basically the Powershell version of SysInternal's Autoruns. 
+Forked to add backwards compatibility with Powershell 2.0 and CLR 2.0 for inclusion in the PSHunt Project.
+
+
+$a = Invoke-Command -ComputerName kbota_win_2 -FilePath .\Get-PSAutoRun.ps1
+
+
+See categories by count:
+
+    $a | group category | sort -desc count
+
+See individual entry:
+
+    $a | ? category -eq wmi
+
+See recent entries:
+
+    $a | ? LastWriteTime -gt (Get-Date).AddDays(-7) | select LastWriteTime,Value | sort -desc LastWriteTime
+
 
 #>
 
@@ -2064,10 +2082,14 @@ Function Add-PSAutoRunHash {
 
 
 $GetHash = $true
+
 Get-PSRawAutoRun | 
     Get-PSPrettyAutorun | 
         Add-PSAutoRunExtendedInfo | 
             Add-PSAutoRunHash -ShowFileHash:$GetHash
+
+
+
 
 
 

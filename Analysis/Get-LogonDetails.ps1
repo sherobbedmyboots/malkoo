@@ -1,4 +1,21 @@
-﻿function Get-ComputerDetails
+﻿<#
+
+See logons from target host to other hosts:
+
+    $l.logonevent4648 | select SourceAccount,TargetAccount,TargetServer,Count,Times | ft
+
+See logons to target host:
+
+    $l.logonevent4624 | select NewLogonAccount,LogonType,WorkstationName,SourceNetworkAddress,Count | sort -desc Count | ft
+
+See RDP logons from target hosts to other hosts:
+
+    $l.RdpClientData | select SourceAccount,TargetServer,TargetAccount
+
+
+#>
+
+function Get-ComputerDetails
 {
 <#
 .SYNOPSIS
@@ -180,10 +197,8 @@ Gets the unique 4648 logon events.
                 $Properties = @{
                     LogType = 4648
                     LogSource = "Security"
-                    SourceAccountName = $SourceAccountName
-                    SourceDomainName = $SourceAccountDomain
-                    TargetAccountName = $TargetAccountName
-                    TargetDomainName = $TargetAccountDomain
+                    SourceAccount = $SourceAccountDomain + "\" + $SourceAccountName
+                    TargetAccount = $TargetAccountDomain + "\" + $TargetAccountName
                     TargetServer = $TargetServer
                     Count = 1
                     Times = @($ExplicitLogon.TimeGenerated)
@@ -314,10 +329,8 @@ Find unique 4624 logon events.
                 $Properties = @{
                     LogType = 4624
                     LogSource = "Security"
-                    SourceAccountName = $AccountName
-                    SourceDomainName = $AccountDomain
-                    NewLogonAccountName = $NewLogonAccountName
-                    NewLogonAccountDomain = $NewLogonAccountDomain
+                    SourceAccount = $AccountDomain + "\" + $AccountName
+                    NewLogonAccount = $NewLogonAccountDomain + "\" + $NewLogonAccountName
                     LogonType = $LogonType
                     WorkstationName = $WorkstationName
                     SourceNetworkAddress = $SourceNetworkAddress
@@ -387,9 +400,9 @@ Find unique saved RDP client connections.
                 $User = ($SIDObj.Translate([System.Security.Principal.NTAccount])).Value
 
                 $Properties = @{
-                    CurrentUser = $User
-                    Server = $Server
-                    UsernameHint = $UsernameHint
+                    SourceAccount = $User
+                    TargetServer = $Server
+                    TargetAccount = $UsernameHint
                 }
 
                 $Item = New-Object PSObject -Property $Properties

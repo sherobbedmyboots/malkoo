@@ -225,10 +225,21 @@ if (!($b)){
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
 
 # Make network connection private
-$Profile = Get-NetConnectionProfile -InterfaceAlias Ethernet1
-$Profile.NetworkCategory = "Private"
-Set-NetConnectionProfile -InputObject $Profile
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Network Connection set to Private"
+try 
+{
+    $Profile = Get-NetConnectionProfile -InterfaceAlias Ethernet1
+    $Profile.NetworkCategory = "Private"
+    Set-NetConnectionProfile -InputObject $Profile
+    Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Network Connections set to Private"
+}
+catch 
+{
+    $networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}")) 
+    $connections = $networkListManager.GetNetworkConnections()
+    $connections | % {$_.GetNetwork().SetCategory(1)}
+    Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Network Connections set to Private"
+}
+
 
 # Include command line in Process Creation events
 Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit" -Name "ProcessCreationIncludeCmdLine_Enabled" -Type DWord -Value 1 -Force
