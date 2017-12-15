@@ -5,7 +5,7 @@ $connections | % {$_.GetNetwork().SetCategory(1)}
  
 Write-Host "`n" 
 # Ensure that PS-Remoting is enabled
-Enable-PSRemoting
+Enable-PSRemoting -SkipNetworkProfileCheck -Force 
  
 Write-Host "`n" 
 # Ensure that the firewall is allowing traffic to WinRM port 5985

@@ -205,7 +205,7 @@ if ($et -ne 1 -or $eh -ne 1 ){
 $eml = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging).EnableModuleLogging
 # $mn = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging).ModuleNames     *=*
 
-if ($eml -ne 1S){
+if ($eml -ne 1){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell module logging could not be enabled"   
     Exit 
 }
@@ -223,6 +223,10 @@ if (!($b)){
     Exit
 }
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
+
+# Enable RDP
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0 -erroraction silentlycontinue
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1 -erroraction silentlycontinue
 
 # Make network connection private
 try 
@@ -261,9 +265,12 @@ else {Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Trusted Host list not 
 
 # Additional tools
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Downloading additional tools..."
-Start-BitsTransfer -Source "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -Destination "C:\tools\WinDump.exe"
-Start-BitsTransfer -Source "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -Destination "C:\tools\graphviz-2.38.zip"
-Start-BitsTransfer -Source "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -Destination "C:\tools\floss.zip"
+try {Start-BitsTransfer -Source "https://www.winpcap.org/windump/install/bin/windump_3_9_5/WinDump.exe" -Destination "C:\tools\WinDump.exe"}
+catch {Write-Host -Fore Red "[-] " -NoNewLine; Write-Host "WinDump could not be downloaded."}
+try {Start-BitsTransfer -Source "http://graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip" -Destination "C:\tools\graphviz-2.38.zip"}
+catch {Write-Host -Fore Red "[-] " -NoNewLine; Write-Host "Graphviz could not be downloaded."}
+try {Start-BitsTransfer -Source "https://github.com/fireeye/flare-floss/releases/download/v1.5.0/floss-1.5.0-Microsoft.Windows64.zip" -Destination "C:\tools\floss.zip"}
+catch {Write-Host -Fore Red "[-] " -NoNewLine; Write-Host "FLOSS could not be downloaded."}
 
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Additional tools downloaded"
 $env:PATH += ";C:\ProgramData\chocolatey;C:\ProgramData\chocolatey\bin"
@@ -284,7 +291,7 @@ Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Installed Python tools"
 cd C:\Tools
 
 # & 7z e api-monitor-v2r13-x86-x64.zip -o"apimonitor" -y
-try {7z} catch {$env:PATH += ";C:\ProgramData\chocolatey\bin"}
+try {& 7z} catch {$env:PATH += ";C:\ProgramData\chocolatey\bin"}
 & 7z e bintext303.zip -o"bintext" -y
 & 7z e exeinfope.zip -o"exeinfope" -y
 & 7z e lordpe.zip -o"lordpe" -y

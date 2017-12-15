@@ -14,5 +14,4 @@ git push -u origin master
 git checkout -b fix-issue
 
 # key
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa_
