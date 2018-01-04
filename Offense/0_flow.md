@@ -1,6 +1,20 @@
-1) Reconnaissance
+# Flow
 
-# Scan network to get IP's and OS's
+- [Reconnaissance](#reconnaissance)
+- [Remote Enumeration](#remote-enumeration)
+- [Construct Attack Sequence](#construct-attack-sequence)
+- [Remote Exploits & Privilege Escalation](#remote-exploits-&-privilege-escalation)
+- [Local Enumeration Scripts](#local-enumeration-scripts)
+- [Local Exploits & Privilege Escalation](#local-exploits-&-privilege-escalation)
+- [Persistence](#persistence)
+- [Root Loot Scripts](#root-loot-scripts)
+- [Cleanup](#cleanup)
+
+
+
+## Reconnaissance
+
+Scan network to get IP's and OS's
 
      arp-scan –l
      netdiscover –i eth0 –r $range
@@ -35,7 +49,7 @@ Reverse (PTR) Scan
      nmap -sL $range | grep \)
      for x in $(seq 1 128); do host 10.10.10.$x; done | grep -v “not found”
 
-2) Remote Enumeration
+## Remote Enumeration
 
 Fingerprint and gather information from each port, enumerate SMB shares, user IDs, SNMP details, FTP banners, OS versions etc
 
@@ -54,7 +68,7 @@ Server Profiling (Software and Versions)
 Service-Specific Enumeration
      nmap --script=http-robots.txt $site
 
-3) Construct Attack Sequence
+## Construct Attack Sequence
 
 Kali "searchsploit" with the service/software version of each port
 Search exploitdb
@@ -65,7 +79,9 @@ Compile
 
 *** if you are unable to get direction loop it back to Enumeration step
 
-4) Remote Exploits & Privilege Escalation
+
+
+## Remote Exploits & Privilege Escalation
 
 Perform sequence of exploits for specific vendor, version,
 Remote exploits, FTP brute-force, HTTP directory brute force, SNMP brute force, active exploits against open services, etc
@@ -75,7 +91,10 @@ Remote exploits, FTP brute-force, HTTP directory brute force, SNMP brute force, 
 *** Review exploit for any changes needed
 *** Try different local ports
 
-5) Local Enumeration scripts
+
+
+## Local Enumeration Scripts
+
 Enumerate system getting as much information as possible.
 Interesting files, bash history, cmd history, environment settings, memory, running services, directory permissions, service permissions, scheduled jobs, weak permissions etc
 
@@ -83,7 +102,9 @@ enumeration of the box to see what processes are running, what are running as ro
 
 structure all your scripts and pre-compile your most used local privilege escalation exploits
 
-6) Local Exploits & Privilege escalation
+
+
+## Local Exploits & Privilege escalation
 
 Escalate to full root/system level access
 UAC bypass, elevation scripts, local exploits, brute forcing, etc
@@ -92,14 +113,17 @@ UAC bypass, elevation scripts, local exploits, brute forcing, etc
 *** "searchsploit kernel x.x"
 *** search for common weaknesses
 
-7) Persistence
+
+
+## Persistence
 
 Install backdoors to secure our access
 - Add local administrator accounts
 - Set service to start automatic on boot
 - Put a pinhole in the firewall service
 
-8) Root Loot scripts
+
+## Root Loot scripts
 
 Search the whole system with system/root access for interesting data
 - Steal hashes from LSA
@@ -113,8 +137,9 @@ Search the whole system with system/root access for interesting data
 *** Get usernames and passwords for all applications/processes on box (MySQL? VNC? xyz)
 *** Print screen as you go, copy and paste konsole/terminal output
 
-9) Cleanup
 
-Scrub logfiles, clean exploits, hide backdoors, essentially we "wipe our fingerprints" from the system
+## Cleanup
 
-10) Update maps and diagrams, and move to another system
+Scrub logfiles, clean exploits, hide backdoors
+
+Update maps and diagrams, and move to another system
