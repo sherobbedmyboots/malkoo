@@ -1,4 +1,15 @@
-Scan
+# Web
+
+- [Scan](#scan)
+- [Forced Browsing](#forced-browsing)
+- [Manual Browsing with Burp](#manual-browsing-with-burp)
+- [Scraping](#scraping)
+- [Password Attackds](#password-attacks)
+- [CMS](#cms)
+- [PHP](#php)
+
+
+## Scan
      nikto -h $ip -p 80
                wfuzz -c -z file,/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --hc 404 http://$ip
      nmap NSE scripts
@@ -6,12 +17,12 @@ Scan
      PUT                 curl --upload-file test.txt -v --url hxxp://192.168.126.129/test/test.txt -0 --http1.0
      DELETE          Delete htaccess, or access control
 
-Forced Browsing
+## Forced Browsing
      dirb http://$ip /usr/share/wordlists/dirb/common.txt
      dirb http://$ip /usr/share/wordlists/dirb/vulns/apache.txt
      dirb http://$ip /usr/share/wordlists/dirb/directory-list-2.3-medium.txt
 
-Manual Browsing with Burp
+## Manual Browsing with Burp
      Add to Scope, Show only in-scope items
 
      Browse all pages, enter data on all forms
@@ -34,29 +45,29 @@ Manual Browsing with Burp
       Cookies, parameters, passwords with Intruder
       Sessions with Sequencer
 
-Scraping
+## Scraping
      cewl --write fscipt.lst -m 3 hxxp://127.0.0.1/fscript.html
      cewl hxxps://en.wikipedia.org/wiki/List_of_occult_terms -m4 -d0 -w listofwords.txt
      cd /opt/brutescrape && gedit sites.scrape and input websites to be scraped
      wget $ip/index.html; grep “href=” index.html | cut -d “/” -f 3 | grep “\.” | cut -d '”' -f 1 | sort -u
      wget $site | strings
 
-Password Attacks
+## Password Attacks
   patator http_fuzz url='http://$ip/wordpress/wp-login.php' method=POST \
   body='log=admin&pwd=FILE0&wp-submit=Log+In&redirect_to=%2Fwordpress%2Fwp-admin%2F&testcookie=1' \
   0='/usr/share/wordlists/rockyou.txt' follow=1 accept_cookie=1 -x ignore:fgrep='Lost your password?' \
   header='Cookie: wordpress_test_cookie=WP+Cookie+check' -x quit:fgrep!='Lost your password?',clen!='-1'
 
-CMS
+## CMS
 
-Wordpress
+### Wordpress
      wpscan -e vp -u 10.0.2.6/prehistoricforest (vulnerable plugins)
      wpscan -e u -u 10.0.2.6/prehistoricforest (users)
      wpscan -u 10.0.2.6/prehistoricforest --username tom --wordlist /usr/share/wordlists/rockyou.txt --threads 50
      wpscan -u $ip --wordlist ~/list.dic --username elliot
      wpscan --url $ip --enumerate vp
 
-Joomla
+### Joomla
      joomscan -u http://$ip:8081
 
-PHP
+## PHP

