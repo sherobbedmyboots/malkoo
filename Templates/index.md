@@ -1,7 +1,5 @@
  # Templates
 
- ## Table of Contents
-
 - [Analysis VMs on the OOB](Analysis%20VMs%20on%20the%20OOB)
 - [Analysis VMs Best Practices](Analysis%20VMs%20Best%20Practices)
 - [Analysis Mac OS X VM](Analysis%20Mac%20OS%20X%20VM)
