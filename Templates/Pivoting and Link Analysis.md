@@ -6,9 +6,9 @@ Infrastructure and capabilities are the most common pivot points we see during i
  
 This will review:
  
-- Common Opportunities to Pivot
-- Manual Pivoting and Link Analysis
-- Pivoting and Visualization with Maltego
+- [Common Opportunities to Pivot](#common-opportunities-to-pivot)
+- [Manual Pivoting and Link Analysis](#manual-pivoting-and-link-analysis)
+- [Pivoting and Visualization with Maltego](#pivoting-and-visualization-with-maltego)
  
  
 ## Common Opportunities to Pivot
@@ -108,11 +108,11 @@ Using ss as an example, we started out with a suspicious email reported by an en
  
 - Used OSINT (PassiveTotal) for manrovm[.]gdn and lemanva[.]gdn to obtain:
  
-	- - different samples associated with these domains
+	- Different samples associated with these domains
 	- Common TTPs used
  
  
-From here we could keep pivoting on each of the - samples or from any of the other samples and domains looking for related information. 
+From here we could keep pivoting on each of the samples or from any of the other samples and domains looking for related information. 
  
 But we can find much of this same information, and create visualizations with it, using Maltego.
  
@@ -151,9 +151,9 @@ IP Address To ():
  
 Here we’re using the IP address to obtain WHOIS data, associated domains, and a SHA2- hash of our sample:
  
-![](./images/image046.png)     
+![](./images/Pivoting_and_Link_Analysis/image001.png)     
 
-cid:image008.png@01D34674.E7DFF0- We also have a DNS name which was involved in the Delivery phase of this SEN which we can use to pivot.
+We also have a DNS name which was involved in the Delivery phase of this SEN which we can use to pivot.
  
 Domain Name To ():
  
@@ -164,7 +164,9 @@ Domain Name To ():
  
 Here we use the Delivery DNS name to obtain an IP address along with SSL certs and a sample SHA2- hash seen at that IP:
  
-cid:image009.png@01D34674.E7DFF0- Each entity we discover is another possible pivot opportunity allowing us to learn more about the adversary’s infrastructure and capabilities.
+![](./images/Pivoting_and_Link_Analysis/image002.png) 
+
+Each entity we discover is another possible pivot opportunity allowing us to learn more about the adversary’s infrastructure and capabilities.
  
  
  
@@ -174,18 +176,22 @@ Pivoting off a sample can also be used to obtain related information such as fil
  
 Sample To ():
  
-- Filename                                             ThreatMiner Malware to Filename
-- URL                                                        ThreatMiner Malware to URL
-- Domain                                                ThreatMiner Malware to Domain
+- Filename                      ThreatMiner Malware to Filename
+- URL                           ThreatMiner Malware to URL
+- Domain                        ThreatMiner Malware to Domain
  
  
 Here we used the SHA2- hash of our sample to get the associated filename and URL:
  
-cid:image010.png@01D34674.E7DFF0- The same pivot is now performed on the new sample to get its filename, domain, and URL:
+![](./images/Pivoting_and_Link_Analysis/image003.png) 
+
+The same pivot is now performed on the new sample to get its filename, domain, and URL:
  
-cid:image011.png@01D34674.E7DFF0- At some point you may perform a transform that doesn’t provide useful information:
+![](./images/Pivoting_and_Link_Analysis/image004.png)
+
+At some point you may perform a transform that doesn’t provide useful information:
  
-cid:image004.png@01D34719.82325ED0
+![](./images/Pivoting_and_Link_Analysis/image005.png) 
  
  
 In that case, use Ctrl+z to undo each of the transforms that were performed.
@@ -202,20 +208,22 @@ In this case, the ThreatMiner transforms don’t provide any additional informat
  
 Selecting ALL transforms from the VirusTotal Public API connects the tehnospas74[d]ru domain with the 176.31.22[d]- C2 address using our 23.exe malware sample:
  
-cid:image012.png@01D34674.E7DFF0- ### Adding Entities From External Sources
+![](./images/Pivoting_and_Link_Analysis/image006.png) 
+
+### Adding Entities From External Sources
  
 You may have domains, files, and other entities you’ve gathered during analysis that you want to add to the graph.
  
  
 The following domains were discovered in the PowerShell script executed by the Word macro:
  
-cid:image006.png@01D34719.82325ED0
+![](./images/Pivoting_and_Link_Analysis/image007.png) 
  
  
 And we discovered two additional domains and samples by visiting the C2 page:
  
-cid:image018.png@01D3433B.801C5BF0
-cid:image007.png@01D34719.82325ED0
+![](./images/Pivoting_and_Link_Analysis/image008.png) 
+![](./images/Pivoting_and_Link_Analysis/image009.png) 
  
  
  
@@ -249,4 +257,4 @@ In this example I created an entity for TTPs being used.
 We can now use a combination of what we’ve learned through malware analysis and OSINT pivoting to show multiple phases of the attack:
  
  
-cid:image013.png@01D34804.8157F2- 
+![](./images/Pivoting_and_Link_Analysis/image010.png) 
