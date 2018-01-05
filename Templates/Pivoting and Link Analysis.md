@@ -222,8 +222,8 @@ The following domains were discovered in the PowerShell script executed by the W
  
 And we discovered two additional domains and samples by visiting the C2 page:
  
-![](./images/Pivoting_and_Link_Analysis/image008.png) 
-![](./images/Pivoting_and_Link_Analysis/image009.png) 
+![]('./images/Pivoting and Link Analysis/image008.png') 
+![]("./images/Pivoting and Link Analysis/image009.png") 
  
  
  
