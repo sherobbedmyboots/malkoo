@@ -151,7 +151,7 @@ IP Address To ():
  
 Here we’re using the IP address to obtain WHOIS data, associated domains, and a SHA2- hash of our sample:
  
-![](./images/Pivoting_and_Link_Analysis/image001.png)     
+![](./images/Pivoting/image001.png)     
 
 We also have a DNS name which was involved in the Delivery phase of this SEN which we can use to pivot.
  
@@ -164,7 +164,7 @@ Domain Name To ():
  
 Here we use the Delivery DNS name to obtain an IP address along with SSL certs and a sample SHA2- hash seen at that IP:
  
-![](./images/Pivoting_and_Link_Analysis/image002.png) 
+![](./images/Pivoting/image002.png) 
 
 Each entity we discover is another possible pivot opportunity allowing us to learn more about the adversary’s infrastructure and capabilities.
  
@@ -183,15 +183,15 @@ Sample To ():
  
 Here we used the SHA2- hash of our sample to get the associated filename and URL:
  
-![](./images/Pivoting_and_Link_Analysis/image003.png) 
+![](./images/Pivoting/image003.png) 
 
 The same pivot is now performed on the new sample to get its filename, domain, and URL:
  
-![](./images/Pivoting_and_Link_Analysis/image004.png)
+![](./images/Pivoting/image004.png)
 
 At some point you may perform a transform that doesn’t provide useful information:
  
-![](./images/Pivoting_and_Link_Analysis/image005.png) 
+![](./images/Pivoting/image005.png) 
  
  
 In that case, use Ctrl+z to undo each of the transforms that were performed.
@@ -208,7 +208,7 @@ In this case, the ThreatMiner transforms don’t provide any additional informat
  
 Selecting ALL transforms from the VirusTotal Public API connects the tehnospas74[d]ru domain with the 176.31.22[d]- C2 address using our 23.exe malware sample:
  
-![](./images/Pivoting_and_Link_Analysis/image006.png) 
+![](./images/Pivoting/image006.png) 
 
 ### Adding Entities From External Sources
  
@@ -217,7 +217,7 @@ You may have domains, files, and other entities you’ve gathered during analysi
  
 The following domains were discovered in the PowerShell script executed by the Word macro:
  
-![](./images/Pivoting_and_Link_Analysis/image007.png) 
+![](./images/Pivoting/image007.png) 
  
  
 And we discovered two additional domains and samples by visiting the C2 page:
@@ -258,4 +258,4 @@ In this example I created an entity for TTPs being used.
 We can now use a combination of what we’ve learned through malware analysis and OSINT pivoting to show multiple phases of the attack:
  
  
-![](./images/Pivoting_and_Link_Analysis/image010.png) 
+![](./images/Pivoting/image010.png) 

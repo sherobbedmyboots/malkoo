@@ -7,12 +7,12 @@ An assembly-level debugger is one of these tools.  It can be used to completely 
  
 This document will cover:
  
-- Review of Programs
-- Introduction to x64dbg
-- Programs in Memory
-- Stepping Through the Program
-- Using Breakpoints
-- Patching a Program
+- [Review of Programs](#review-of-programs)
+- [Introduction to x64dbg](#introduction-to-x64dbg)
+- [Programs in Memory](#programs-in-memory)
+- [Stepping Through the Program](#stepping-through-the-program)
+- [Using Breakpoints](#using-breakpoints)
+- [Patching a Program](#patching-a-program)
  
  
  
