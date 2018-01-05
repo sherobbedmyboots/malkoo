@@ -27,7 +27,7 @@ Functions                            Perform a specific action (with or without 
  
 Here is a simple program written in C containing each of these:
  
-![](./images/image001.png)
+![](./images/Debugging/image001.png)
  
  
 - There is a variable (MAX_LEN) that is defined as being equal to the number 20.
@@ -44,7 +44,7 @@ It is easy to see what the program is capable of when looking at the source code
 A compiler like GCC is used to convert the source code into an executable containing machine code which are low-level instructions for a CPU:
  
  
-![](./images/image002.png)
+![](./images/Debugging/image002.png)
  
  
  
@@ -53,7 +53,7 @@ Once it’s compiled, the program does what it’s been programmed to do.
  
 And although we can run it over and over, giving it different inputs, we may not be able to discover all of its functionality since we don’t understand how it was designed.
  
-![](./images/image003.png)
+![](./images/Debugging/image003.png)
  
  
  
@@ -62,7 +62,7 @@ A malware analyst can use disassembly and debugging tools to translate the machi
 Seeing the exact instructions that are passed to the CPU helps explain what the program does and also shows us the functions it uses (printf, scanf, strcmp, sayGo):
  
  
-![](./images/image004.png)
+![](./images/Debugging/image004.png)
  
  
  
@@ -70,7 +70,7 @@ Simply using a disassembler reveals the program has additional functionality.
  
 We can now report the general flow of the program without having access to the source code.
  
-![](./images/image005.png)
+![](./images/Debugging/image005.png)
  
  
 We can learn even more about a program if we use an assembly-level debugger and watch as it executes in memory.
@@ -117,7 +117,7 @@ You should now see four windows:
  
 - CPU
  
-![](./images/image006.png)
+![](./images/Debugging/image006.png)
  
  
 This shows the disassembled output of all instructions in the current module.
@@ -128,7 +128,7 @@ The first column is process memory address, the second is the machine code in he
  
 - Registers            
  
-![](./images/image007.png)
+![](./images/Debugging/image007.png)
  
  
 This shows the current values of all the registers and EFLAGS.
@@ -182,7 +182,7 @@ ESP                         Stack pointer                     points to the curr
  
 - Stack Pane                         
  
-![](./images/image008.png)
+![](./images/Debugging/image008.png)
  
  
 This shows the stack which is used to store local variables, pass arguments, store return addresses, etc.
@@ -225,7 +225,7 @@ push 4
  
 - Dump Pane       
  
-![](./images/image009.png)
+![](./images/Debugging/image009.png)
  
  
 This is the memory contents of the program displayed in hex and ASCII.
@@ -262,7 +262,7 @@ The data here only persists for the scope of the function
  
 You can view the layout of the segments in memory by clicking on the “Memory Map” tab at the top:
  
-![](./images/image010.png)
+![](./images/Debugging/image010.png)
  
  
 The black highlights where we currently are in the program… we are inside ntdll.dll’s .text segment which is where its executable code is stored.
@@ -345,7 +345,7 @@ Let’s look in the memory map for the segment that contains address 00403050.
  
 A few rows down at the address you can see that a number 2 is in fact at this address:
  
-![](./images/image011.png)
+![](./images/Debugging/image011.png)
  
  
 So a comparison will take place, and the numbers will be the same… how does the program document this?
@@ -450,7 +450,7 @@ Verify you are back in goteam.exe.  Press F7 a few more times and you’ll end u
  
 Continue to press F7 until you come to the following functions:
  
-![](./images/image012.png)
+![](./images/Debugging/image012.png)
  
 A little research will reveal what these functions do:
  
@@ -479,7 +479,7 @@ The three time-related functions return results that appear to require conversio
  
 But the GetCurrentProcessId and GetCurrentThreadId results can be quickly verified:
  
-![](./images/image013.png)
+![](./images/Debugging/image013.png)
  
  
 We’ve gathered some information but these are functions that many processes use.  There may be a dozen more of these functions that are called before the program begins to execute code we’re interested in.
@@ -499,7 +499,7 @@ We see it calls scanf which is a function that gets input from the user.  Let’
  
 The address should now be highlighted in red:
  
-![](./images/image014.png)
+![](./images/Debugging/image014.png)
  
  
 Now hit the Restart button, the top left circular arrow that looks like a refresh button, and the program will be reloaded in the debugger and paused at the first instruction.
@@ -508,7 +508,7 @@ Press F9 to run the program in the debugger.
  
 You will hit a breakpoint… At the bottom you should see a message explaining what breakpoint was hit and what type it was:
  
-![](./images/image015.png)
+![](./images/Debugging/image015.png)
  
  
 This is a TLS Callback.
@@ -563,7 +563,7 @@ You can hit F9 as many times as you want, but the program has run all the instru
 So open up the terminal window and type in some input:
  
  
-![](./images/image016.png)
+![](./images/Debugging/image016.png)
  
  
 Once you hit Enter, the program is paused on the instruction just after the call to scanf.
@@ -625,7 +625,7 @@ Patching is changing an instruction in the program to force the program to execu
 Double click on the jne (Jump if Not Equal) instruction, and change the jne to a je (Jump if Equal).  This should make the program act as if we had entered “saints” and  not take the jump we were supposed to take.
  
  
-![](./images/image017.png)
+![](./images/Debugging/image017.png)
  
  
  
@@ -648,7 +648,7 @@ call goteam.printf                                                            Th
  
 Now bring up the goteam.exe console window and verify that the string was printed to the screen:
  
-![](./images/image018.png)
+![](./images/Debugging/image018.png)
  
  
 This technique is great for exploring areas of code and functionality that malware authors do not want analysts to see.
