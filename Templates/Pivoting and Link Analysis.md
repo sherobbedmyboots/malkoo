@@ -20,32 +20,32 @@ We should already be familiar with the Diamond Model and how we use it to identi
  
 Here are some common questions about infrastructure we need to answer in many investigations:
  
-1.       When was the domain registered?
-2.       What email address was used to register it?
-3.       What other domains did this email address register?
-4.       Has the domain been associated with a known incident, campaign, or threat actor?
-5.       What subdomains does the domain have?
-6.       What IPs hosted the domain after it was registered by adversary?
-7.       Which of those IPs are most likely dedicated to the adversary?
-8.       What other domains were hosted on the same IP at same time as initial domain?
-9.       What email addresses were used to register these domains?
-10.   Was the malware using a TLS certificate?
-11.   How many other IPs have been seen using that certificate?
-12.   What time was the certificate seen on the suspect IP address?
-13.   What were the expiration dates of the certificate, not before, not after, etc.?
-14.   Were the certificates self-signed, free (Let’s Encrypt, WooSign), or paid?
+- When was the domain registered?
+- What email address was used to register it?
+- What other domains did this email address register?
+- Has the domain been associated with a known incident, campaign, or threat actor?
+- What subdomains does the domain have?
+- What IPs hosted the domain after it was registered by adversary?
+- Which of those IPs are most likely dedicated to the adversary?
+- What other domains were hosted on the same IP at same time as initial domain?
+- What email addresses were used to register these domains?
+- Was the malware using a TLS certificate?
+- How many other IPs have been seen using that certificate?
+- What time was the certificate seen on the suspect IP address?
+- What were the expiration dates of the certificate, not before, not after, etc.?
+- Were the certificates self-signed, free (Let’s Encrypt, WooSign), or paid?
  
  
 And capabilities:
  
-1.       What domains and IPs was the samples associated with?
-2.       When were they observed there?
-3.       What URLs did the samples use?
-4.       What filenames did the samples have?
-5.       Were the samples associated with a TLS/SSL certificate?
-6.       Were the samples observed using a mutex?
-7.       Was the sample associated with an email address?
-8.       Has the sample been associated with a known incident, campaign, or threat actor?
+- What domains and IPs was the samples associated with?
+- When were they observed there?
+- What URLs did the samples use?
+- What filenames did the samples have?
+- Were the samples associated with a TLS/SSL certificate?
+- Were the samples observed using a mutex?
+- Was the sample associated with an email address?
+- Has the sample been associated with a known incident, campaign, or threat actor?
  
  
 Each of these questions is a possible pivot point.  We may discover the answer during domain/sample analysis or we may search a number of tools trying to find the answer.
@@ -67,7 +67,7 @@ While pivoting and discovering new relationships, keep in mind some of the follo
  
 - If Dynamic DNS is being used and a domain is pointing at multiple different IP addresses in a short period of time, pivoting on the IP addresses won’t give us the information we’re after.  Also, the registrant information will belong to the DDNS providers
  
-- Compromised legitimate sites being used for Delivery, C2, and Exfil will also have registrant information that is not related to the adversary
+- Compromised legitimate sites being used for Delivery, C- and Exfil will also have registrant information that is not related to the adversary
  
 - Information discovered about IPs and domains that were determined to be malicious in the past may not hold true today.  Some infrastructures change owners/operators frequently which means we must understand the historical context of the information we find
  
@@ -90,11 +90,10 @@ Using ss as an example, we started out with a suspicious email reported by an en
 	- Delivery domain telecomserv[.]ru
 	- Delivery domain telerad[.]ru
 	- Delivery domain telexon[.]ru
-	- C2 IP address 176.31.22[.]17
-	- Sample 23.exe
+	- C2 IP address 176.31.22[.]- - Sample 23.exe
 	- Sample 23.vbs
  
-- Used analysis of 176.31.22[.]17 to obtain:
+- Used analysis of 176.31.22[.]- to obtain:
  
 	- Delivery domain yaded[.]ru
 	- Delivery domain uk-sv[.]ru
@@ -103,18 +102,17 @@ Using ss as an example, we started out with a suspicious email reported by an en
  
 - Used Dynamic Analysis of sample 9b57.exe to obtain:
  
-	- Sample 799157431
-	- Sample System.dll
+	- Sample 7991574- - Sample System.dll
 	- C2 domain manrovm[.]gdn
 	- C2 domain lemanva[.]gdn
  
 - Used OSINT (PassiveTotal) for manrovm[.]gdn and lemanva[.]gdn to obtain:
  
-	- 20 different samples associated with these domains
+	- - different samples associated with these domains
 	- Common TTPs used
  
  
-From here we could keep pivoting on each of the 20 samples or from any of the other samples and domains looking for related information. 
+From here we could keep pivoting on each of the - samples or from any of the other samples and domains looking for related information. 
  
 But we can find much of this same information, and create visualizations with it, using Maltego.
  
@@ -151,14 +149,11 @@ IP Address To ():
 - WHOIS data                       ThreatMiner IP to Whois Details
  
  
-Here we’re using the IP address to obtain WHOIS data, associated domains, and a SHA256 hash of our sample:
+Here we’re using the IP address to obtain WHOIS data, associated domains, and a SHA2- hash of our sample:
  
 ![](./images/image046.png)     
 
-cid:image008.png@01D34674.E7DFF080
- 
- 
-We also have a DNS name which was involved in the Delivery phase of this SEN which we can use to pivot.
+cid:image008.png@01D34674.E7DFF0- We also have a DNS name which was involved in the Delivery phase of this SEN which we can use to pivot.
  
 Domain Name To ():
  
@@ -167,13 +162,9 @@ Domain Name To ():
 - SSL cert
  
  
-Here we use the Delivery DNS name to obtain an IP address along with SSL certs and a sample SHA256 hash seen at that IP:
+Here we use the Delivery DNS name to obtain an IP address along with SSL certs and a sample SHA2- hash seen at that IP:
  
-cid:image009.png@01D34674.E7DFF080
- 
- 
- 
-Each entity we discover is another possible pivot opportunity allowing us to learn more about the adversary’s infrastructure and capabilities.
+cid:image009.png@01D34674.E7DFF0- Each entity we discover is another possible pivot opportunity allowing us to learn more about the adversary’s infrastructure and capabilities.
  
  
  
@@ -188,18 +179,11 @@ Sample To ():
 - Domain                                                ThreatMiner Malware to Domain
  
  
-Here we used the SHA256 hash of our sample to get the associated filename and URL:
+Here we used the SHA2- hash of our sample to get the associated filename and URL:
  
-cid:image010.png@01D34674.E7DFF080
+cid:image010.png@01D34674.E7DFF0- The same pivot is now performed on the new sample to get its filename, domain, and URL:
  
- 
-The same pivot is now performed on the new sample to get its filename, domain, and URL:
- 
-cid:image011.png@01D34674.E7DFF080
- 
- 
- 
-At some point you may perform a transform that doesn’t provide useful information:
+cid:image011.png@01D34674.E7DFF0- At some point you may perform a transform that doesn’t provide useful information:
  
 cid:image004.png@01D34719.82325ED0
  
@@ -216,15 +200,9 @@ As we continue gathering information on the DNS name, a domain name is discovere
  
 In this case, the ThreatMiner transforms don’t provide any additional information for domain name tehnospas74[d]ru, so we’ll try another transform.
  
-Selecting ALL transforms from the VirusTotal Public API connects the tehnospas74[d]ru domain with the 176.31.22[d]17 C2 address using our 23.exe malware sample:
+Selecting ALL transforms from the VirusTotal Public API connects the tehnospas74[d]ru domain with the 176.31.22[d]- C2 address using our 23.exe malware sample:
  
-cid:image012.png@01D34674.E7DFF080
- 
- 
- 
- 
- 
-### Adding Entities From External Sources
+cid:image012.png@01D34674.E7DFF0- ### Adding Entities From External Sources
  
 You may have domains, files, and other entities you’ve gathered during analysis that you want to add to the graph.
  
@@ -271,9 +249,4 @@ In this example I created an entity for TTPs being used.
 We can now use a combination of what we’ve learned through malware analysis and OSINT pivoting to show multiple phases of the attack:
  
  
-cid:image013.png@01D34804.8157F290
- 
- 
- 
- 
- 
+cid:image013.png@01D34804.8157F2- 
