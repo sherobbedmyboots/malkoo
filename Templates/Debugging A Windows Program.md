@@ -92,7 +92,7 @@ When a program is loaded into memory, the CPU begins reading its instructions wh
  
 There are four major components involved as this happens:
 
-| | | 
+|Component |Description | 
 |-|-|
 |Code                 |                                    Each instruction in the program is executed.  Some instructions manipulate data. Some instructions call functions from the libraries (DLLs) the program has loaded.| 
 |Stack               |                                      This is a Last In First Out (LIFO) data structure the CPU uses to store temporary data values—A POP reads from the stack, a PUSH writes to the stack| 
@@ -108,14 +108,16 @@ When a program is running, it is repeatedly fetching data from memory, storing i
 Drag the GoTeam.exe file into the x64dbg shortcut on the desktop and the program will open in a paused state.
  
 You should now see four windows:
+
+| | | |
+|-|-|-| 
+|CPU  |                                     (top left)           |                   The debugger displays the assembly code with associated | commands
+|Registers |                            (top right)             |              Shows values in the registry |
+|Dump |                                   (bottom left)        |             Shows contents of memory |
+|Stack  |                                   (bottom right)    |               Shows data on the stack |
  
-- CPU                                       (top left)                              The debugger displays the assembly code with associated commands
-- Registers                             (top right)                           Shows values in the registry
-- Dump                                    (bottom left)                     Shows contents of memory
-- Stack                                     (bottom right)                   Shows data on the stack 
  
- 
-- CPU
+### CPU
  
 ![](./images/Debugging a Windows Program/image006.png)
  
