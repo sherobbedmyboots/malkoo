@@ -45,7 +45,7 @@ And if the traffic does not match a rule:
  
 Rules can be based on IP address, port, protocol, computer, user, program path, or service.
  
-Windows 10 hosts have cmdlets such as Get-NetFirewallRule and Get-NetFirewallPortFilter to manage rules.
+Windows 10 hosts have cmdlets such as [Get-NetFirewallRule] and [Get-NetFirewallPortFilter] to manage rules.
  
 But this command lists all firewall rules on a Windows 10 or Windows 7 machine:
  
@@ -78,10 +78,8 @@ There are three profile types:
  
 Type|Security|Description
 -|-|- 
-Domain     |    Least Restrictive |  Computer is joined to a domain and is able to detect its domain controller
- 
-Private   |             |   User confirms computer is on a trusted network behind a NAT device such as a router or firewall
- 
+Domain     |    Least Restrictive |  Computer is joined to a domain and is able to detect its domain controller 
+Private   |             |   User confirms computer is on a trusted network behind a NAT device such as a router or firewall 
 Public   |Most restrictive (Default)|   Computer is connected to an untrusted network
  
  
@@ -102,9 +100,11 @@ Most workstations on our network should have one network connection and it shoul
  
 Windows Firewall logs are stored in the following files by profile type:
  
-> C:\windows\system32\logfiles\Firewall\domainfirewall.log
-               > C:\windows\system32\logfiles\Firewall\privatefirewall.log
-               > C:\windows\system32\logfiles\Firewall\publicfirewall.log
+   `C:\windows\system32\logfiles\Firewall\domainfirewall.log`
+
+   `C:\windows\system32\logfiles\Firewall\privatefirewall.log`
+
+   `C:\windows\system32\logfiles\Firewall\publicfirewall.log`
  
  
  
@@ -132,9 +132,12 @@ More DNS requests:
  
 Then we see what looks to be some Domain Controller related traffic:
  
->389/TCP – Active Directory
->88/TCP – Kerberos
->135/TCP – DCE/RPC
+   389/TCP – Active Directory
+
+   88/TCP – Kerberos
+
+   135/TCP – DCE/RPC
+
  
 This must be the host attempting to join the network so naturally the traffic is allowed.
  
@@ -210,7 +213,7 @@ The connection to the domain is set to Domain.
 This user’s home network is named ‘ATS-AP02’ and the connection to it is set to Public.
  
  
-The [Get-FirewallLogs.ps1] script will retrieve firewall logs from a host and return them in objects for sorting and filtering.
+The [Get-FirewallLogs.ps1]() script will retrieve firewall logs from a host and return them in objects for sorting and filtering.
  
 Use Invoke-Command to run it on a remote host capturing the results in a variable ($log):
  
