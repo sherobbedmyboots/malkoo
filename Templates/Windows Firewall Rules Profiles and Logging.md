@@ -45,7 +45,7 @@ And if the traffic does not match a rule:
  
 Rules can be based on IP address, port, protocol, computer, user, program path, or service.
  
-Windows 10 hosts have cmdlets such as [Get-NetFirewallRule] and [Get-NetFirewallPortFilter] to manage rules.
+Windows 10 hosts have cmdlets such as [Get-NetFirewallRule]() and [Get-NetFirewallPortFilter]() to manage rules.
  
 But this command lists all firewall rules on a Windows 10 or Windows 7 machine:
  
@@ -202,7 +202,7 @@ When this happens, we won’t have any logs in Splunk that will help us, we’ll
  
 ## Gathering Information
  
-The [Get-NetConnectionProfile.ps1] script will list the networks being used on a host along with their firewall profile category, IP address, and status.
+The [Get-NetConnectionProfile.ps1]() script will list the networks being used on a host along with their firewall profile category, IP address, and status.
  
 To use it, run it with Invoke-Command.  This host is on the wired network with a profile set to Domain:
  
