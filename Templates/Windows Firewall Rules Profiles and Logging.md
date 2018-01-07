@@ -5,12 +5,12 @@ Windows firewall is a host-based, stateful firewall that is installed by default
  
 This document will review:
  
-- Firewall Rules
-- Firewall Profiles
-- Firewall Logging
-- Hosts Using VPN
-- Gathering Information
-- Scenarios
+- [Firewall Rules](#firewall-rules)
+- [Firewall Profiles](#firewall-profiles)
+- [Firewall Logging](#firewall-logging)
+- [Hosts Using VPN](#hosts-using-vpn)
+- [Gathering Information](#gathering-information)
+- [Scenarios](#scenarios)
  
  
 ## Firewall Rules
@@ -27,7 +27,9 @@ This is how most firewalls, both network and host-based, manage traffic:
 Each time an interface sends or receives a packet, the rules are checked to see if the traffic meets a rule condition.
  
 - Built in rules                       Default rules to allow services such as RPC, File sharing, etc.
+
 - Local rules                           Rules created on the local host
+
 - Group Policy rules           Rules managed by Group Policy
  
 If it matches, it is blocked or allowed per the rule.
@@ -47,13 +49,13 @@ Windows 10 hosts have cmdlets such as Get-NetFirewallRule and Get-NetFirewallPor
  
 But this command lists all firewall rules on a Windows 10 or Windows 7 machine:
  
-Netsh advfirewall firewall show rule name=all
+`netsh advfirewall firewall show rule name=all`
  
  
  
 Here I’ve filtered for the rules allowing PowerShell Remoting (WinRM) traffic and specified the lines I want to see before and after the select-string match:
  
-Netsh advfirewall firewall show rule name=all | sls 5985 –context 9,4
+`netsh advfirewall firewall show rule name=all | sls 5985 –context 9,4`
  
  
  
@@ -74,11 +76,13 @@ This allows different sets of rules to be used when connecting to trusted and un
  
 There are three profile types:
  
-- Domain                                Least Restrictive                                               Computer is joined to a domain and is able to detect its domain controller
+Type|Security|Description
+-|-|- 
+Domain     |    Least Restrictive |  Computer is joined to a domain and is able to detect its domain controller
  
-- Private                                                                                                                  User confirms computer is on a trusted network behind a NAT device such as a router or firewall
+Private   |             |   User confirms computer is on a trusted network behind a NAT device such as a router or firewall
  
-- Public                                    Most restrictive (Default)                             Computer is connected to an untrusted network
+Public   |Most restrictive (Default)|   Computer is connected to an untrusted network
  
  
  
@@ -98,9 +102,9 @@ Most workstations on our network should have one network connection and it shoul
  
 Windows Firewall logs are stored in the following files by profile type:
  
-C:\windows\system32\logfiles\Firewall\domainfirewall.log
-                C:\windows\system32\logfiles\Firewall\privatefirewall.log
-                C:\windows\system32\logfiles\Firewall\publicfirewall.log
+> C:\windows\system32\logfiles\Firewall\domainfirewall.log
+               > C:\windows\system32\logfiles\Firewall\privatefirewall.log
+               > C:\windows\system32\logfiles\Firewall\publicfirewall.log
  
  
  
@@ -128,9 +132,9 @@ More DNS requests:
  
 Then we see what looks to be some Domain Controller related traffic:
  
-389/TCP – Active Directory
-88/TCP – Kerberos
-135/TCP – DCE/RPC
+>389/TCP – Active Directory
+>88/TCP – Kerberos
+>135/TCP – DCE/RPC
  
 This must be the host attempting to join the network so naturally the traffic is allowed.
  
@@ -195,7 +199,7 @@ When this happens, we won’t have any logs in Splunk that will help us, we’ll
  
 ## Gathering Information
  
-The Get-NetConnectionProfile.ps1 script will list the networks being used on a host along with their firewall profile category, IP address, and status.
+The [Get-NetConnectionProfile.ps1] script will list the networks being used on a host along with their firewall profile category, IP address, and status.
  
 To use it, run it with Invoke-Command.  This host is on the wired network with a profile set to Domain:
  
@@ -206,7 +210,7 @@ The connection to the domain is set to Domain.
 This user’s home network is named ‘ATS-AP02’ and the connection to it is set to Public.
  
  
-The Get-FirewallLogs.ps1 script will retrieve firewall logs from a host and return them in objects for sorting and filtering.
+The [Get-FirewallLogs.ps1] script will retrieve firewall logs from a host and return them in objects for sorting and filtering.
  
 Use Invoke-Command to run it on a remote host capturing the results in a variable ($log):
  
