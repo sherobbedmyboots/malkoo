@@ -128,7 +128,7 @@ The first column is process memory address, the second is the machine code in he
  
  
  
-- Registers            
+### Registers            
  
 ![](./images/Debugging%20a%20Windows%20Program/image007.png)
  
@@ -142,7 +142,7 @@ There are three types:
 - Special Purpose
  
  
-General Purpose              (32 bit registers begin with the letter “E” for extended)
+#### General Purpose              (32 bit registers begin with the letter “E” for extended)
                                                 (64 bit registers begin with the letter “R”)
  
 EAX                        Accumulator                                      holds result of multiplication or division operations
@@ -152,7 +152,7 @@ EDX                        Data                                                 
 ESI                          Source Index                                     source of transfer operation
 EDI                         Destination Index                            destination of transfer operation
  
-Segments           
+#### Segments           
  
 CS                           Code                                     Points to code
 DS                           Data                                       Points to code  
@@ -161,9 +161,9 @@ ES                           Extra                                      Points t
 FS                           F segment                           Points to more extra data
 GS                          G segment                          Points to more extra data
  
-Special Purpose
+#### Special Purpose
  
-EFLAGS
+##### EFLAGS
  
 CF                           Carry                                     Set if arithmetic operation resulted in a carry
 PF                           Parity                                    set if number of set bits in LSB is multiple of two
@@ -174,7 +174,7 @@ TF                           Trap
 DF                           Direction                             
 OF                          Overflow                             Set if arithmetic operation results in value too large to contain
  
-Pointers
+##### Pointers
  
 EIP                          Instruction pointer          Points to address of next instruction to be executed
 EBP                        Base Pointer                      used by functions to locate local variables
@@ -191,7 +191,9 @@ This shows the stack which is used to store local variables, pass arguments, sto
                                                                        
 Data is “pushed on” or “popped off” the stack:
  
-push 5                   this adds value of 5 to the stack
+`push 5`
+
+this adds value of 5 to the stack
  
 Value on stack would be 00000005
  
@@ -200,12 +202,18 @@ Functions use the stack to store their parameters and local variables.
  
 When a function is called, the following happens:
  
-- Parameters are pushed to the stack                push 1
+- Parameters are pushed to the stack                
+
+```
+push 1
 push 2
 push 3
 push 4
- 
-- Function is called                                                      call <function-name>
+```
+
+- Function is called                                                      
+
+`call <function-name>`
  
 - Stack frame initialized                                            push ebp                             (address in ebp pushed to the stack)
                                                                                                         mov ebp, esp                    (value of stack pointer moved to ebp)
