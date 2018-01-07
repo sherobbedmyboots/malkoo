@@ -100,11 +100,11 @@ Most workstations on our network should have one network connection and it shoul
  
 Windows Firewall logs are stored in the following files by profile type:
  
-   `C:\windows\system32\logfiles\Firewall\domainfirewall.log`
+	`C:\windows\system32\logfiles\Firewall\domainfirewall.log`
 
-   `C:\windows\system32\logfiles\Firewall\privatefirewall.log`
+    `C:\windows\system32\logfiles\Firewall\privatefirewall.log`
 
-   `C:\windows\system32\logfiles\Firewall\publicfirewall.log`
+    `C:\windows\system32\logfiles\Firewall\publicfirewall.log`
  
  
  
