@@ -119,7 +119,7 @@ You should now see four windows:
  
 ### CPU
  
-![](./images/'Debugging a Windows Program'/image006.png)
+![](./images/Debugging%20a%20Windows%20Program/image006.png)
  
  
 This shows the disassembled output of all instructions in the current module.
