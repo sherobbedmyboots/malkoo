@@ -132,11 +132,11 @@ More DNS requests:
  
 Then we see what looks to be some Domain Controller related traffic:
  
-   389/TCP – Active Directory
+	389/TCP – Active Directory
 
-   88/TCP – Kerberos
+   	88/TCP – Kerberos
 
-   135/TCP – DCE/RPC
+   	135/TCP – DCE/RPC
 
  
 This must be the host attempting to join the network so naturally the traffic is allowed.
