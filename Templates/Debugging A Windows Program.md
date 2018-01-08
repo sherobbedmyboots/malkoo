@@ -219,11 +219,17 @@ push 4
 
 - Function is called                                                     
 
-`call <function-name>`
+```
+call <function-name>
+```
  
-- Stack frame initialized                                            push ebp                             (address in ebp pushed to the stack)
-                                                                                                        mov ebp, esp                    (value of stack pointer moved to ebp)
-                                                                                                        sub esp, 10                         (function needs 16 bytes for its local variables)
+- Stack frame initialized                                            
+
+```
+push ebp           (address in ebp pushed to the stack)
+mov ebp, esp       (value of stack pointer moved to ebp)
+sub esp, 10        (function needs 16 bytes for its local variables)
+```
  
 - Function completes                                               
  
