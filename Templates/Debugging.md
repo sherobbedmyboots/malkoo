@@ -142,52 +142,45 @@ There are three types:
 - Special Purpose
  
  
-#### General Purpose              
-
-(32 bit registers begin with the letter “E” for extended)
-(64 bit registers begin with the letter “R”)
-
-| | | |
-|-|-|-| 
-|EAX|Accumulator|holds result of multiplication or division operations|
-|EBX|Base|holds|
-|ECX|Counter|holds number of times a loop should repeat|
-|EDX|Data|holds|
-|ESI|Source Index|source of transfer operation|
-|EDI|Destination Index|destination of transfer operation|
+#### General Purpose              (32 bit registers begin with the letter “E” for extended)
+                                                (64 bit registers begin with the letter “R”)
+ 
+EAX                        Accumulator                                      holds result of multiplication or division operations
+EBX                        Base                                                      holds
+ECX                        Counter                                               holds number of times a loop should repeat
+EDX                        Data                                                       holds
+ESI                          Source Index                                     source of transfer operation
+EDI                         Destination Index                            destination of transfer operation
  
 #### Segments           
  
-| | | |
-|-|-|-|
-|CS|Code|Points to code|
-|DS|Data|Points to code  |
-|SS|Stack|Points to stack|
-|ES|Extra|Points to extra data|
-|FS|F segment|Points to more extra data|
-|GS|G segment|Points to more extra data|
+CS                           Code                                     Points to code
+DS                           Data                                       Points to code  
+SS                           Stack                                     Points to stack
+ES                           Extra                                      Points to extra data
+FS                           F segment                           Points to more extra data
+GS                          G segment                          Points to more extra data
  
 #### Special Purpose
  
 ##### EFLAGS
-| | | |
-|-|-|-| 
-|CF|Carry|Set if arithmetic operation resulted in a carry|
-|PF|Parity|set if number of set bits in LSB is multiple of two|
-|AF|Adjust|set if carrying BCD numbers|
-|ZF|Zero|Set if result of an operation is zero|
-|SF|Sign|Set if result of an operation is negative|
-|TF|Trap||
-|DF|Direction||
-|OF|Overflow|Set if arithmetic operation results in value too large to contain|
+ 
+CF                           Carry                                     Set if arithmetic operation resulted in a carry
+PF                           Parity                                    set if number of set bits in LSB is multiple of two
+AF                           Adjust                                   set if carrying BCD numbers
+ZF                           Zero                                       Set if result of an operation is zero
+SF                           Sign                                        Set if result of an operation is negative
+TF                           Trap                                      
+DF                           Direction                             
+OF                          Overflow                             Set if arithmetic operation results in value too large to contain
  
 ##### Pointers
-| | | |
-|-|-|-|
-|EIP|Instruction pointer|Points to address of next instruction to be executed|
-|EBP|Base Pointer|used by functions to locate local variables|
-|ESP|Stack pointer|points to the currently executing program’s stack|
-  
+ 
+EIP                          Instruction pointer          Points to address of next instruction to be executed
+EBP                        Base Pointer                      used by functions to locate local variables
+ESP                         Stack pointer                     points to the currently executing program’s stack
+ 
+ 
  
 - Stack Pane                         
  
@@ -218,7 +211,9 @@ push 3
 push 4
 ```
 
-- Function is called                                                     `call <function-name>`
+- Function is called                                                      
+
+`call <function-name>`
  
 - Stack frame initialized                                            push ebp                             (address in ebp pushed to the stack)
                                                                                                         mov ebp, esp                    (value of stack pointer moved to ebp)
