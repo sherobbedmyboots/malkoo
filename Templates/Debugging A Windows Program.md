@@ -189,7 +189,7 @@ There are three types:
 |ESP|Stack pointer|points to the currently executing program’s stack|
   
  
-- Stack Pane                         
+### Stack Pane                         
  
 ![](./images/Debugging%20a%20Windows%20Program/image008.png)
  
@@ -256,14 +256,14 @@ add esp, 10
  
  
  
-- Dump Pane       
+### Dump Pane       
  
 ![](./images/Debugging%20a%20Windows%20Program/image009.png)
  
  
 This is the memory contents of the program displayed in hex and ASCII.
  
-It can be used to view the contents of any valid memory location by selecting an address à Right click à Follow in dump
+It can be used to view the contents of any valid memory location by selecting an address --> Right click --> Follow in dump
  
 Memory is constantly being accessed and written to as the program executes instructions.
  
