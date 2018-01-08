@@ -144,8 +144,8 @@ There are three types:
  
 #### General Purpose              
 
-(32 bit registers begin with the letter “E” for extended)
-(64 bit registers begin with the letter “R”)
+- 32 bit registers begin with the letter “E” for extended
+- 64 bit registers begin with the letter “R”
 
 | | | |
 |-|-|-| 
@@ -202,8 +202,7 @@ Data is “pushed on” or “popped off” the stack:
 
 this adds value of 5 to the stack
  
-Value on stack would be 00000005
- 
+Value on stack would be `00000005`
  
 Functions use the stack to store their parameters and local variables. 
  
@@ -211,14 +210,16 @@ When a function is called, the following happens:
  
 - Parameters are pushed to the stack                
 
-```
-push 1
-push 2
-push 3
-push 4
-```
+        ```
+        push 1
+        push 2
+        push 3
+        push 4
+        ```
 
-- Function is called                                                     `call <function-name>`
+- Function is called                                                     
+
+        `call <function-name>`
  
 - Stack frame initialized                                            push ebp                             (address in ebp pushed to the stack)
                                                                                                         mov ebp, esp                    (value of stack pointer moved to ebp)
