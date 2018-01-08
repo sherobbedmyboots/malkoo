@@ -326,31 +326,34 @@ Once you do that, you’ll see we’re now in the goteam.exe main thread.
 We’ll step through each of these one at a time with F7 and describe what is happening.
  
  
-push rsi                                                                This is pushing the value of the RSI register (00000000) to the stack
+push rsi                                                                
+This is pushing the value of the RSI register (00000000) to the stack
  
-                                                                                Watch the stack pane and press F7
+Watch the stack pane and press F7
+
+Notice the RSI register is red indicating it was just changed
  
-                                                                                Notice the RSI register is red indicating it was just changed
- 
- 
-push rbx                                                              This is pushing the value of the RBX register (00000001) to the stack
- 
-                                                                                Watch the stack pane and press F7
+push rbx
+This is pushing the value of the RBX register (00000001) to the stack
+
+Watch the stack pane and press F7
  
 Notice the RBX register is red indicating it was just changed
+
+ 
+sub rsp,28
+This is subtracting 0x28 from the value of the RSP register (0060F538)
+ 
+Watch the RSP register and press F7
+ 
+Notice the RSP register is red indicating it was just changed
  
  
-sub rsp,28                                                           This is subtracting 0x28 from the value of the RSP register (0060F538)
- 
-                                                                                Watch the RSP register and press F7
- 
-                                                                                Notice the RSP register is red indicating it was just changed
+mov rax,qword ptr ds:[4042F0]
+This is moving the value at address 4042F0 to the RAX register                   
  
  
-mov rax,qword ptr ds:[4042F0]                  This is moving the value at address 4042F0 to the RAX register                   
- 
- 
-Before we execute this instruction, examine the address by Right Click à Follow in Dump à Address: 4042F0
+Before we execute this instruction, examine the address by Right Click --> Follow in Dump --> Address: 4042F0
  
 You will be taken to that memory address in the Dump pane.  Notice the value there is 50 30 40 00.
  
@@ -359,16 +362,17 @@ This is actually a memory address… 00403050.  It is stored this way because In
 Watch the RAX register as you press F7 and see that the value changes to an address in the goteam module… 00403050.
  
  
-cmp dword ptr ds:[rax],2                              This compares the value at the address in RAX (00403050) to the number 2.
+cmp dword ptr ds:[rax],2
+This compares the value at the address in RAX (00403050) to the number 2.
  
-                What is at this address? 
+What is at this address? 
  
 Where is this address?
  
  
 Let’s look in the memory map for the segment that contains address 00403050.
  
-- is in the .data section which is initialized data.  Double click on the 00403000 row to go to this segment in the Dump pane.
+It is in the .data section which is initialized data.  Double click on the 00403000 row to go to this segment in the Dump pane.
  
 A few rows down at the address you can see that a number 2 is in fact at this address:
  
@@ -382,8 +386,10 @@ Press F7 to execute the instruction and watch the RFLAGS
  
 Notice the following change:
  
-ZF           Zero                       1                              Result of the operation was zero
-PF           Parity                    1                              Bits set are a multiple of two
+| | | | |
+|-|-|-|-|
+|ZF|Zero|1|Result of the operation was zero|
+|PF|Parity|1|Bits set are a multiple of two|
  
 This is how the CPU keeps track of the results of the comparison operation.
  
@@ -447,7 +453,7 @@ The next instruction is a jump to address 40278A.  Let’s take this jump by pre
  
 mov dword ptr ds:[407988],1                      This will move the number 1 into the memory address 407988.
  
-                                                                                Bring up this address in the Dump pane with Right Click à Follow in Dump à Address:  407988
+                                                                                Bring up this address in the Dump pane with Right Click --> Follow in Dump --> Address:  407988
  
                                                                                 Notice there is a 00 at that address.
  
@@ -520,9 +526,9 @@ So instead of stepping through each individual instruction from the beginning li
  
 First let’s take a look at all the function calls detected by the debugger in the goteam.exe module.
  
-Make sure you’re in the goteam.exe module, then Right Click à Search For à Current Module à Intermodular Calls
+Make sure you’re in the goteam.exe module, then Right Click --> Search For --> Current Module --> Intermodular Calls
  
-We see it calls scanf which is a function that gets input from the user.  Let’s set a breakpoint there by Right Click à Toggle Breakpoint  on that address
+We see it calls scanf which is a function that gets input from the user.  Let’s set a breakpoint there by Right Click --> Toggle Breakpoint  on that address
  
 The address should now be highlighted in red:
  
@@ -567,7 +573,7 @@ This “Load Effective Address” instruction puts the value at the address 4040
  
 By looking at the RCX register we can see that value is “%s”. 
  
-But let’s also look at where that value came from… Right Click à Follow in Dump à Address: 40405A
+But let’s also look at where that value came from… Right Click --> Follow in Dump --> Address: 40405A
  
 In the Dump pane, we see the “%s” along with other strings “saints” and “Who dat!”  Scroll up a little and you’ll see the string “Enter your favorite sports team:”
  
