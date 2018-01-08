@@ -325,23 +325,30 @@ Once you do that, you’ll see we’re now in the goteam.exe main thread.
  
 We’ll step through each of these one at a time with F7 and describe what is happening.
  
- 
-push rsi                                                                
+``` 
+push rsi 
+```
+
 This is pushing the value of the RSI register (00000000) to the stack
  
 Watch the stack pane and press F7
 
 Notice the RSI register is red indicating it was just changed
  
+```
 push rbx
+```
+
 This is pushing the value of the RBX register (00000001) to the stack
 
 Watch the stack pane and press F7
  
 Notice the RBX register is red indicating it was just changed
 
- 
+``` 
 sub rsp,28
+```
+
 This is subtracting 0x28 from the value of the RSP register (0060F538)
  
 Watch the RSP register and press F7
@@ -349,7 +356,10 @@ Watch the RSP register and press F7
 Notice the RSP register is red indicating it was just changed
  
  
+```
 mov rax,qword ptr ds:[4042F0]
+```
+
 This is moving the value at address 4042F0 to the RAX register                   
  
  
@@ -362,7 +372,10 @@ This is actually a memory address… 00403050.  It is stored this way because In
 Watch the RAX register as you press F7 and see that the value changes to an address in the goteam module… 00403050.
  
  
+```
 cmp dword ptr ds:[rax],2
+```
+
 This compares the value at the address in RAX (00403050) to the number 2.
  
 What is at this address? 
@@ -395,46 +408,70 @@ This is how the CPU keeps track of the results of the comparison operation.
  
 The next instruction is a “Jump if Equal” (je) which the program will take since the values were equal.
  
+``` 
+je goteam.401A28
+```
+This will jump to the specified address if the values were equal
  
-je goteam.401A28                                           This will jump to the specified address if the values were equal
+Watch the RIP (instruction pointer) and press F7
  
-                                                                                Watch the RIP (instruction pointer) and press F7
+Notice the jump was made and the next instruction to be executed is the instruction at 401A28
  
-                                                                                Notice the jump was made and the next instruction to be executed is the instruction at 401A28
+```
+cmp edx,2
+```
+
+This compares the number 2 to the value in the EDX(lower half of RDX) register.
  
+Since the RDX register contains the number 1, this comparison will not be equal.
  
-cmp edx,2                                                           This compares the number 2 to the value in the EDX(lower half of RDX) register.
- 
-                                                                                Since the RDX register contains the number 1, this comparison will not be equal.
- 
-                                                                                Press F7 and watch the RFLAGS as they record the results
- 
+Press F7 and watch the RFLAGS as they record the results
+
  
 Notice the RFLAGS that are now set:
  
-ZF           Zero                       0                              Result of the operation was zero
-AF           Adjust                   1                              No carry over
-SF           Sign                        1                              Result was negative
-CF           Carry                     1                              Result included a carry
+| | | | |
+|-|-|-|-|
+|ZF|Zero|0|Result of the operation was zero|
+|AF|Adjust|1|No carry over|
+|SF|Sign|1|Result was negative|
+|CF|Carry|1|Result included a carry|
  
-                                               
-je goteam.401A40                                           This jump should not be taken since the values were not equal.
+```                                               
+je goteam.401A40
+```
+
+This jump should not be taken since the values were not equal.
  
-                                                                                Press F7 and watch the RIP simply move to the next instruction
+Press F7 and watch the RIP simply move to the next instruction
  
-cmp edx,1                                                           This compares 1 to the value of EDX (lower half of RDX).  This will evaluate as equal since 1 is in RDX.
+```
+cmp edx,1
+```
+
+This compares 1 to the value of EDX (lower half of RDX).  
+
+This will evaluate as equal since 1 is in RDX.
  
-je goteam.401A72                                           This jump will be taken since the two values compared were equal.
+```
+je goteam.401A72                                           
+```
+
+This jump will be taken since the two values compared were equal.
  
-call goteam.4026F0                                          This is the first function call.  By pressing F7 we will step into the first instruction of this function.
- 
-                                                                                Watch the CPU windows and press F7
- 
+```
+call goteam.4026F0                                          
+```
+
+This is the first function call.  
+
+By pressing F7 we will step into the first instruction of this function.
+                                                              
+Watch the CPU windows and press F7
  
 We are now inside function 4026F0.
  
 Press F7 eight more times and you should be at an instruction that will call ntdll.RtlInitializeCriticalSection
- 
  
 This is a Microsoft function that is responsible for allocating memory for an object.
  
@@ -447,34 +484,52 @@ Press Alt+U to go back one instruction
  
 Press F8 to step over the RtlInitializeCriticalSection function
  
- 
 The next instruction is a jump to address 40278A.  Let’s take this jump by pressing F7.
  
  
-mov dword ptr ds:[407988],1                      This will move the number 1 into the memory address 407988.
+```
+mov dword ptr ds:[407988],1                      
+```
+
+This will move the number 1 into the memory address 407988.
  
-                                                                                Bring up this address in the Dump pane with Right Click --> Follow in Dump --> Address:  407988
+Bring up this address in the Dump pane with Right Click --> Follow in Dump --> Address:  407988
+
+Notice there is a 00 at that address.
  
-                                                                                Notice there is a 00 at that address.
+Press F7 and watch the number 01 be written to this memory location
  
-                                                                                Press F7 and watch the number 01 be written to this memory location
+``` 
+mov eax,1
+```
+
+This will move the number 1 into the EAX (lower half of RAX) register.
  
+Watch the RAX register and press F7
  
-mov eax,1                                                           This will move the number 1 into the EAX (lower half of RAX) register.
+```
+add rsp,20                                                           
+```
+
+This adds 0x20 to the stack (RSP register)
  
-                                                                                Watch the RAX register and press F7
+Watch the stack window and press F7
  
-add rsp,20                                                           This adds 0x20 to the stack (RSP register)
+```
+pop rbx                                                                
+```
+
+This pops the value at the top of the stack (00000001) and puts it in the RBX register
  
-                                                                                Watch the stack window and press F7
+Watch the stack and the RBX register and press F7
  
-pop rbx                                                                This pops the value at the top of the stack (00000001) and puts it in the RBX register
+```
+ret
+```
+
+This will return to where the function was called from
  
-                                                                                Watch the stack and the RBX register and press F7
- 
-ret                                                                          This will return to where the function was called from
- 
-                                                                                Press F7
+Press F7
  
  
 Press F7 a few more times and you’ll end up inside ntdll.dll again.  This is not the code we’re interested in, so press Alt+F9 to execute until user code.
@@ -487,11 +542,13 @@ Continue to press F7 until you come to the following functions:
  
 A little research will reveal what these functions do:
  
-                GetSystemTimeAsFileTime                                         Retrieves the current system date and time in UTC format
-                GetCurrentProcessId                                                     Retrieves process ID of the current process
-                GetCurrentThreadId                                                      Retrieves thread ID of the current process
-                GetTickCount                                                                    Retrieves the number of milliseconds that have elapsed since the system was started
-                QueryPerformanceCounter                                        Retrieves the current value of the performance counter, which is a high resolution timestamp
+| | |
+|-|-|
+|GetSystemTimeAsFileTime|Retrieves the current system date and time in UTC format|
+|GetCurrentProcessId|Retrieves process ID of the current process|
+|GetCurrentThreadId|Retrieves thread ID of the current process|
+|GetTickCount|Retrieves the number of milliseconds that have elapsed since the system was started|
+|QueryPerformanceCounter|Retrieves the current value of the performance counter, which is a high resolution timestamp|
  
  
 These are Microsoft functions and we’re not really interested in their code—but we do want to know why the goteam.exe program is calling them and what data it gets back from each function.
@@ -501,11 +558,13 @@ Since function results are typically stored in the EAX/RAX register, we can step
 After stepping over each function, here are the results that were in the RAX register after each completed:
  
  
-                GetSystemTimeAsFileTime                         01D36D22
-                GetCurrentProcessId                                     00000EFC
-                GetCurrentThreadId                                      0000052C
-                GetTickCount                                                    0100BAC7
-                QueryPerformanceCounter                        00000001
+| | |
+|-|-|
+|GetSystemTimeAsFileTime|01D36D22|
+|GetCurrentProcessId|00000EFC|
+|GetCurrentThreadId|0000052C|
+|GetTickCount|0100BAC7|
+|QueryPerformanceCounter|00000001|
  
  
 The three time-related functions return results that appear to require conversion. 
@@ -557,8 +616,6 @@ You should hit a second TLS callback.  Hit F9 again.
 The next breakpoint should be the Entry Point of the program.  Hit F9 again.
  
  
- 
- 
 This time the breakpoint we set was reached.  The next instruction to execute will be the call to the scanf function.
  
 One interesting thing we can look for is the arguments that are passed to the function.  If a function requires arguments, they are placed on the stack just before the function call.
@@ -566,8 +623,9 @@ One interesting thing we can look for is the arguments that are passed to the fu
 That means we can scroll up to the instruction just before the function call and see:
  
  
+```
 lea rcx,qword ptr ds:[40405A]
- 
+``` 
  
 This “Load Effective Address” instruction puts the value at the address 40405A into the RCX register.
  
@@ -606,21 +664,37 @@ Notice the string you entered into the program is now on the stack.
 Now slowly step through the following instructions:
  
  
-lea rax,qword ptr ss:[rbp-20]                      This puts the value at address rbp-20 (your string) in the RAX register
+```
+lea rax,qword ptr ss:[rbp-20]
+```
+
+This puts the value at address rbp-20 (your string) in the RAX register
                                                                                
 Watch the RAX register and press F7
  
-lea rdx,qword ptr ds:[40405D]                    This puts the value at address 40405D (“%s”) in the RDX register
+```
+lea rdx,qword ptr ds:[40405D]
+```
+
+This puts the value at address 40405D (“%s”) in the RDX register
                                                                                
 Watch the RDX register and press F7
  
-mov rcx,rax                                                        This moves the value in the RAX register (your string) to the RCX register
+```
+mov rcx,rax
+```
+
+This moves the value in the RAX register (your string) to the RCX register
                                                                                
 Watch the RAX and RCX registers and press F7
  
-call goteam.strcmp                                          This will call the strcmp (string compare) function.  The two strings it is comparing are in RAX and RCX.
+```
+call goteam.strcmp
+```
+
+This will call the strcmp (string compare) function.  The two strings it is comparing are in RAX and RCX.
                
-                                                                                Step over this function with F8 and check the result of the function in the RAX register
+Step over this function with F8 and check the result of the function in the RAX register
  
  
  
@@ -631,15 +705,22 @@ Had the strings been the same, the function would have returned all zeros.
 The next instruction tests to see what the results of the function were:
  
  
-test eax,eax                                                       This tests to see if EAX (lower half of RAX) is zero
+```
+test eax,eax
+```
+
+This tests to see if EAX (lower half of RAX) is zero
                                                                                
 Press F7 and watch the RFLAGS
  
  
 The next instruction will jump to an address based on the results set in the RFLAGS.  (No ZF because result was not zero)
  
- 
-jne goteam.40162B                                         This will jump to address 40162B because the two strings compared were not equal.
+```
+jne goteam.40162B
+```
+
+This will jump to address 40162B because the two strings compared were not equal.
  
  
 Let’s say we are really interested in what this program does when the string comparison is successful.  Now that you know what string is, you could go reload the program, go through all the breakpoints, and this time enter “saints” into the program.
@@ -667,16 +748,24 @@ Once you’ve made the change, press F7 to step into the next instruction.
  
 Now we avoided making the jump to 40162B and the next instruction is:
  
-lea rcx,qword ptr ds:[404064]                                     This moves the value at memory address 404064 into the RCX register
+```
+lea rcx,qword ptr ds:[404064]
+```
+
+This moves the value at memory address 404064 into the RCX register
                                                                                                
-                                                                                                Watch the RCX register and press F7
+Watch the RCX register and press F7
  
  
 The string “Who dat!” was loaded into the RCX register.  The program is proceeding as if we had entered the correct string.
  
-call goteam.printf                                                            This will call the printf function and pass it the string “Who dat!”
+```
+call goteam.printf
+```
+
+This will call the printf function and pass it the string “Who dat!”
  
-                                                                                                Press F8 to step over ( run and return) the printf function
+Press F8 to step over ( run and return) the printf function
  
  
 Now bring up the goteam.exe console window and verify that the string was printed to the screen:

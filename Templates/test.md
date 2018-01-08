@@ -1,8 +1,10 @@
  | 
 -|-
-ZF           Zero                       1                              Result of the operation was zero
-PF           Parity                    1                              Bits set are a multiple of two
-
+                GetSystemTimeAsFileTime                         01D36D22
+                GetCurrentProcessId                                     00000EFC
+                GetCurrentThreadId                                      0000052C
+                GetTickCount                                                    0100BAC7
+                QueryPerformanceCounter                        00000001
 
 
 
@@ -11,15 +13,12 @@ PF           Parity                    1                              Bits set a
 
  | | 
 -|-|-
-ZF           Zero                       1                              Result of the operation was zero
-PF           Parity                    1                              Bits set are a multiple of two
+
 
 
 
  | | | 
 -|-|-|-
-ZF           Zero                       1                              Result of the operation was zero
-PF           Parity                    1                              Bits set are a multiple of two
 
 
 
