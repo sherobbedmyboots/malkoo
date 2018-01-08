@@ -208,7 +208,7 @@ Functions use the stack to store their parameters and local variables.
  
 When a function is called, the following happens:
  
-- Parameters are pushed to the stack                
+1. Parameters are pushed to the stack                
 
 ```
 push 1
@@ -230,18 +230,29 @@ push ebp           (address in ebp pushed to the stack)
 mov ebp, esp       (value of stack pointer moved to ebp)
 sub esp, 10        (function needs 16 bytes for its local variables)
 ```
- 
+
 - Function completes                                               
  
-- Return value                                                              mov eax, ebx
- 
-- Clean stack                                                                 mov esp, ebp
-                                                                                                        pop ebp
- 
-- Return to caller function                                       ret
- 
-- Clean up parameters passed to function       add esp, 10
- 
+- Return value 
+```
+mov eax, ebx
+```
+
+- Clean stack
+```
+mov esp, ebp
+pop ebp
+```
+
+- Return to caller function
+```
+ret
+```
+
+- Clean up parameters passed to function
+```
+add esp, 10
+``` 
  
  
  
