@@ -210,16 +210,16 @@ When a function is called, the following happens:
  
 - Parameters are pushed to the stack                
 
-        ```
-        push 1
-        push 2
-        push 3
-        push 4
-        ```
+```
+push 1
+push 2
+push 3
+push 4
+```
 
 - Function is called                                                     
 
-        `call <function-name>`
+`call <function-name>`
  
 - Stack frame initialized                                            push ebp                             (address in ebp pushed to the stack)
                                                                                                         mov ebp, esp                    (value of stack pointer moved to ebp)
