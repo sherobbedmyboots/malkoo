@@ -109,7 +109,7 @@ Our goal is to become familiar with and able to recognize APT-level tactics and 
  
 Start by picking one APT group from this list and document the techniques they’ve been observed using which we can then use to build targeted detections.  
 
-[MITRE’s full list of techniques](https://attack.mitre.org/wiki/All_Techniques) is a great resource to use:
+[MITRE’s full list of techniques](https://attack.mitre.org/wiki/All_Techniques) is a great resource to use.
  
 
   
@@ -118,11 +118,9 @@ Here are two examples:
  
 ## APT 28
 
-| | |
-|-|-|
-|Description:|Focus is on espionage, intelligence on defense and geopolitical issues|
-||Russian-based threat actor, which has been active since mid 2000s, known to attempt to masquerade as hacktivists or whistleblowers|
-|AKA Pawn Storm, Sednit, Fancy Bear, Sofacy, STRONTIUM|
+- Russian-based threat actor, which has been active since mid 2000s, known to attempt to masquerade as hacktivists or whistleblowers
+- Focus is on espionage, intelligence on defense and geopolitical issues
+- Also known as Pawn Storm, Sednit, Fancy Bear, Sofacy, STRONTIUM
 
 
 ### Tools:
@@ -189,11 +187,8 @@ http://contagiodump.blogspot.com/2017/02/russian-apt-apt28-collection-of-samples
  
 ## APT 29
 
-| | |
-|-|-|
-|Description:|Focus is on espionage, intelligence on defense and geopolitical issues|
-||Russian-based threat actor|
-||AKA COZY BEAR, Cozy Duke, The Dukes|
+- Russian-based threat actor with a focus on espionage and intelligence on defense and geopolitical issues
+- Also known as COZY BEAR, Cozy Duke, The Dukes
 
 
 ### Tools:
