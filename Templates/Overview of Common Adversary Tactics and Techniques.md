@@ -132,7 +132,6 @@ Here are two examples:
 ||uses HTTP POST requests which have data encrypted then encoded with Base64|
 |EVILTOSS|AKA Sedreco, AZZY, xagent, NETUI|
 ||second stage backdoor capable of credential theft, recon, shellcode execution|
-|||
 |CHOPSTICK|AKA Xagent, webhp, SPLM|
 ||modular implant which communicates with C2 using SMTP or HTTP GET/POST requests|
 |GAMEFISH|AKA Sednit, Seduploader, Sofacy|
@@ -143,10 +142,10 @@ Here are two examples:
 | | |
 |-|-|
 |Social Engineering|Spearphishing, Doppelganger Domains, Shortened URLs|
-||Exploit|Watering Hole Attack, Exploit of Vulnerability|
+|Exploit|Watering Hole Attack, Exploit of Vulnerability|
 |Defense Evasion|Data Obfuscation, Timestomp, Indicator Removal on Host|
-||Lateral Movement|Pass the Hash, Remote File Copy, Valid Accounts|
-||Command and Control|Connection Proxy|
+|Lateral Movement|Pass the Hash, Remote File Copy, Valid Accounts|
+|Command and Control|Connection Proxy|
 
 
 ### Techniques:
