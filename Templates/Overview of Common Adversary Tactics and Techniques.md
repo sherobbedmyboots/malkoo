@@ -131,12 +131,12 @@ Here are two examples:
 |SOURFACE /CORESHELL|downloader, obtains second stage backdoor from C2 server|
 ||uses HTTP POST requests which have data encrypted then encoded with Base64|
 |EVILTOSS|AKA Sedreco, AZZY, xagent, NETUI|
-|second stage backdoor capable of credential theft, recon, shellcode execution|
+||second stage backdoor capable of credential theft, recon, shellcode execution|
 |||
 |CHOPSTICK|AKA Xagent, webhp, SPLM|
-|modular implant which communicates with C2 using SMTP or HTTP GET/POST requests|
+||modular implant which communicates with C2 using SMTP or HTTP GET/POST requests|
 |GAMEFISH|AKA Sednit, Seduploader, Sofacy|
-|backdoor|
+||backdoor|
 
 
 ### Tactics:
