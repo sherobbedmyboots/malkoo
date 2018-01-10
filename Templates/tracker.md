@@ -54,8 +54,8 @@
 - [Persistence with WMI Event Subscriptions](Persistence%20with%20WMI%20Event%20Subscriptions)
 - [Endpoint Interrogation with PowerShell](Endpoint%20Interrogation%20with%20PowerShell)
 - [Endpoint Interrogation with PowerShell Part 2](Endpoint%20Interrogation%20with%20PowerShell%20Part%202)
-- [Debugging a Windows Executable](Debugging%20a%20Windows%20Executable)
+- [Debugging a Windows {r}](Debugging%20a%20Windows%20Program)
 - [Verifying Digital Signatures of PE Files](Verifying%20Digital%20Signatures%20of%20PE%20Files)
-- [Windows Firewall Profiles and Logging](Windows%20Firewall%20Profiles%20and%20Logging)
+
 - [Review of Amazon Web Services](Review%20of%20Amazon%20Web%20Services)
 - [Filtering Expected Web Traffic with Splunk](Filtering%20Expected%20Web%20Traffic%20with%20Splunk)
