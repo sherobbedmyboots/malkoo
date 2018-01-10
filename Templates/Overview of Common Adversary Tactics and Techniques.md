@@ -166,7 +166,7 @@ Here are two examples:
 |Pass the Hash|Authentication to a remote system without having user’s cleartext password|
 |Remote File Copy|Files copied using legitimate tools, powershell, wmi, psexec|
 |Valid Accounts|Legitimate credentials used to maintain access to victim network|
-|Exfil via local network resources such as the victim organization’s mail server|
+||Exfil via local network resources such as the victim organization’s mail server|
 |Connection Proxy|Xtunnel network tunneling tool used to execute remote commands|
  
 ### References:
@@ -199,10 +199,11 @@ http://contagiodump.blogspot.com/2017/02/russian-apt-apt28-collection-of-samples
 |POSHSPY|a backdoor using PowerShell and WMI to store malicious code and execute for persistence|
 
 
-### Tactics:|Persistence|WMI Event Subscription, Scheduled Task, Registry Run Keys / Start Folder|
+### Tactics:
 
 | | |
 |-|-|
+|Persistence|WMI Event Subscription, Scheduled Task, Registry Run Keys / Start Folder|
 |Command and Control|Encrypted C2, Domain Fronting, Connection Proxy|
 |Lateral Movement|Pass the Hash|
 |Defense Evasion|Software Packing, Scripting|
@@ -214,7 +215,7 @@ http://contagiodump.blogspot.com/2017/02/russian-apt-apt28-collection-of-samples
 |-|-|
 |WMI Event Subscription|obtain persistence by using WMI events|
 |Scheduled Task|obtain persistence by using the task scheduler to execute malware|
-|Registry Run Keys/Start Folder  obtain persistence by using the Windows registry or start up folder to execute malware|
+|Registry Run Keys/Start Folder|obtain persistence by using the Windows registry or start up folder to execute malware|
 |Encrypted C2|used to conceal command and control and data exfiltration|
 |Domain Fronting|using high reputation domains to redirect and conceal C2 traffic|
 |Connection Proxy|Tor hidden services used to redirect and conceal C2 traffic|
