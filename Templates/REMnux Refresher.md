@@ -5,7 +5,7 @@ Understanding the capabilities of malicious software is critical for detecting, 
 Here is a refresher on how to use some of the many tools included in the REMnux distro.
  
  
-## WEBSITES
+## Websites
  
 Use the following tools to obtain artifacts and analyze traffic while investigating potentially malicious websites:
 
@@ -18,7 +18,7 @@ Use the following tools to obtain artifacts and analyze traffic while investigat
 |curl|curl \<url\>|transfer data via HTTP, HTTPS, FTP, SFTP, FTPS, TFTP, SCP and others|
                
  
-## OFFICE DOCS
+## Office Documents
  
 Use these tools to investigate Office documents containing exploits, macros, or embedded OLE objects:
 
@@ -52,7 +52,7 @@ Use the following for analysis of PDFs containing exploits, JavaScript, ActionSc
 |peepdf|peepdf –i \<filename\>|browses structure and extracts various data from PDF|
 |Pdfextract|pdfextract -s \<filename\>|extracts streams out of PDF|
  
-## EXECUTABLES
+## Executables
  
 Use the following to analyze executables and identify packing, encryption, and other indications of malcode:
 
@@ -70,7 +70,7 @@ Use the following to analyze executables and identify packing, encryption, and o
 |packerID|packerid –emtP \<filename\>|list packer used, extract digital signatures, short list of PE properties|
  
  
-## SHELLCODE
+## Shellcode
  
 Use these tools to manipulate and analyze shellcode:
  
@@ -83,7 +83,7 @@ Use these tools to manipulate and analyze shellcode:
 |sctest|sctest -d \<filename\>|dumps/emulates shellcode|
 |dism-this|dism-this.py -v \<filename\>|prints disassembly|
                
-## DEOBFUSCATION
+## Deobfuscation
  
 Use these tools to reveal file details, shellcode, and script content that has been obfuscated:
  
@@ -96,7 +96,7 @@ Use these tools to reveal file details, shellcode, and script content that has b
 |NoMoreXor|NoMoreXor.py –a \<filename\> \<outfile\>|analyze file to guess 256-byte XOR key|
 |Xortool|xortool -b \<filename\>|guess xor key and key length|                               
   
-## SIGNATURES/REPUTATION                        
+## Signatures/Reputation                       
  
 Use these tools to run AV scans and hash checks:
  
@@ -109,7 +109,7 @@ Use these tools to run AV scans and hash checks:
 |ClamAV|freshclam && clamscan \<filename\>|update ClamAV and scan file|
  
  
-## NETWORK
+## Network
  
 Use these tools for traffic analysis and network forensics:
  
