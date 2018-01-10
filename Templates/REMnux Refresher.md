@@ -9,7 +9,7 @@ Here is a refresher on how to use some of the many tools included in the REMnux 
  
 Use the following tools to obtain artifacts and analyze traffic while investigating potentially malicious websites:
 
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |Thug|thug -FZM -n . \<website\>|visit website as a vulnerable browser, collect artifacts|
 |BurpSuite|burpsuite  (set proxy to localhost:8080)|inspect all traffic to suspicious websites|
@@ -22,7 +22,7 @@ Use the following tools to obtain artifacts and analyze traffic while investigat
  
 Use these tools to investigate Office documents containing exploits, macros, or embedded OLE objects:
 
-| | | |
+|Tool|Usage|Description|
 |-|-|-|  
 |officeparser.py|officeparser.py --extract-macros \<filename\>|extract embedded macros|
 ||officeparser.py --extract-ole-streams \<filename\>|extract embedded ole streams|
@@ -39,7 +39,7 @@ Use these tools to investigate Office documents containing exploits, macros, or 
  
 Use the following for analysis of PDFs containing exploits, JavaScript, ActionScript, Flash objects and embedded files:
 
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |pdf2txt|pdf2txt.py \<filename\>|displays text inside file|
 |pdfimages|pdfimages -list \<filename\>|lists images inside file|
@@ -56,7 +56,7 @@ Use the following for analysis of PDFs containing exploits, JavaScript, ActionSc
  
 Use the following to analyze executables and identify packing, encryption, and other indications of malcode:
 
-|tool|usage|description|
+|Tool|Usage|Description|
 |-|-|-|  
 |Bokken|bokken \<filename\>|allows interactive static analysis|
 |wxHexEditor|wxHexEditor \<filename\>|graphic hex editor|
@@ -74,7 +74,7 @@ Use the following to analyze executables and identify packing, encryption, and o
  
 Use these tools to manipulate and analyze shellcode:
  
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |unicode2hex-escaped|unicode2hex-escaped \< \<infile\> \> \<outfile\>|converts the shellcode into hex format|
 |shellcode2exe.py|shellcode2exe.py -s \<filename\>|converts shellcode hex file into an executable|
@@ -87,7 +87,7 @@ Use these tools to manipulate and analyze shellcode:
  
 Use these tools to reveal file details, shellcode, and script content that has been obfuscated:
  
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |Floss|floss \<filename\>|automatically deobfuscates strings from binaries|
 |XORSearch|xorsearch –i \<filename\> \<pattern\>|search a given string in XOR, ROL, ROT, or SHIFT encoding|
@@ -100,7 +100,7 @@ Use these tools to reveal file details, shellcode, and script content that has b
  
 Use these tools to run AV scans and hash checks:
  
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |hash_id|hash_id (then enter hash)|identify type of hash|
 |totalhash|totalhash.py –s \<hash\>|search the totalhash.com database|
@@ -113,7 +113,7 @@ Use these tools to run AV scans and hash checks:
  
 Use these tools for traffic analysis and network forensics:
  
-| | | |
+|Tool|Usage|Description|
 |-|-|-| 
 |wireshark|sudo wireshark|network protocol analyzer|
 |ngrep|ngrep –i -I \<pcap\> \<term\>|searches for regex or hex matches in packet payloads|
