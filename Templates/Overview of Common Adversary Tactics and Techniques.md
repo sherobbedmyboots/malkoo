@@ -156,18 +156,18 @@ Here are two examples:
 ||a link to fake login page to obtain credentials to read email (owa, gmail)|
 ||a link to give OAuth privileges to a malicious application to read email|
 |Watering Hole Attack|inject malcode or iframe in compromised site which redirects victim to malicious site that profiles user|
-|Users that match a specific profile are served an exploit which installs malware|
+||Users that match a specific profile are served an exploit which installs malware|
 |Doppelganger Domains|domain names that mimic legitimate news, webmail, government, NGO websites|
-||Shortened URLs|used to trick potential victims into visiting malicious/phishing sites|
+|Shortened URLs|used to trick potential victims into visiting malicious/phishing sites|
 |Exploitation of Vulnerability|compromise Internet-facing servers or software|
 |Data Obfuscation|Runtime checks for analysis tools, use of obfuscated strings and junk code to hinder static analysis|
-||Timestomp|resetting timestamps of files|
-||Indicator Removal on Host|periodic event log clearing (via wevtutil cl System and wevtutil cl Security commands)|
+|Timestomp|resetting timestamps of files|
+|Indicator Removal on Host|periodic event log clearing (via wevtutil cl System and wevtutil cl Security commands)|
 |Pass the Hash|Authentication to a remote system without having user’s cleartext password|
 |Remote File Copy|Files copied using legitimate tools, powershell, wmi, psexec|
 |Valid Accounts|Legitimate credentials used to maintain access to victim network|
 |Exfil via local network resources such as the victim organization’s mail server|
-||Connection Proxy|Xtunnel network tunneling tool used to execute remote commands|
+|Connection Proxy|Xtunnel network tunneling tool used to execute remote commands|
  
 ### References:
  
