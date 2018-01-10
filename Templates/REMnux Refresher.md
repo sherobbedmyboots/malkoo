@@ -11,7 +11,7 @@ Use the following tools to obtain artifacts and analyze traffic while investigat
 
 | | | |
 |-|-|-| 
-|Thug|thug -FZM -n . “\<website\>”|visit website as a vulnerable browser, collect artifacts|
+|Thug|thug -FZM -n . \<website\>|visit website as a vulnerable browser, collect artifacts|
 |BurpSuite|burpsuite  (set proxy to localhost:8080)|inspect all traffic to suspicious websites|
 |pdnstool.py|pdnstool -dv \<domain\>|passive DNS lookups (put APIs in $HOME/.passivedns-client)|
 |wget|wget \<url\> -O \<newfile\>|get contents of a website|
@@ -56,7 +56,7 @@ Use the following for analysis of PDFs containing exploits, JavaScript, ActionSc
  
 Use the following to analyze executables and identify packing, encryption, and other indications of malcode:
 
-| | | |
+|tool|usage|description|
 |-|-|-|  
 |Bokken|bokken \<filename\>|allows interactive static analysis|
 |wxHexEditor|wxHexEditor \<filename\>|graphic hex editor|
@@ -66,8 +66,8 @@ Use the following to analyze executables and identify packing, encryption, and o
 |UPX|upx –d \<filename\> -o \<newfile\>|unpack a file packed by UPX|
 |peframe|peframe \<filename\>|shows file info, packing, suspicious APIs, filenames|
 |signsrch|signsrch \<filename\>|Search file for common code patterns|
-|readpe|readpe –f \<filename\> \> \<newfile\>|Extract file headers|
-|packerID|packerid –emtP \<filename\>|List packer used, extract digital signatures, short list of PE properties|
+|readpe|readpe –f \<filename\> \> \<newfile\>|extract file headers|
+|packerID|packerid –emtP \<filename\>|list packer used, extract digital signatures, short list of PE properties|
  
  
 ## SHELLCODE
