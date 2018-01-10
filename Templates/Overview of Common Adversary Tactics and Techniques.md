@@ -6,7 +6,7 @@ As defenders, we need to understand the goals of adversaries and the tactics and
  
 Adversaries can range from financially motivated criminals to state-sponsored groups focused on data collection to hacktivists and insiders with various end goals.  Each adversary will most likely have their own objectives and different ways to reach them, but here is a very high level view of the steps most adversaries will use to accomplish their overall mission:
  
-| | | |
+|Step|Description|Goal|
 |-|-|-|
 |1. Get limited user access|(Foothold, short term persistence)|Control a low privilege account that can make limited changes to one system|
 |2. Get admin/root access|(Privilege Escalation)|Control a privileged account that can make many changes to one system|
@@ -21,7 +21,7 @@ Also keep in mind that Command and Control is required for each of these stages 
  
 The first step is to get an initial foothold on a system and have control of a low privilege account.
  
-Outside the network
+### Outside the network
 
 | | | |
 |-|-|-|
@@ -29,7 +29,7 @@ Outside the network
 |Client-side exploit|Client application is exploited by external entity|Browser, Java, PDF reader, Flash, or MS Office|
 |User-driven attack|User is tricked into running malicious code|Java applet, Office macro, zip file, executable, HTA, script, etc.|               
  
-Inside the Network
+### Inside the Network
 
 | | | |
 |-|-|-|
@@ -37,7 +37,7 @@ Inside the Network
 |Client-side exploit|Client application is exploited by rogue host|ARP poisoning, DNS cache poisoning, WPAD,|
 |User-driven attack|User is tricked into running malicious code|Program, script, UNC path|
  
-On Premises
+### On Premises
 
 | | | |
 |-|-|-|
@@ -50,7 +50,7 @@ On Premises
  
 After obtaining control of a low privilege account, privilege escalation techniques are used to gain control of an admin/root account.
  
-Windows
+### Windows
 
 | | |
 |-|-|
@@ -61,7 +61,7 @@ Windows
 |Password attack|Guess or brute force local admin password|
 |Local exploit|OS or application|
  
-MacOS
+### MacOS
 
 | | |
 |-|-|
