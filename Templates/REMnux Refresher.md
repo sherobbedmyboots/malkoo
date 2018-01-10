@@ -8,6 +8,7 @@ Here is a refresher on how to use some of the many tools included in the REMnux 
 ## WEBSITES
  
 Use the following tools to obtain artifacts and analyze traffic while investigating potentially malicious websites:
+
 | | | |
 |-|-|-| 
 |Thug|thug -FZM -n . “<website>”|visit website as a vulnerable browser, collect artifacts|
