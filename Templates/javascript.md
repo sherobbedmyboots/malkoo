@@ -28,6 +28,7 @@ One of these is XMLHttpRequest which allows a client to retrieve data from a URL
 
 To improve performance, more application logic for a page was pushed to the client for execution.  This way the user's session was more responsive.
 
+## Web Page Components
 
 Basic components that make up a web page:
 
@@ -74,62 +75,63 @@ The most basic way to reference external content is:
 
 ### Images
 
-
-
-
+```html
+<img src="http://www.example.com/picture.png">
+```
 
 ### Stylesheets
 
-```css
-
+Controls the appearance of the HTML document
+```html
+<link rel=stylesheet href="http://"
+<style> 
 ```
 
-
 ### Scripts
+
+JavaScript and VBScript can be executed:
 
 ```javascript
 <script type="text/javascript" src="analytics.js"></script>
 ```
 
-
 ### Plugins
 
+Browser plug-ins allow different file formats to be displayed in the browser.  Many times the plug-in applications are given special privilges to show these different formats in the browser window.  
+
+|Windows Media Player|embedded audio and video|
+|Apple QuickTime|embedded audio and video|
+|Adobe Reader|embedded PDFs|
+|Microsoft Office|embedded word documents and spreadsheets|
+|Adobe Flash|embedded videos|
 
 
+#### Java
 
-High
+#### ActiveX Controls
 
-single threaded runtime, single call stack (one thing at a time)
+#### Adobe Flash
+JavaScript-based language called ActionScript
 
----
-since js is high level (human written) and meant to be easy to use
-as the code is interpreterd, it does a lot of lookups, type conversions, etc. to optimize and execute it
-
-run native code on the browser
-
-Java machine and byte code
-.NET runtime is IL format
-
-
-
-
-
-
+#### Microsoft Silverlight
 
 
 
 
+```html
+<object data="player.swf" type="application/x-shockwave-flash">
+<embed src=>
+<applet>
 
 
 
 
-browser sandboxes
-- shady code on website won't delete hard drive because of sandbox
-- shady binary may 
+## JavaScript
 
-(java, flash?)
+This is the primary scripting language used on the world wide web.  It is a single threaded runtime with a single call stack---which means it does one thing at a time.  
 
-JS
+Here are some popular JavaScript engines:
+
 V8 — open source, developed by Google, written in C++
 Rhino — managed by the Mozilla Foundation, open source, developed entirely in Java
 SpiderMonkey — the first JavaScript engine, which back in the days powered Netscape Navigator, and today powers Firefox
@@ -141,32 +143,91 @@ Nashorn, open source as part of OpenJDK, written by Oracle Java Languages and To
 parses code, compiles it to machine code, and executes it while monitoring and optimizing
 
 
-Browser provides WebAPIs
-- DOM
-- ajax(XMLHTTPRequest)
-- setTimeout
+Browsers provide a sandboxed JavaScript execution environment for every HTML document displayed.  The sandbox limits the JavaScript to specific methods and properties within the browser.  This ensures a script from a random site can't delete your hard drive in the same way an executable from a random site. 
 
-sacrificed speed for ease of use,  dynamically typed
+JavaScript Objects
 
-
-JIT compilers speed up performance by translating JS code into machine code
-watches code as it runs, sees what's run many times
-if function runs many times, it's sent to the compiler to optimize, creates a faster version of the function
-
-V8 - used in Chrome and Node.js
-has heap for memory allocation and stack for code execution
+| | |
+|-|-|
+|document|DOM of the current page|
+|navigator|OS and plug-in information|
 
 
-Node (V8), Electron
+Document Object Model
+
+An in-memory representation of all of the HTML elements of the current web page.  The browser uses this to display and update the page.
+
+JavaScript accesses the DOM using the document object:
+
+```javascript
+document.getElementsbyTagName
+```
 
 
-Asynchronous JavaScript and XML (AJAX)ax helped JS create dynamic web applications which sparked an open source revolution
-Data could be loaded in the background avoiding reloading page, resulting in more dynamic applications
+
+
+
+Scripts called by the HTML document run in this environment and use it to share functions and global variables.  The scripts can access the DOM and manipulate parts of the web page.  If the scripts need to interact with something outside this context, they must use Web APIs provided by the browser.
+
+Browser-provided Web APIs:
+
+- [DOM]
+- [ajax(XMLHTTPRequest)]
+- [setTimeout]
+
+
+### DOM
+
+
+### AJAX
+
+Asynchronous JavaScript and XML (AJAX) helped JavaScript create dynamic web applications which sparked an open source revolution
+Data could be loaded in the background avoiding reloading the page, resulting in more dynamic applications
 this led to jquery, 
 server side (Node.JS)
 Web application frameworks (AngularJs, React, Knockout)
 
 
+### JIT Compilers
+
+JavaScript is a high level (human written) language and was designed to sacrifice speed for ease of use.  The JavaScript engine parses the code, resolves the functions, and executes the code.  While JavaScript interprets each script, it does a lot of lookups, type conversions, etc. to optimize it for execution.
+
+JIT compilers speed up performance by translating JS code into machine code
+watches code as it runs, sees what's run many times
+if function runs many times, it's sent to the compiler to optimize, creates a faster version of the function
+
+
+
+```javascript
+appendChild()
+document.write()
+```
+
+
+
+
+### VBScript
+
+Has access to the DOM APIs as well
+
+
+
+
+Previous attempts include Java machine and byte code, .NET runtime is IL format
+
+(java, flash?)
+
+
+
+V8 - used in Chrome and Node.js
+has heap for memory allocation and stack for code execution
+
+
+## Node
+
+Node.js was built on the V8 engine and allows building full applications with JavaScript.
+
+(V8), Electron
 
 Node
 build full applications with js
@@ -179,10 +240,13 @@ JS isn't good with optimizations
 
 
 JS is a high level language (textual), these are harder to optimize code with
-asm.js 
-compiler target compatible with plain JS
+
+asm.js is a compiler target compatible with plain JS
 takes C++, compiles it to JS, JS is translated into native code
 
+
+
+## Web Assembly
 
 Web Assembly is a low level (binary) direct successor to asm.js, a lower level version of js
 It is a general purpose virtual architecture with open standard with cross-browser support
@@ -192,17 +256,24 @@ except, regular assembly is specific to an architecture
 on web, architecture of client machine is unknown
 WASM is machine code for a conceptual machine, not a physical machine
 wasm is smaller (binary)
-
-
 large computations are slower on JS.  With wasm, we can control exactly how memory is allocated and freed making it faster
 
 
-OS - C programs can be compiled for either Win, Lin, Mac.. x64 or x86
 
-Web - emmc compiles a c program into WASM for all browsers--Safari, Chrome, Firefox, Edge
-hand the browser optimized code
+### Concept
 
-Doesn't replace JS, but expands web.  Enables hybrid designs (WASM + JS)
+Web Assembly is similar to writing and compiling code to run on an Operating System.
+
+C programs can be compiled for either Windows, Linux, or Mac and for the x64 or x86 architecture.  The compiler scans the entire program and creates an optimized executable containing binary code for the CPU to execute.  After this, the executable should run on any machine with the appropriate OS and architecture.
+
+Web Assembly is similar as it allows you to compile a C program into WASM that will run on any of the major browsers--Safari, Chrome, Firefox, and Edge.  This is a huge performance boost because the browser is being given code that's already been optimized.  It's basically running native code on the browser.
+
+WASM doesn't replace JavaSscript, but complements it by enabling hybrid designs (WASM + JS).
+OS-independent web.
+JavaScript loads a web assembly module, instantiates it, and calls its functions.
 
 
-JS loads a web assembly module and instantiate it.
+### Example
+
+
+
