@@ -6,6 +6,50 @@
 - Decrease response time and reduce impact of the security incident																								
 - Mitigate weaknesses that were exploited																								
 
+
+[Preparation](#preparation)
+	[Policy](#policy)
+	[Tools and Staffing](#tools-and-staffing)
+	[Training and Planning](#training-and-planning)
+	[Response Strategies](#response-strategies)
+[Identification](#identification)
+	[Capture Analyze and Interpret Traffic and Events](#capture-analyze-and-interpret-traffic-and-events)
+	[Network Analysis](#network-analysis)
+	[Assess and Determine if Incident](#assess-and-determine-if-incident)
+	[Assign IR Team and Use OOB and Encrypted Comms](#assign-ir-team-and-use-oob-and-encrypted-comms)
+	[Establish Chain of Custody](#establish-chain-of-custody)
+	[Contain and Clear or Watch and Learn](#contain-and-clear-or-watch-and-learn)
+[Containment](#containment)
+	[Memory Acquisition](#memory-acquisition)
+	[Live Data Collection](#live-data-collection)	
+	[Memory Analysis](#memory-analysis)
+	[Characterize Incident](#characterize-incident)
+	[Short-Term Containment](#short-term-containment)
+	[Stop Attack Progress](#stop-attack-progress)
+	[System Backup](#system-backup)
+	[Determine Risk of Continuing Operations](#determine-risk-of-continuing-operations)
+	[Long-Term Containment](#long-term-containment)
+[Eradication](#eradication)
+	[Identify Root Cause and Symptoms](#identify-root-cause-and-symptoms)
+	[Remove Malware or Wipe Reformat Rebuild](#remove-malware-or-wipe-reformat-rebuild)
+	[Improve Defenses](#improve-defenses)
+	[Perform Vulnerability Analysis](#perform-vulnerability-analysis)
+	[Look for Similar Attacks](#look-for-similar-attacks)
+	[Eliminate Repeat Occurrences](#eliminate-repeat-occurrences)
+[Recovery](#recovery)
+	[Validate System](#validate-system)
+	[Return to Production Safely](#return-to-production-safely)
+	[Monitor for Repeat Events](#monitor-for-repeat-events)
+[Lessons Learned](#lessons-learned)
+	[Analysis and Technical Report](#analysis-and-technical-report)
+	[Meeting Within 2 Weeks](#meeting-within-2-weeks)
+	[Create Action Plan](#create-action-plan)
+	[Apply Approved Fixes](#apply-approved-fixes)
+
+	
+
+
+
 ## Preparation	
 
 Get team ready to handle incidents, Understand organization's risk profile and security posture, position to resist intrusions or counter weaknesses being exploited by ongoing intruder activity
@@ -22,7 +66,7 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 - Incident Handling plan should include hooks to your DR and BCP																								
 
 
-### Tools & Staffing	
+### Tools and Staffing	
 
 - Endpoint security (HIDS, AV, HBF) for detection, reporting, and protection against malicious software and activity																								
 - IDS and IPS (Snort) for signature and anomaly-based alert data for alerting on and/or blocking real-time traffic in transit																								
@@ -38,7 +82,7 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 - Ensure proper IRT staffing	
 
 - Implement hunt teaming searching for long URLs, weird user-agent strings, long durations, concurrent logins, blacklisted DNS entries, beaconing, odd services/exe's																								
-### Training & Planning	
+### Training and Planning	
 
 - Constantly train and assess the workforce on protecting the enterprise, test quarterly and track improvements and deficiencies																								
 - Provide users with policy, procedures, training and convenient reporting and response capabilities such as phone, email, or website																								
@@ -65,17 +109,17 @@ Maintain SA of indications, warnings, intelligence, fuse or correlate informatio
 - Identify RATs, C&C, Encrypted communications, Covert channels, HIDS/NIDS alerts																								
 ### Network Analysis
 
-- 1. Netflow analysis – Look at POP/chokepoints (web proxy, dns cache, connection logs) for what, where, when, how often, how much data																								
+- Netflow analysis – Look at POP/chokepoints (web proxy, dns cache, connection logs) for what, where, when, how often, how much data																								
 	- DNS – short TTLs, find cached malicious domains with dns-blacklists.py and Malware Domain List																								
 	- Web Proxy – Long URLs, weird user agent strings, blacklisted domains																								
 
 	- Connection Data – Beaconing, Scanning, Long durations, blacklisted IP addresses, Concurrent logins to high numbers of systems																								
-- 2. Network connections – ports, protocols, socket creation times
+- Network connections – ports, protocols, socket creation times
 
-- 3. Processes - What they are tied to, what they are doing, times started, locations, DLLs, parent processes, command arguments, SIDs running under																								
-- 4. Files – strings, behavior, origin, reputation		
+- Processes - What they are tied to, what they are doing, times started, locations, DLLs, parent processes, command arguments, SIDs running under																								
+- Files – strings, behavior, origin, reputation		
 
-- 5. Relationships – with hostile systems, other internal systems
+- Relationships – with hostile systems, other internal systems
 
 ### Assess & Determine if an Incident	
 
@@ -83,7 +127,7 @@ Maintain SA of indications, warnings, intelligence, fuse or correlate informatio
 																								
 - Maintain notes recording all actions with timestamps																								
 
-### Assign IR Team, use OOB and Encrypted Comms	
+### Assign IR Team and Use OOB and Encrypted Comms	
 
 - Notify correct members using correct methods including press team, legal team, provide updates as new information comes to light																								
 - On-site response team within 90 min. with checklists, jump bags, contact lists with owner and technical POCs for each system, set up command post to collect and analyze data		
@@ -100,7 +144,7 @@ Maintain SA of indications, warnings, intelligence, fuse or correlate informatio
 
 - Obtain hash, store in safe location with digital signature, copy evidence file to external media, validate copy by running hash on external media and comparing to good hash			
 
-### Contain/Clear or Watch/Learn?	
+### Contain and Clear or Watch and Learn	
 
 - Does victim contain sensitive information?	
 
@@ -114,10 +158,6 @@ Maintain SA of indications, warnings, intelligence, fuse or correlate informatio
 ## Containment	
 
 FIRST AID – Prevent attacker from getting deeper, spreading to other systems
-
-### System Backup	
-
-### Data Collection
 
 ### Memory Acquisition	
 
@@ -134,34 +174,42 @@ FIRST AID – Prevent attacker from getting deeper, spreading to other systems
 - For data exfiltration, memory can contain encryption keys and passwords, plain-text contents of files before they were encrypted, full content network packets.																								
 - Full Disk Encryption - extract AES keys to allow decryption, bypass packers, binary obfuscators, rootkits (including kernel mode) and other hiding tools																								
 - Rootkit Analysis - identify processes trying to run undetected, network connections , running processes, open files, memory only chats, decrypted malware, windows cmd line history, better understand an event through correlation - memory, disk, network																								
-- 1. If VM, pause/snapshot, clone, host disk, introspection  (most will not include network connection data)																								
-- 2. If host not running, try hibernation file, page file(s), crash dumps																								
+- [If VM, pause/snapshot, clone, host disk, introspection]()  (most will not include network connection data)																								
+- [If host not running, try hibernation file, page file(s), crash dumps]()
+
 	- Convert hiberfil.sys with Volatility		
 
 	- Convert hiberfil.sys with MoonSols hibr2bin
 
 	- Convert dump file with MoonSols dmp2bin		
 
-- 3. If running, and have root, use software-based utility
+- [If running, and have root, use software-based utility]()
 
 	- Local - dump to USB, ESATA, or Firewire drive - Dump memory to an external drive or to a listener on a remote machine.  If possible, do not save evidence to the local disk because it would overwrite unallocated disk space that could be helpful during disk forensics																								
 	- Remote - push tools with Psexec or copy them to C$ or Admin$ via SMB, then schedule a task or install service that runs tools and sends physical memory to netcat listener	
 
-		- 1.)  Create a temp admin account with access to only target system																								
-		- 2.)  Disable after acquisition is complete, monitor for use of credentials																								
-		- 3.)  Compute integrity hashes before and after the transfer																								
+	1. Create a temp admin account with access to only target system	
+
+	2. Disable after acquisition is complete, monitor for use of credentials																								
+	3. Compute integrity hashes before and after the transfer																								
 		
-		- 4.)  Send via encrypted means if possible (CryptCat, F-Response, KnTDD)																								
+	4. Send via encrypted means if possible (CryptCat, F-Response, KnTDD)
+
 - Open Source - Winpmem, Linpmem, FTK Imager, RAM capturer, DumpIt, RAM Capture, Memoryze, MDD, dc3dd																								
 - Commercial - Dumpit, KnTDD, WinEn, WindowsSCOPE, HBGary FastDump, F-Response, EnCase																								
 - LINUX - dc3dd and memdump for 2.4, LMG, LiME, linpmem, fmem for 2.6 and later																								
-- 4. If not root, obtain exploit/brute force password	
+- [If not root, obtain exploit/brute force password]()	
 
-- 5. If not, use Direct Memory Access (DMA)	
+- [If not possible, use Direct Memory Access (DMA)]()
 
 - Gather Live System State and Artifacts - Firewire (less than 4GB) or PCI	
 
-- Obtain live system state and send to /mnt/usb/live:  `for cmd in 'uname -a'  ifconfig; do echo $cmd >> /mnt/usb/live && $command >> /mnt/usb/live 2>&1;done`																								
+- Obtain live system state and send to /mnt/usb/live:  
+
+```
+for cmd in 'uname -a'  ifconfig; do echo $cmd >> /mnt/usb/live && $command >> /mnt/usb/live 2>&1;done
+```			
+
 - Gather other Linux artifacts	
 
 - Get Image of File System	
@@ -189,7 +237,9 @@ FIRST AID – Prevent attacker from getting deeper, spreading to other systems
 - Data and files not flushed to disk				
 
 - Persistence - Run keys, scheduled tasks, malware as service, startup folder, DLL load order hijacking, image path hijacking																								
-### Characterize Incident	Assign Category, Severity, and Sensitivity - Prioritize by functional impact, informational impact, and recoverability																								
+### Characterize Incident	
+
+- Assign Category, Severity, and Sensitivity - Prioritize by functional impact, informational impact, and recoverability																								
 - Which networks, systems, or applications are affected			
 
 - Who or what originated the incident, how the incident is occurring
@@ -234,7 +284,9 @@ FIRST AID – Prevent attacker from getting deeper, spreading to other systems
 
 - Shut down system		
 
-### System Back-up (mem/nw/FS)	
+### System Backup 
+
+- Backup filesystem, memory, and network artifacts	
 
 - Filesystem: Use removable media with binaries, set path to run programs from media, create with dd, make original image (1), copy (2), and analysis starts on image (3)
 																							
@@ -252,14 +304,14 @@ FIRST AID – Prevent attacker from getting deeper, spreading to other systems
 
 - Remove accounts used by attacker, change passwords, shut down backdoor processes, alter any trust relationships																								
 - Patch system, null-route all but essential ip addresses, deploy in-line Snort/IPS																								
+
 ## Eradication	
 
 Determine cause, symptoms, and vector of attack and make corrections																								
 
+### Identify Root Cause and Symptoms
 
-### Identify root cause/symptoms
-
-### Scrub/Remove malware OR Wipe/reformat/rebuild	
+### Remove Malware or Wipe Reformat Rebuild	
 
 - Risks of not wiping/rebuilding
 
@@ -269,18 +321,18 @@ Determine cause, symptoms, and vector of attack and make corrections
 
 - Filters, null route IPs, change IP and DNS names, patch and harden system	
 
-### Perform vulnerability analysis																									
+### Perform Vulnerability Analysis																									
 
-### Look for similar attacks																									
+### Look for Similar Attacks																									
 
-### Eliminate repeat occurrences																									
+### Eliminate Repeat Occurrences																									
 
 
 ## Recovery	
 
 Validate system, safely return to production, and monitor																								
 
-### Validate system	
+### Validate System	
 
 - Verify normal operation and all needed patches and controls IAW procedures, Have business units perform end user validation testing																								
 - Return to production safely, have system owners decide when to restore systems, Coordinate restore operation time with business unit																								
@@ -289,99 +341,36 @@ Validate system, safely return to production, and monitor
 
 Document what happened, improve capabilities																								
 
-### Analysis/Technical Report	
+### Analysis and Technical Report	
 
 - Initial vector of infection, How privileged credentials were obtained, Which systems were involved, What was searched and why, What was taken and how																								
 - Extent of compromise and Remediation Plan	
 
 - Get signature on follow up recommendations
 
-### Meeting within 2 weeks	
+### Meeting Within 2 Weeks	
 
 - Process improvement, IH team and procedures effectiveness, Policy or organizational problems encountered that require management's consideration																								
-### Create action plan to respond to operational issues that arose from this incident, Characterize adversary, Counter-intelligence strategies such as Kill Chain, Recategorize and revalue assets in light of incident																								
-Apply approved fixes 	to process, technology, IR capabilities																								
-- Move critical data to more restricted area, implement increased auditing																								
+### Create Action Plan 
+
+- To respond to operational issues that arose from this incident
+
+- Characterize adversary using counter-intelligence strategies such as Kill Chain, Diamond Model
+
+- Recategorize and revalue assets in light of incident		
+
+### Apply Approved Fixes 	
+
+- To IR process, technology, and capabilities	
+
+- Move critical data to more restricted area, implement increased auditing	
+
 - Counsel/train/discipline any individuals who accidentally or purposefully aided the adversary																								
 - Additional training required for new skills or using current tools more effectively																								
-- Additional staff to aid in response																								
-- New software or hardware to help prevent future incident																								
-- Forms and incident management systems																								
-- Consider adding a forensics capability for better evidence collection or IR/awareness																								
-Attack Steps																									
-Reconnaissance	names, phone numbers, postal addresses, IP addresses, and DNS servers																								
-Remote Enumeration	Fingerprint and gather information from each port, enumerate shares, user IDs, SNMP, banners, OS versions, etc																								
-Construct Attack Sequence																									
-Remote Exploits & PrivEsc	Perform sequence of exploits against open services for specific vendor, version, password attacks																								
-Local Enumeration	Interesting files, cmd history, environment settings, memory, running services, directory permissions, service permissions, scheduled jobs, weak permissions etc																								
-Local Exploits & PrivEsc	Escalate to full root/system level access with UAC bypass, elevation scripts, local exploits, brute forcing, etc																								
-Persistence																									
-Root Loot	Search the whole system with system/root access for interesting data, Steal hashes from LSA, configuration scripts, SAM/shadow database, cracking MD5 and NTLM, checking currently connected users, checking relationship between this host and other hosts, etc																								
-Update Attack Sequence	Update attacks with new information																								
-Commands																									
-Linux																									
-Windows																									
-Technologies																									
-Endpoint IR	GRR, OSQuery, Tanium, Carbon Black, MIR, EnCase Enterprise, F-Response Enterprise, FireEye HX, osquery/Envdb, MIG, Kansa, Crowdstrike Response																								
-Cloud	EC2, GCE, Azure																								
-SIEM	Qradar, ArcSight, Spark? , Solar Winds, Trustwave, Tenable, MozDef?																								
-Logging	Sysmon with ELK/Splunk, Syslog-NG, Beats, RELP																								
-Analysis/Repository	Moloch, Hadoop																								
-Case Management	CERT's FIR, CRITs, Jira, ArcSight, RSA Archer																								
-Hunting/Threat Analytics	RITA, SOF-ELK, Cisco Talos, FireEye TAP, MTA																								
-Web Proxy	Squid with DansGuardian, NGINX, Apache, Bluecoat, Forefront TMG, Barracuda, Websense																								
-Enhanced Aggregation	Logstash (ELK), ELSA, Splunk, Cisco OpenSOC																								
-Netflow	SiLK, Nfcapd																								
-Vulnerability Scanning	Find holes in network, wireless, phone before attackers   Supplement with pentesting to verify results  CONS: false positives, unverified vulnerabilities																								
-HIDS	Unencrypted, UA changes, FIC, resource misuse, OSSEC, Tiger, Samhain  CONS: deployment/maint/updates, tunnel vision, needs centralization, cost  USE: monitor changes at application level (web/dns/mail), networking devices 																								
-NIDS	insight into network, assists quick response, auditing, Snort, PSAD   CONS: topology, encryption, signature quality/quantity, performance, cost   USE: Well-trained analysts, SIEM, integrate with VA for profiling/prioritization																								
-HIPS	HIDS + ability to stop known & unknown attacks   CONS: false positives + same as HIDS  USE: Centrally manage and test software & updates, don't rely solely on																								
-NIPS	NIDS + ability to stop known & unknown attacks   CONS: false positives, throughput, less-extensive rule base, false negatives   USE: trained analysts & engineers																								
-Firewalls	Filter based on content, perform NAT, Encrypt for VPN   CONS: Application-layer, VPN, dial-up, extranet attacks may get through   USE: Default Deny on packet filter, stateful inspection or Proxy/App Gateway																								
-Honeypots	Insight into TTP, reduces false alarms   CONS: improper deployments, use against org, resource burden, legal liability   USE: deploy/monitor secure, low-interaction, in unused address space																								
-Integrity Checkers	Integrit, Tripwire, Aide, Samhain, Verisys																								
-Boot	Boot sector, MBR, BIOS code integrity   BitLocker used with TPM, UEFI Secure Boot (Win 8 & later)																								
-Endpoint	ClamAV, Comodo, AVG, Avira, BitDefender, SE/Windows Defender, Malwarebytes, CarbonBlack																								
-Web Application Firewall	ModSecurity, ModEvasive, ModSecurity, WebKnight																								
-Rootkit Detection	chrootkit, rkhunter. Anti-Rootkit, Rootkit Detective, and Rootkit Revealer																								
-Memory/BO protection	PaX, Pro Police, EMET																								
-Brute force blockers	Fail2Ban, DenyHosts, Cyberarms, Syspeace, RdpGuard																								
-Data Loss Prevention	MyDLP, Bluecoat, Websense																								
-AppWhite-listing/MAC	AppArmor, SELinux, Grsecurity, SRP, AppLocker, DeviceGuard																								
-Cached malicious domains	Dns-blacklists.py, Malware Domain List																								
-Encryption																									
-Data in Transit	VPNs (Client & Site-to-Site)	Confidentiality over public networks, quick set up, low cost, CONS: no dedicated bandwidth, not recommended for time-critical comms																							
-- IPsec (uses IKE)	mutual authentication, provides CIA and replay attack prevention																							
-- SSL	fastest growing, compatibility, less problems, CONS: open fw ports (80/443), app vulns, authentication, browser attack surface																							
-Data at Rest	Disk Encryption	LUKS, VeraCrypt, LibreCrypt, or   BitLocker, VeraCrypt, CipherShed	Full disk (on-the-fly) or volumes, drives, containers, files																						
-- File encryption	Gpg4win, gpg, EncFS, eCryptfs, 7zip, EFS, AxCrypt																							
-- Email encryption	Gpg4win, gpg																							
-Key Management	PKI	simplifies authorized access, allows secure web, email, disk encryption, code/driver signing, IPSEC & VPN, NAC, wireless, digital sigs, general user authentication	competing/incomplete standards, certification of CAs, extensive planning																						
-- SSL/TLS for web traffic	prevents eavesdropping/tampering																							
-Steganography	S-Tools for (Win)	hides/retrieves data inside BMPs, GIFs, WAVs																							
-- Invisible Secrets (Win)	hides/retrieves data inside JPEG, PNG, BMP, HTML, WAV																							
-Wireless																									
-VOIP																									
-IPv6 over IPv4	6to4  (IPv6 sites talking via IPv4)	Gateway adds/removes IPv4 header (Proto type 41)	10.10.10.10 --> 2002:0a0a:0a0a::																						
-- Teredo  (IPv6 hosts using UDP)	"IPv6 hosts talk via IPv4 P2P UDP
-run automatically, wrapped in UDP, uses bubbles (keep-alives)"	"Use to be 3FFE:831F::/32
-RFC 4380 Changed to 2001::/32"	"Host sends IPv4 UDP to a teredo relay
-Relay forwards/receives traffic to IPv6 host
-Relay returns traffic to host via IPv4 UDP"																					
-- GRE (IPv6 over IPv4)	Tunnel software adds/removes IPv4 headers																							
-Client Controls																									
-Hosts file	hostsfile.mine.nu/downloads/updatehosts.sh.txt	winhelp2002.mvps.org/hosts.htm																							
-Adblocking software	Adblock Plus	Adblock Plus																							
-JS/Flash execution	NoScript, Ghostery, BetterPrivacy	NoScript, Ghostery, BetterPrivacy																							
-Private data security	SafeHistory, ClickClean, SafeCache	SafeHistory, ClickClean, SafeCache																							
-Phishing defense	Web of Trust																								
-Anonymous surfing	Tor, privoxy, hidemyass	Tor, privoxy, hidemyass																							
-Encryption	HTTPSEverywhere, HTTP Finder, OpenVPN	HTTPSEverywhere, HTTP Finder, OpenVPN																							
-Config Mgmt, Backup/Recovery																									
-stand up server	kickstart, SCCM																								
-Software/version inventory	RCS, CVS, SVN, bro, SCCM, wmic, Kansa																								
-Configuration assessment	CIS CAT, Lynis, SCA																								
-Backups/Restore	dd, bacula, System Restore																								
-config mgmt	chef, puppet, salt, ansible, cfengine, SCCM																								
-Package deployment	SCCM, munki, casper, apt, yum																								
-server monitoring 	nagios, cacti, munin, zabbix, spiceworks																								
+- Additional staff to aid in response		
+
+- New software or hardware to help prevent future incident	
+
+- Forms and incident management systems				
+
+- Consider adding a forensics capability for better evidence collection or IR/awareness																			
