@@ -1,5 +1,27 @@
 # Recommendations
 
+- [Device Inventory](#device-inventory)
+- [Software Inventory](#software-inventory)
+- [Secure Configurations](#secure-configurations)
+- [Vuln Scans and Patching](#vuln-scans-and-patching)
+- [Administrative Privileges](#administrative-privileges)
+- [Log Monitoring](#log-monitoring)
+- [Web and Email Clients](#web-and-email-clients)
+- [Malware Defenses](#malware-defenses)
+- [Network Ports](#network-ports)
+- [Backups](#backups)
+- [Network Devices](#network-devices)
+- [Perimeter Defense](#perimeter-defense)
+- [Data Protection](#data-protection)
+- [Access Control](#access-control)
+- [Wireless Access Control](#wireless-access-control)
+- [Account Monitoring and Control](#account-monitoring-and-control)
+- [Training and Evaluation](#training-and-evaluation)
+- [Application Security](#application-security)
+- [Incident Response](#incident-response)
+- [Pentesting and Redteaming](#pentesting-and-redteaming)
+
+
 ## Device Inventory	
 - Use an automated asset discovery tool to inventory all organization systems and detect rogue systems connected to the network
 - Implement DHCP server logging to track inventory and detect unknown systems
@@ -145,7 +167,7 @@
 - Maintain separate environments for production and nonproduction systems.
 - Ensure that all software development personnel receive training in writing secure code for their specific development environment.
 - Ensure that in-house software development artifacts are not included in production software or accessible in the production environment.
-## IR	
+## Incident Response
 - Develop IR procedures that define phases of IH process and define roles of personnel handling incidents.
 - Assign job titles and duties for handling computer and network incidents to specific individuals.
 - Define management personnel who will support the incident handling process by acting in key decision-making roles.
