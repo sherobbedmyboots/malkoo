@@ -1,4 +1,5 @@
 | |Ipv4|Ipv6|
+|-|-|-|
 |Loopback|127.0.0.1|::1/128|
 |LinkLocal|169.254.0.0/16|fe80::/10|
 |Global Unicast|Any routable addr|2000::3, 3000::|
@@ -20,7 +21,7 @@
 |Echo reply|type 0|type 129|
 |Router solicit|type 130|
 |Router advertise|type 131|
-|Router solicit|DHCP|type 133   to ff02::2|all routers|
-|Router Adver|DHCP|type 134|to ff02::1|all hosts|
-|Neighbor Solicit|ARP req|type 135|to ff02::1   all hosts|
-|Neighbor Adver|ARP reply|type 136|to neighbor|
+|Router solicit|DHCP|type 133 to ff02::2 all routers|
+|Router Adver|DHCP|type 134|to ff02::1 all hosts|
+|Neighbor Solicit|ARP req|type 135 to ff02::1 all hosts|
+|Neighbor Adver|ARP reply|type 136 to neighbor|
