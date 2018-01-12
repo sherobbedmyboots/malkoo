@@ -6,7 +6,8 @@
 - Decrease response time and reduce impact of the security incident																								
 - Mitigate weaknesses that were exploited																								
       
-
+        
+        
 
 - [Preparation](#preparation)
 	- [Policy](#policy)
