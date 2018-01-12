@@ -2,6 +2,18 @@
 
 
 
+- [Basic Browser Operation](#basic-browser-operation)
+- [Web Page Components](#web-page-components)
+- [JavaScript](#javascript)
+- [Web Assembly](#web-assembly)
+
+
+
+
+
+
+## Basic Browser Operation
+
 On a basic level, a browser is used to access HTML pages over IP.
 
 Using HTTP GET requests, a browser requests a web page, parses its HTML, and renders the data it contains on the screen.
@@ -28,6 +40,9 @@ One of these is XMLHttpRequest which allows a client to retrieve data from a URL
 
 To improve performance, more application logic for a page was pushed to the client for execution.  This way the user's session was more responsive.
 
+
+
+
 ## Web Page Components
 
 Basic components that make up a web page:
@@ -43,9 +58,13 @@ Elements such as <head>, <title>, <body>, <img>, <div>, and <p> are used to labe
 
 The two main types are HTML and XHTML which is an extended version of HTML that is XML-based.
 
-The tags are parsed and 
 
-CSS is use
+
+
+
+
+
+Everything is parsed and read into memory creating the Document Object Model (DOM)
 
 
 
@@ -115,20 +134,21 @@ JavaScript-based language called ActionScript
 
 #### Microsoft Silverlight
 
-
-
-
 ```html
 <object data="player.swf" type="application/x-shockwave-flash">
 <embed src=>
 <applet>
+```
+
+
+
 
 
 
 
 ## JavaScript
 
-This is the primary scripting language used on the world wide web.  It is a single threaded runtime with a single call stack---which means it does one thing at a time.  
+JavaScript is the primary scripting language used on the world wide web.  It is a single threaded runtime with a single call stack---which means it does one thing at a time.  
 
 Here are some popular JavaScript engines:
 
@@ -143,7 +163,7 @@ Nashorn, open source as part of OpenJDK, written by Oracle Java Languages and To
 parses code, compiles it to machine code, and executes it while monitoring and optimizing
 
 
-Browsers provide a sandboxed JavaScript execution environment for every HTML document displayed.  The sandbox limits the JavaScript to specific methods and properties within the browser.  This ensures a script from a random site can't delete your hard drive in the same way an executable from a random site. 
+Each browser has their own JavaScript engine and provides a sandboxed JavaScript execution environment for every HTML document displayed.  The sandbox limits the JavaScript to specific, predefined methods and properties within the browser.  This ensures a script from a random site can't delete your hard drive in the same way an executable from a random site. 
 
 JavaScript Objects
 
@@ -153,7 +173,7 @@ JavaScript Objects
 |navigator|OS and plug-in information|
 
 
-Document Object Model
+#### Document Object Model
 
 An in-memory representation of all of the HTML elements of the current web page.  The browser uses this to display and update the page.
 
@@ -190,10 +210,10 @@ Web application frameworks (AngularJs, React, Knockout)
 
 ### JIT Compilers
 
-JavaScript is a high level (human written) language and was designed to sacrifice speed for ease of use.  The JavaScript engine parses the code, resolves the functions, and executes the code.  While JavaScript interprets each script, it does a lot of lookups, type conversions, etc. to optimize it for execution.
+JavaScript is a high level language that was designed in a way to sacrifice speed for ease of use.  The JavaScript engine parses the human-readable code, resolves all the functions, and executes the code.  While JavaScript interprets each script, it does a lot of lookups, type conversions, etc. to optimize it for execution.
 
 JIT compilers speed up performance by translating JS code into machine code
-watches code as it runs, sees what's run many times
+It watches code as it runs, sees what's run many times
 if function runs many times, it's sent to the compiler to optimize, creates a faster version of the function
 
 
@@ -223,7 +243,7 @@ V8 - used in Chrome and Node.js
 has heap for memory allocation and stack for code execution
 
 
-## Node
+## Node.js
 
 Node.js was built on the V8 engine and allows building full applications with JavaScript.
 
