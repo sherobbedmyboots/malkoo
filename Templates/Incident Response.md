@@ -7,7 +7,7 @@
 - Mitigate weaknesses that were exploited																								
       
         
-        
+
 
 - [Preparation](#preparation)
 	- [Policy](#policy)
@@ -15,8 +15,8 @@
 	- [Training and Planning](#training-and-planning)
 	- [Response Strategies](#response-strategies)
 - [Identification](#identification)
-	- [Capture Analyze and Interpret Traffic and Events](#capture-analyze-and-interpret-traffic-and-events)
-	- [Network Analysis](#network-analysis)
+	- [Capture and Analyze Traffic and Events](#capture-and-analyze-traffic-and-events)
+	- [Network and System Analysis](#network-and-system-analysis)
 	- [Assess and Determine if Incident](#assess-and-determine-if-incident)
 	- [Assign IR Team and Use OOB and Encrypted Comms](#assign-ir-team-and-use-oob-and-encrypted-comms)
 	- [Establish Chain of Custody](#establish-chain-of-custody)
@@ -103,13 +103,13 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 ## Identification	
 
 Maintain SA of indications, warnings, intelligence, fuse or correlate information																								
-### Capture, Analyze, and Interpret Traffic and Events	
+### Capture and Analyze Traffic and Events	
 
 - Centralize Network perimeter, Host perimeter, System-level, and Application-level logs and work to identify all data from machines over all application																								
 - Unknown web pages, PDFs, email attachments, etc. sent to a sandbox system, executed in organization's normal OS/app environment, malicious traffic is tagged and blocked at the gateway	
 
 - Identify RATs, C&C, Encrypted communications, Covert channels, HIDS/NIDS alerts																								
-### Network Analysis
+### Network and System Analysis
 
 - Netflow analysis – Look at POP/chokepoints (web proxy, dns cache, connection logs) for what, where, when, how often, how much data																								
 	- DNS – short TTLs, find cached malicious domains with dns-blacklists.py and Malware Domain List																								
@@ -123,7 +123,7 @@ Maintain SA of indications, warnings, intelligence, fuse or correlate informatio
 
 - Relationships – with hostile systems, other internal systems
 
-### Assess & Determine if an Incident	
+### Assess and Determine if Incident	
 
 - Knowing where to look to determine what happened, identify attacking hosts, malware C2, data exfiltration
 																								
