@@ -19,9 +19,9 @@
 |Unreachable|type 1|type 3|
 |Echo request|type 8|type 128|
 |Echo reply|type 0|type 129|
-|Router solicit|type 130|
-|Router advertise|type 131|
+|Router solicit||type 130|
+|Router advertise||type 131|
 |Router solicit|DHCP|type 133 to ff02::2 all routers|
-|Router Adver|DHCP|type 134|to ff02::1 all hosts|
-|Neighbor Solicit|ARP req|type 135 to ff02::1 all hosts|
+|Router Advertise|DHCP|type 134 to ff02::1 all hosts|
+|Neighbor Solicit|ARP request|type 135 to ff02::1 all hosts|
 |Neighbor Adver|ARP reply|type 136 to neighbor|
