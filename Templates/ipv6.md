@@ -5,7 +5,7 @@
 |Global Unicast|Any routable addr|2000::3, 3000::|
 |Ipv4-Mapped|N/A|::ffff/96|
 |Ipv6 to Ipv4|N/A|2002::/16|
-|Documentation   198.18.0.0/15|2001:0db8::/32|
+|Documentation|198.18.0.0/15|2001:0db8::/32|
 |Multicast|224.0.0.0/4|ff00::8|
 |Teredo|N/A|2001:0000::/32|
 |Private|10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16|fc00::/7|
@@ -14,7 +14,7 @@
 ||TTL|Hop|
 ||Type of Service|Traffic class|
 ||Protocol|Next Header|
-||No checksums|
+|||No checksums|
 |ICMP NH Value|1|58|
 |Unreachable|type 1|type 3|
 |Echo request|type 8|type 128|
