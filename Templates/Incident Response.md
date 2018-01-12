@@ -8,11 +8,17 @@
 
 
 [Preparation](#preparation)
+
 	[Policy](#policy)
+
 	[Tools and Staffing](#tools-and-staffing)
+
 	[Training and Planning](#training-and-planning)
+
 	[Response Strategies](#response-strategies)
+
 [Identification](#identification)
+
 	[Capture Analyze and Interpret Traffic and Events](#capture-analyze-and-interpret-traffic-and-events)
 	[Network Analysis](#network-analysis)
 	[Assess and Determine if Incident](#assess-and-determine-if-incident)
