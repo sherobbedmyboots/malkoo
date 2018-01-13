@@ -22,4 +22,4 @@
 |Local Exploits & PrivEsc|Escalate to full root/system level access with UAC bypass, elevation scripts, local exploits, brute forcing|
 |Persistence||
 |Root Loot|Search the whole system with system/root access for interesting data, Steal hashes from LSA, configuration scripts, SAM/shadow database, cracking MD5 and NTLM, checking currently connected users, checking relationship between this host and other hosts, etc|
-|Update Attack Sequence |pdate attacks with new information|
+|Update Attack Sequence |Update attacks with new information|
