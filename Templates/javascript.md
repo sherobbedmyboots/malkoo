@@ -1,77 +1,133 @@
-# Browser Malware
+# Browser-Based Malware and JavaScript
+
+Browser-based attacks may drop files or may exist only in the browser.
+
+Get the page with curl or wget --useragent and statically examine
+Or visit the page and perform dynamic analysis
+
+Run wireshark then open in NetworkMiner to extract files
+
+Understanding the Flow of Execution, use Fiddler web proxy to see which URLs are accessed and how
+
+Use Chrome Developer Tools to see all files, network traffic, etc. associated with the page
+
+Scripts can redirect to malicious pages or deliver exploits and are often obfuscated in some way.
+
+Delivery
+- inserting arbitrary code on a compromised website
+- social engineering to 
 
 
 
 - [Basic Browser Operation](#basic-browser-operation)
-- [Web Page Components](#web-page-components)
+	- [Web Page Components](#web-page-components)
+	- [Document Object Model](#document-object-model)
+	- [Browser Web APIs](#browser-web-apis)
 - [JavaScript](#javascript)
-- [Web Assembly](#web-assembly)
-
-
+	- [Obfuscation](#obfuscation)
+	- [Web Assembly](#web-assembly)
+- [Malware Using JavaScript]
+	- [JavaScript Downloaders](#javascript-downloaders)
+	- [Cryptominers](#cryptominers)
+	- [Man in the Browser Attacks](#man-in-the-browser-attacks)
 
 
 
 
 ## Basic Browser Operation
 
-On a basic level, a browser is used to access HTML pages over IP.
+On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP.
 
-Using HTTP GET requests, a browser requests a web page, parses its HTML, and renders the data it contains on the screen.
+A browser requests a web page with a HTTP/HTTPS GET, parses the HTML code in the file it recieves, and renders all the data as the code instructs.
 
-The data contains text, images, and links to other pages.
+This data can be:
+	
+	- Text to read
+	- Images to view
+	- Links that can be clicked
+	- Documents that need to be loaded (HTML, CSS)
+	- Scripts that need to run (JavaScript, VBScript)
+	- Files that need to be run by a plugin (Flash, Silverlight, Java)
 
-A POST request submits user data using forms for interactive tasks.
-
-As browsers developed, new features were created for different things. 
-
-CSS was used to change the way content is displayed.
-
-First you could add fonts, embed external documents.
-
-Then you could embed other programming languages such as JavaScript and VBScript.
-
-Then plugins were created that could execute platform-independent programs on an end user machine such as Flash or Java.
-
-
-Web APIs are provided by the browser to be used by JavaScript.
-
-One of these is XMLHttpRequest which allows a client to retrieve data from a URL without doing a page refresh.  Parts of the page can be updated without interrupting the user's browsing session.
-
-
-To improve performance, more application logic for a page was pushed to the client for execution.  This way the user's session was more responsive.
+Knowing how browsers deal with all of these is crucial for accurate analysis and reporting.
 
 
 
 
-## Web Page Components
+### Web Page Components
 
-Basic components that make up a web page:
+When a browser loads a web page, the following components are involved:
 
 - [HTML Document](#html-document)
+- [Linked and Embedded External Content](#linked-and-embedded-external-content)
+- [Document Object Model](#document-object-model)
+- [Browser-provided Web APIs](#browser-web-apis)
+
+
+
+
+
+
+
+Scripts called by the HTML document run in this environment and use it to share functions and global variables.  The scripts can access the DOM and manipulate parts of the web page.  If the scripts need to interact with something outside this context, they must use Web APIs provided by the browser.
+
+Browser-provided Web APIs:
+
+- [DOM]
+- [ajax(XMLHTTPRequest)]
+- [setTimeout]
 
 
 ### HTML Document
 
-This is a hierarchical structure of tags, attributes, and parameters containing the contents of the web page.
+HyperText Markup Language (HTML) is the primary language used for displaying web pages.
+
+An HTML document is a hierarchical structure of tags, attributes, and parameters containing the contents of the web page.
 
 Elements such as <head>, <title>, <body>, <img>, <div>, and <p> are used to label text, images, and components of the web page.
 
 The two main types are HTML and XHTML which is an extended version of HTML that is XML-based.
 
-
-
-
-
-
-
 Everything is parsed and read into memory creating the Document Object Model (DOM)
 
 
+## Document Object Model
 
-Linked/embedded external content
+The Document Object Model (DOM) is how browsers interact with elements in HTML documents.
+
+By representing all HTML elements as objects, scripts running in the browser can read and modify the rendered document dynamically.
+
+The DOM has objects, properties, and methods.
+| | |
+|-|-|
+|objects|children, document, elements, forms, frames, images, links, location, scripts, window|
+|properties|content, data, document, fileName, length, name, parent, self, type|
+|methods|appendChild, clear, evaluate, getElementsByName, open, removeChild, setTimeout, write|
+
+
+JavaScript events have properties and methods:
+
+| | |
+|-|-|
+|properties|button, data, domain, event, length, origin, source, target|
+|methods|click, createEvent, createEventObject|
+|events|nbeforeunload, onclick, ondblclick, ondrag, ondrop, onload, onmouseover, onresize, onselect, onstart, onstop|
+
+
+
+
+
+
+Browser-based malware must first find a way to execute code in the browser.
+
+This code can be HTML, CSS, JavaScript, or even a bytecode file run by a browser plugin.
+
+## Linked and Embedded External Content
+
+Here are the common ways to link and embed external content in a web page:
 
 - [Links](#links)
-- [Frames](#frames)
+- [IFrames](#iframes)
 - [Images](#images)
 - [Stylesheets](#stylesheets)
 - [Scripts](#scripts)
@@ -86,13 +142,16 @@ The most basic way to reference external content is:
 <a href="http://www.example.com/">Click here</p>a>
 ```
 
-### Frames
+### IFrames
+Used to embed documents into the current page, can be used in an attack to load current page into an overlay while code runs in the background.
 
 ```html
 <iframe src="http://www.example.com"></>iframe>
 ```
 
 ### Images
+
+Can be used for XSS attacks
 
 ```html
 <img src="http://www.example.com/picture.png">
@@ -110,68 +169,54 @@ Controls the appearance of the HTML document
 
 JavaScript and VBScript can be executed:
 
-```javascript
+```html
 <script type="text/javascript" src="analytics.js"></script>
 ```
 
+[Here](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) is a cheat sheet showing the many variations that can be used.
+
+Stored Cross site scripting - the browser visits the site and is made to run untrusted content
+```html
+http://www.example.com/index.html#title=<script>document.location="http://evilsite.com"</script>
+```
+
+User visits a page that has XXS code
+
+Reflective XSS - User receives a link to a page that echos requests.  Link contains code that's echoed back to browser and executed.
+```html
+http://www.example.com/index.html#title=<script>document.location="http://evilsite.com"</script>
+```
+
+DOM XSS - client side JavaScript dynamically modifies a rendered page based on content in the URL
+```html
+http://www.example.com/index.html#title=<script>document.location="http://evilsite.com"</script>
+```
+
+Drive-by Downloads
+
+
 ### Plugins
 
-Browser plug-ins allow different file formats to be displayed in the browser.  Many times the plug-in applications are given special privilges to show these different formats in the browser window.  
+Browser plug-ins allow different file formats to be displayed in the browser.  They are initialized by the web page to render content.  Many times the plug-in applications are given special privilges to show these different formats in the browser window.  
 
+| | |
+|-|-|
 |Windows Media Player|embedded audio and video|
 |Apple QuickTime|embedded audio and video|
 |Adobe Reader|embedded PDFs|
 |Microsoft Office|embedded word documents and spreadsheets|
 |Adobe Flash|embedded videos|
+|Java||
+|ActiveX Controls||
+|Adobe Flash|JavaScript-based language called ActionScript|
+|Microsoft Silverlight||
 
-
-#### Java
-
-#### ActiveX Controls
-
-#### Adobe Flash
-JavaScript-based language called ActionScript
-
-#### Microsoft Silverlight
 
 ```html
 <object data="player.swf" type="application/x-shockwave-flash">
 <embed src=>
 <applet>
 ```
-
-
-
-
-
-
-
-## JavaScript
-
-JavaScript is the primary scripting language used on the world wide web.  It is a single threaded runtime with a single call stack---which means it does one thing at a time.  
-
-Here are some popular JavaScript engines:
-
-V8 — open source, developed by Google, written in C++
-Rhino — managed by the Mozilla Foundation, open source, developed entirely in Java
-SpiderMonkey — the first JavaScript engine, which back in the days powered Netscape Navigator, and today powers Firefox
-JavaScriptCore — open source, marketed as Nitro and developed by Apple for Safari
-KJS — KDE’s engine originally developed by Harri Porten for the KDE project’s Konqueror web browser
-Chakra (JScript9) — Internet Explorer
-Chakra (JavaScript) — Microsoft Edge
-Nashorn, open source as part of OpenJDK, written by Oracle Java Languages and Tool Group
-parses code, compiles it to machine code, and executes it while monitoring and optimizing
-
-
-Each browser has their own JavaScript engine and provides a sandboxed JavaScript execution environment for every HTML document displayed.  The sandbox limits the JavaScript to specific, predefined methods and properties within the browser.  This ensures a script from a random site can't delete your hard drive in the same way an executable from a random site. 
-
-JavaScript Objects
-
-| | |
-|-|-|
-|document|DOM of the current page|
-|navigator|OS and plug-in information|
-
 
 #### Document Object Model
 
@@ -187,13 +232,7 @@ document.getElementsbyTagName
 
 
 
-Scripts called by the HTML document run in this environment and use it to share functions and global variables.  The scripts can access the DOM and manipulate parts of the web page.  If the scripts need to interact with something outside this context, they must use Web APIs provided by the browser.
 
-Browser-provided Web APIs:
-
-- [DOM]
-- [ajax(XMLHTTPRequest)]
-- [setTimeout]
 
 
 ### DOM
@@ -206,6 +245,50 @@ Data could be loaded in the background avoiding reloading the page, resulting in
 this led to jquery, 
 server side (Node.JS)
 Web application frameworks (AngularJs, React, Knockout)
+
+
+Then plugins were created that could execute platform-independent programs on an end user machine such as Flash or Java.
+
+Web APIs are provided by the browser to be used by JavaScript.
+
+One of these is XMLHttpRequest which allows a client to retrieve data from a URL without doing a page refresh.  Parts of the page can be updated without interrupting the user's browsing session.
+
+
+
+
+
+
+
+
+## JavaScript
+
+JavaScript is the primary scripting language used on the world wide web.  It is a single threaded runtime with a single call stack---which means it does one thing at a time.  
+
+Here are some popular JavaScript engines:
+ | 
+-|-
+V8      open source, developed by Google, written in C++
+Rhino           managed by the Mozilla Foundation, open source, developed entirely in Java
+SpiderMonkey           the first JavaScript engine, which back in the days powered Netscape Navigator, and today powers Firefox
+JavaScriptCore        open source, marketed as Nitro and developed by Apple for Safari
+KJS          KDE’s engine originally developed by Harri Porten for the KDE project’s Konqueror web browser
+Chakra (JScript9)          Internet Explorer
+Chakra (JavaScript)          Microsoft Edge
+Nashorn          open source as part of OpenJDK, written by Oracle Java Languages and Tool Group parses code, compiles it to machine code, and executes it while monitoring and optimizing
+
+
+Each browser has their own JavaScript engine and provides a sandboxed JavaScript execution environment for every HTML document displayed.  The sandbox limits the JavaScript to specific, predefined methods and properties within the browser.  This ensures a script from a random site can't delete your hard drive in the same way an executable from a random site. 
+
+JavaScript Objects
+
+| | |
+|-|-|
+|document|DOM of the current page|
+|navigator|OS and plug-in information|
+
+
+
+To improve performance, more application logic for a page was pushed to the client for execution.  This way the user's session was more responsive.
 
 
 ### JIT Compilers
@@ -229,6 +312,22 @@ document.write()
 ### VBScript
 
 Has access to the DOM APIs as well
+
+
+
+
+
+
+## Man in the Browser Attacks
+
+A Man in the Browser (MitB) attack is when injected JavaScript establishes a communication channel and obtains persistence in the browser.  This allows an attacker to eavesdrop on browser operations, hijack GET and POST requests, and relay traffic intended for a legitimate server back to the attacker where he can modify requests and responses. 
+
+The victim's browser can be "hooked" a number of ways including Cross Site Scripting (XSS), 
+
+They are hidden to the user, hidden to the server, can read and modify content within current page, doesn't require victim intervention
+
+Commonly used by banking malware.  Occurs entirely in browser
+
 
 
 
@@ -258,12 +357,13 @@ plugins were dying, no replacement
 JS isn't good with optimizations
 
 
-
+### asm.js
 JS is a high level language (textual), these are harder to optimize code with
 
 asm.js is a compiler target compatible with plain JS
-takes C++, compiles it to JS, JS is translated into native code
-
+takes C/C++, compiles it to JS, JS is translated into native code
+improves performance by only using code that can be optimized ahead of time
+JS engine doesn't need to interpret the code, it immediately compiles it to assembly
 
 
 ## Web Assembly
@@ -294,6 +394,12 @@ JavaScript loads a web assembly module, instantiates it, and calls its functions
 
 
 ### Example
+
+Crypto-mining, using a machine's CPU to mine cryptocurrency, is a good example of scripts that can run quietly in the browser without the user's knowledge.
+
+Many crypto miners that do not ask permission to run are being labeled as malware since they are in essence stealing the user's computer resources.
+
+There are many types of cryptocurrency, one we've been seeing lately is Monero which is mined by sites such as Coinhive.
 
 
 

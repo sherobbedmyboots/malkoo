@@ -14,6 +14,7 @@
 	- [Tools and Staffing](#tools-and-staffing)
 	- [Training and Planning](#training-and-planning)
 	- [Response Strategies](#response-strategies)
+	- [Patch Harden and Baseline](#patch-harden-and-baseline)
 - [Identification](#identification)
 	- [Capture and Analyze Traffic and Events](#capture-and-analyze-traffic-and-events)
 	- [Network and System Analysis](#network-and-system-analysis)
@@ -99,7 +100,11 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 - Interface with CIRTs, local, state, and federal law enforcement through local chapters of InfraGard, HTCIA, or ECTF																								
 - Policy should specify to notify public, law enforcement, etc for breaches, threats to public safety or health, other types of incidents																								
 - SOPs should define responses for each scenario, methodology for deviating from SOPs, notification and justification of planned deviations, contain/clear or watch/ learn																								
-- Authorization, circumstances, and protocols for incident handlers accessing and responding to all systems in enterprise, especially critical systems																								
+- Authorization, circumstances, and protocols for incident handlers accessing and responding to all systems in enterprise, especially critical systems
+
+### Patch Harden and Baseline
+
+																			
 ## Identification	
 
 Maintain SA of indications, warnings, intelligence, fuse or correlate information																								
