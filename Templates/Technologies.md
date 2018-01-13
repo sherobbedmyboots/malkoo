@@ -98,9 +98,8 @@ Encrypted communications|GnuPG|GnuPG|
 |Wireless| | | |
 |VOIP| | | |
 |IPv6 over IPv4|6to4 (IPv6 sites talking via IPv4)|Gateway adds/removes IPv4 header (Proto type 41)|10.10.10.10 --> 2002:0a0a:0a0a::|
-| |Teredo (IPv6 hosts using UDP)|IPv6 hosts talk via IPv4 P2P UDP, run automatically, wrapped in UDP, uses bubbles (keep-alives), Host sends IPv4 UDP to a teredo relay,
- Relay forwards/receives traffic to IPv6 host, Relay returns traffic to host via IPv4 UDP|Use to be 3FFE:831F::/32, RFC 4380 Changed to 2001::/32|
-| |GRE (IPv6 over IPv4)|Tunnel software adds/removes IPv4 headers||
+|Teredo (IPv6 hosts using UDP)|IPv6 hosts talk via IPv4 P2P UDP, run automatically, wrapped in UDP, uses bubbles (keep-alives), Host sends IPv4 UDP to a teredo relay,Relay forwards/receives traffic to IPv6 host, Relay returns traffic to host via IPv4 UDP|Use to be 3FFE:831F::/32, RFC 4380 Changed to 2001::/32|
+|GRE (IPv6 over IPv4)|Tunnel software adds/removes IPv4 headers|| |
 
 
 
