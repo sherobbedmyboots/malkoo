@@ -64,7 +64,7 @@ Encrypted communications|GnuPG|GnuPG|
 |Web Proxy|Squid with DansGuardian, NGINX, Apache, Bluecoat, Forefront TMG, Barracuda, Websense||
 |Enhanced Aggregation|Logstash (ELK), ELSA, Splunk, Cisco OpenSOC||
 |Netflow|SiLK, Nfcapd||
-|Vulnerability Scanning|Find holes in network, wireless, phone before attackers|Supplement with pentesting to verify results|CONS: false positives, unverified vulnerabilities||
+|Vulnerability Scanning|Find holes in network, wireless, phone before attackers|CONS: false positives, unverified vulnerabilities|USE:Supplement with pentesting to verify results|
 |HIDS|Unencrypted, UA changes, FIC, resource misuse, OSSEC, Tiger, Samhain|CONS: deployment/maint/updates, tunnel vision, needs centralization, cost|USE: monitor changes at application level (web/dns/mail), networking devices ||
 |NIDS|insight into network, assists quick response, auditing, Snort, PSAD|CONS: topology, encryption, signature quality/quantity, performance, cost|USE: Well-trained analysts, SIEM, integrate with VA for profiling/prioritization||
 |HIPS|HIDS + ability to stop known & unknown attacks|CONS: false positives + same as HIDS|USE: Centrally manage and test software & updates, don't rely solely on||
@@ -83,25 +83,24 @@ Encrypted communications|GnuPG|GnuPG|
 |Cached malicious domains|Dns-blacklists.py, Malware Domain List||	
 
 ## Encryption			
-| | | |
-|-|-|-|	
-Data in Transit	VPNs (Client & Site-to-Site)	Confidentiality over public networks, quick set up, low cost, CONS: no dedicated bandwidth, not recommended for time-critical comms	
- |IPsec (uses IKE)	mutual authentication, provides CIA and replay attack prevention	
- |SSL	fastest growing, compatibility, less problems, CONS: open fw ports (80/443), app vulns, authentication, browser attack surface	
-Data at Rest	Disk Encryption	LUKS, VeraCrypt, LibreCrypt, or   BitLocker, VeraCrypt, CipherShed	Full disk (on-the-fly) or volumes, drives, containers, files
- |File encryption	Gpg4win, gpg, EncFS, eCryptfs, 7zip, EFS, AxCrypt	
- |Email encryption	Gpg4win, gpg	
-Key Management	PKI	simplifies authorized access, allows secure web, email, disk encryption, code/driver signing, IPSEC & VPN, NAC, wireless, digital sigs, general user authentication	competing/incomplete standards, certification of CAs, extensive planning
- |SSL/TLS for web traffic	prevents eavesdropping/tampering	
-Steganography	S-Tools for (Win)	hides/retrieves data inside BMPs, GIFs, WAVs	
- |Invisible Secrets (Win)	hides/retrieves data inside JPEG, PNG, BMP, HTML, WAV	
-Wireless			
-VOIP			
-IPv6 over IPv4	6to4  (IPv6 sites talking via IPv4)	Gateway adds/removes IPv4 header (Proto type 41)	10.10.10.10 --> 2002:0a0a:0a0a::
- |Teredo  (IPv6 hosts using UDP)	"IPv6 hosts talk via IPv4 P2P UDP
-run automatically, wrapped in UDP, uses bubbles (keep-alives)"	"Use to be 3FFE:831F::/32
-RFC 4380 Changed to 2001::/32"
-	GRE (IPv6 over IPv4)	Tunnel software adds/removes IPv4 headers	
+| | | | |
+|-|-|-|-|
+|Data in Transit|VPNs (Client & Site-to-Site)|Confidentiality over public networks, quick set up, low cost|CONS: no dedicated bandwidth, not recommended for time-critical comms|
+| |IPsec (uses IKE)|mutual authentication, provides CIA and replay attack prevention||
+| |SSL|fastest growing, compatibility, less problems|CONS: open fw ports (80/443), app vulns, authentication, browser attack surface|
+|Data at Rest|Disk Encryption|LUKS, VeraCrypt, LibreCrypt, or BitLocker, VeraCrypt, CipherShed|Full disk (on-the-fly) or volumes, drives, containers, files|
+| |File encryption|Gpg4win, gpg, EncFS, eCryptfs, 7zip, EFS, AxCrypt||
+| |Email encryption|Gpg4win, gpg||
+|Key Management|PKI|simplifies authorized access, allows secure web, email, disk encryption, code/driver signing, IPSEC & VPN, NAC, wireless, digital sigs, general user authentication|CONS: competing/incomplete standards, certification of CAs, extensive planning|
+| |SSL/TLS for web traffic|prevents eavesdropping/tampering||
+|Steganography|S-Tools for (Win)|hides/retrieves data inside BMPs, GIFs, WAVs||
+| |Invisible Secrets (Win)|hides/retrieves data inside JPEG, PNG, BMP, HTML, WAV||
+|Wireless| | | |
+|VOIP| | | |
+|IPv6 over IPv4|6to4 (IPv6 sites talking via IPv4)|Gateway adds/removes IPv4 header (Proto type 41)|10.10.10.10 --> 2002:0a0a:0a0a::|
+| |Teredo (IPv6 hosts using UDP)|IPv6 hosts talk via IPv4 P2P UDP, run automatically, wrapped in UDP, uses bubbles (keep-alives), Host sends IPv4 UDP to a teredo relay,
+ Relay forwards/receives traffic to IPv6 host, Relay returns traffic to host via IPv4 UDP|Use to be 3FFE:831F::/32, RFC 4380 Changed to 2001::/32|
+| |GRE (IPv6 over IPv4)|Tunnel software adds/removes IPv4 headers||
 
 
 
