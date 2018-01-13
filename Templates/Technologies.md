@@ -52,8 +52,8 @@ Encrypted communications|GnuPG|GnuPG|
 |Encryption|HTTPSEverywhere, HTTP Finder, OpenVPN|HTTPSEverywhere, HTTP Finder, OpenVPN|
 
 ## Technologies	
-| | | |
-|-|-|-|		
+| | | | |
+|-|-|-|-|	
 |Endpoint IR|GRR, OSQuery, Tanium, Carbon Black, MIR, EnCase Enterprise, F-Response Enterprise, FireEye HX, osquery/Envdb, MIG, Kansa, Crowdstrike Response||
 |Cloud|EC2, GCE, Azure||
 |SIEM|Qradar, ArcSight, Spark? , Solar Winds, Trustwave, Tenable, MozDef?||
