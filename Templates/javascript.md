@@ -22,11 +22,11 @@ social engineering to
 - [Basic Browser Operation](#basic-browser-operation)
 	- [HTML Documents](#html-documents)
 	- [Document Object Model](#document-object-model)
-	- [XMLHttpRequest](#XMLHttpRequest)
+	- [XMLHttpRequest](#xmlhttprequest)
 - [JavaScript](#javascript)
 	- [Obfuscation](#obfuscation)
 	- [Web Assembly](#web-assembly)
-- [Malware Using JavaScript]
+- [Malware Using JavaScript](#malware-using-javascript)
 	- [JavaScript Downloaders](#javascript-downloaders)
 	- [Cryptominers](#cryptominers)
 	- [Man in the Browser Attacks](#man-in-the-browser-attacks)
