@@ -45,17 +45,17 @@ HyperText Markup Language (HTML) is the primary language used for displaying web
 
 |Tag|Element|
 |-|-|
-|<html>|The HTML document|
-|<head>|Container for metadata|
-|<title>|Title of the document|
-|<h1> to <h6>|Headings|
-|<a>|Links are used to navigate from page to page|
-|<img>|Images displayed on page|
-|<p>|Paragraphs contain text to be displayed|
-|<style>, <link>|Cascading Style Sheets (CSS) control the appearance of the HTML document|
-|<iframe>|IFrames display a web page within a web page|
-|<script>|JavaScript is used for dynamic and interactive content|	
-|<form>|Forms are used to collect user input|
+|\<html\>|The HTML document|
+|\<head\>|Container for metadata|
+|\<title\>|Title of the document|
+|\<h1\> to \<h6\>|Headings|
+|\<a\>|Links are used to navigate from page to page|
+|\<img\>|Images displayed on page|
+|\<p\>|Paragraphs contain text to be displayed|
+|\<style\>, `<link>`|Cascading Style Sheets (CSS) control the appearance of the HTML document|
+|\<iframe\>|IFrames display a web page within a web page|
+|\<script\>|JavaScript is used for dynamic and interactive content|	
+|\<form\>|Forms are used to collect user input|
 
 |, \<title\>, \<body\>, \<img\>, \<div\>, and \<p\> are used to label text, images, and other contents needed to build a the web page.
 
