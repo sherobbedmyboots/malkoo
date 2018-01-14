@@ -14,15 +14,15 @@ Use Chrome Developer Tools to see all files, network traffic, etc. associated wi
 Scripts can redirect to malicious pages or deliver exploits and are often obfuscated in some way.
 
 Delivery
-- inserting arbitrary code on a compromised website
-- social engineering to 
+inserting arbitrary code on a compromised website
+social engineering to 
 
 
 
 - [Basic Browser Operation](#basic-browser-operation)
 	- [HTML Documents](#html-documents)
 	- [Document Object Model](#document-object-model)
-	- [Browser Web APIs](#browser-web-apis)
+	- [XMLHttpRequest](#XMLHttpRequest)
 - [JavaScript](#javascript)
 	- [Obfuscation](#obfuscation)
 	- [Web Assembly](#web-assembly)
@@ -36,7 +36,7 @@ Delivery
 
 ## Basic Browser Operation
 
-On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP.  The most common way to deliver these instructions is by using an HTML document.
+On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP. The two most common ways to deliver these instructions are by using an HTML or XHTML document.
 
 
 ### HTML Document
@@ -57,11 +57,8 @@ HyperText Markup Language (HTML) is the primary language used for displaying web
 |`<script>`|JavaScript is used for dynamic and interactive content|	
 |`<form>`|Forms are used to collect user input|
 
-|, `<title>`, `<body>`, `<img>`, `<div>`, and `<p>` are used to label text, images, and other contents needed to build a the web page.
 
-The two main types are HTML and XHTML which is an extended version of HTML that is XML-based.
-
-A browser requests a web page with a HTTP/HTTPS GET, parses the HTML code in the file it recieves, and begins to render all the data as the code instructs.
+A browser requests a web page using a HTTP/HTTPS GET request, parses the HTML code in the file it recieves, and begins to render all the data it contains.
 
 This data can be:
 	
@@ -70,16 +67,64 @@ This data can be:
 	- Links that can be clicked
 	- Documents that need to be loaded (HTML, CSS)
 	- Scripts that need to run (JavaScript, VBScript)
-	- Files that need to be run by a plugin (Flash, Silverlight, Java)
+	- Files that need to be run by a browser plugin (Flash, Silverlight, Java)
 
-
-
-
+As the browser parses the HTML, retrieving and loading all this data into memory, it builds a structured representation of the web page called the Document Object Model, or DOM.
 
 
 ### Document Object Model
 
-As the browser parses the HTML, retrieving and loading all this data into memory, it builds a structured representation of the web page called the Document Object Model, or DOM.  The DOM is a virtual map of the web page that is currently loaded in the browser.  This allows JavaScript and other programming languages to select elements of the web page and make changes to the elements.
+The DOM is a virtual map of the web page that is currently loaded in the browser. This in-memory representation of all HTML elements of the web page is used to display and update the page.  By representing all HTML elements as objects, scripts running in the browser can read and modify the rendered document dynamically.
+
+JavaScript, for example, can access the DOM using the `document` object:
+
+```javascript
+document.getElementsbyTagName
+```
+
+
+Scripts called by the HTML document run in this environment and use it to share functions and global variables.  The scripts can access the DOM and manipulate parts of the web page.  If the scripts need to interact with something outside this context, they must use one of the Web APIs provided by the browser.
+
+One of the most popular Web APIs provided by browsers is XMLHttpRequest.
+
+
+### XMLHttpRequest
+
+XMLHttpRequest allows a client to load additional content from the Web without loading a new document.  Parts of the page can be updated without interrupting the user's browsing session.
+
+### DOM
+
+
+### AJAX
+
+Asynchronous JavaScript and XML (AJAX) helped JavaScript create dynamic web applications which sparked an open source revolution
+Data could be loaded in the background avoiding reloading the page, resulting in more dynamic applications
+
+
+Then plugins were created that could execute platform-independent programs on an end user machine such as Flash or Java.
+
+Web APIs are provided by the browser to be used by JavaScript.
+
+One of these is 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 For example, visit a web page with Google Chrome and open DevTools by pressing F12.
@@ -89,22 +134,11 @@ For example, visit a web page with Google Chrome and open DevTools by pressing F
 
 
 
-Scripts called by the HTML document run in this environment and use it to share functions and global variables.  The scripts can access the DOM and manipulate parts of the web page.  If the scripts need to interact with something outside this context, they must use Web APIs provided by the browser.
-
-Browser-provided Web APIs:
-
-- The API used to modify an HTML page consists of the DOM + a scripting language ()
-[ajax(XMLHTTPRequest)]
-- [setTimeout]
 
 
 
 
-## Document Object Model
-
-The Document Object Model (DOM) is how browsers interact with elements in HTML documents.
-
-By representing all HTML elements as objects, scripts running in the browser can read and modify the rendered document dynamically.
+JavaScript accesses 
 
 The DOM has objects, properties, and methods.
 | | |
@@ -121,6 +155,12 @@ JavaScript events have properties and methods:
 |properties|button, data, domain, event, length, origin, source, target|
 |methods|click, createEvent, createEventObject|
 |events|nbeforeunload, onclick, ondblclick, ondrag, ondrop, onload, onmouseover, onresize, onselect, onstart, onstop|
+
+
+
+
+
+
 
 
 
@@ -227,40 +267,9 @@ Browser plug-ins allow different file formats to be displayed in the browser.  T
 <applet>
 ```
 
-#### Document Object Model
-
-An in-memory representation of all of the HTML elements of the current web page.  The browser uses this to display and update the page.
-
-JavaScript accesses the DOM using the document object:
-
-```javascript
-document.getElementsbyTagName
-```
 
 
 
-
-
-
-
-
-### DOM
-
-
-### AJAX
-
-Asynchronous JavaScript and XML (AJAX) helped JavaScript create dynamic web applications which sparked an open source revolution
-Data could be loaded in the background avoiding reloading the page, resulting in more dynamic applications
-this led to jquery, 
-server side (Node.JS)
-Web application frameworks (AngularJs, React, Knockout)
-
-
-Then plugins were created that could execute platform-independent programs on an end user machine such as Flash or Java.
-
-Web APIs are provided by the browser to be used by JavaScript.
-
-One of these is XMLHttpRequest which allows a client to retrieve data from a URL without doing a page refresh.  Parts of the page can be updated without interrupting the user's browsing session.
 
 
 
