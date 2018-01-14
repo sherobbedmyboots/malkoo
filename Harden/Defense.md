@@ -10,7 +10,7 @@
 	Whitelist batch scripts, vbscript/javascript, java, block VBA macros
  	Lock down powershell
 	Bit9/Kapersky/Applocker…. Whitelists
- 	
+	
  	
 ## External	
 | | |
