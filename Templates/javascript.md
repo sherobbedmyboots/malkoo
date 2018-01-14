@@ -20,7 +20,7 @@ Delivery
 
 
 - [Basic Browser Operation](#basic-browser-operation)
-	- [Web Page Components](#web-page-components)
+	- [HTML Documents](#html-documents)
 	- [Document Object Model](#document-object-model)
 	- [Browser Web APIs](#browser-web-apis)
 - [JavaScript](#javascript)
@@ -36,9 +36,32 @@ Delivery
 
 ## Basic Browser Operation
 
-On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP.
+On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP.  The most common way to deliver these instructions is by using an HTML document.
 
-A browser requests a web page with a HTTP/HTTPS GET, parses the HTML code in the file it recieves, and renders all the data as the code instructs.
+
+### HTML Document
+
+HyperText Markup Language (HTML) is the primary language used for displaying web pages.  An HTML document is a hierarchical structure of elements making up the contents of the web page.  These elements are defined using tags which specify an element's attributes.
+
+|Tag|Element|
+|-|-|
+|<html>|The HTML document|
+|<head>|Container for metadata|
+|<title>|Title of the document|
+|<h1> to <h6>|Headings|
+|<a>|Links are used to navigate from page to page|
+|<img>|Images displayed on page|
+|<p>|Paragraphs contain text to be displayed|
+|<style>, <link>|Cascading Style Sheets (CSS) control the appearance of the HTML document|
+|<iframe>|IFrames display a web page within a web page|
+|<script>|JavaScript is used for dynamic and interactive content|	
+|<form>|Forms are used to collect user input|
+
+|, \<title\>, \<body\>, \<img\>, \<div\>, and \<p\> are used to label text, images, and other contents needed to build a the web page.
+
+The two main types are HTML and XHTML which is an extended version of HTML that is XML-based.
+
+A browser requests a web page with a HTTP/HTTPS GET, parses the HTML code in the file it recieves, and begins to render all the data as the code instructs.
 
 This data can be:
 	
@@ -49,20 +72,17 @@ This data can be:
 	- Scripts that need to run (JavaScript, VBScript)
 	- Files that need to be run by a plugin (Flash, Silverlight, Java)
 
-Knowing how browsers deal with all of these is crucial for accurate analysis and reporting.
 
 
 
 
-### Web Page Components
 
-When a browser loads a web page, the following components are involved:
+### Document Object Model
 
-- [HTML Document](#html-document)
-- [Linked and Embedded External Content](#linked-and-embedded-external-content)
-- [Document Object Model](#document-object-model)
-- [Browser-provided Web APIs](#browser-web-apis)
+As the browser parses the HTML, retrieving and loading all this data into memory, it builds a structured representation of the web page called the Document Object Model, or DOM.  The DOM is a virtual map of the web page that is currently loaded in the browser.  This allows JavaScript and other programming languages to select elements of the web page and make changes to the elements.
 
+
+For example, visit a web page with Google Chrome and open DevTools by pressing F12.
 
 
 
@@ -73,22 +93,11 @@ Scripts called by the HTML document run in this environment and use it to share 
 
 Browser-provided Web APIs:
 
-- [DOM]
-- [ajax(XMLHTTPRequest)]
+- The API used to modify an HTML page consists of the DOM + a scripting language ()
+[ajax(XMLHTTPRequest)]
 - [setTimeout]
 
 
-### HTML Document
-
-HyperText Markup Language (HTML) is the primary language used for displaying web pages.
-
-An HTML document is a hierarchical structure of tags, attributes, and parameters containing the contents of the web page.
-
-Elements such as <head>, <title>, <body>, <img>, <div>, and <p> are used to label text, images, and components of the web page.
-
-The two main types are HTML and XHTML which is an extended version of HTML that is XML-based.
-
-Everything is parsed and read into memory creating the Document Object Model (DOM)
 
 
 ## Document Object Model
@@ -159,7 +168,7 @@ Can be used for XSS attacks
 
 ### Stylesheets
 
-Controls the appearance of the HTML document
+
 ```html
 <link rel=stylesheet href="http://"
 <style> 
