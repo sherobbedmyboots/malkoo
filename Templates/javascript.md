@@ -1,4 +1,4 @@
-# Browser-Based Malware and JavaScript
+# JavaScript and Browser-Based Malware
 
 Browser-based attacks may drop files or may exist only in the browser.
 
@@ -65,8 +65,8 @@ This data can be:
 - Text to read
 - Images to view
 - Links that can be clicked
-- Documents that need to be loaded (HTML, CSS)
-- Scripts that need to run (JavaScript, VBScript)
+- Documents that will be loaded (HTML, CSS)
+- Scripts that will run (JavaScript, VBScript)
 - Files that need to be run by a browser plugin (Flash, Silverlight, Java)
 
 As the browser parses the HTML, retrieving and loading all this data into memory, it builds a structured representation of the web page called the Document Object Model, or DOM.
@@ -76,7 +76,9 @@ As the browser parses the HTML, retrieving and loading all this data into memory
 
 The DOM is a virtual map of the web page that is currently loaded in the browser. This in-memory representation of all HTML elements of the web page is used to display and update the page.  By representing all HTML elements as objects, scripts running in the browser can read and modify the rendered document dynamically.
 
-JavaScript, for example, can access the DOM using the `document` object:
+
+
+JavaScript, for example, can access the DOM using the DOM's `document` object:
 
 ```javascript
 document.getElementsbyTagName
@@ -269,8 +271,8 @@ Browser plug-ins allow different file formats to be displayed in the browser.  T
 
 
 
-
-
+Workers are objects that run a javascript file in a new thread.  The code runs in its own context that is different from the context of the current window.  Used for dedicated code that doesn't need to directly manipulate the DOM.
+Mainly used for performing processor-intensive calculations without interfering with the user interface thread.
 
 
 
