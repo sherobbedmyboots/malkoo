@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Test Page For JS Test</title>
+		<script type="text/javascript" src="test.js"></script>
+		<script type="text/javascript" src="hello.js"></script>
+	</head>
+	<body>
+	<h1>Welcome to the website.</h1>
+	<p><br><br>Your IP address is:</p>
+	<iframe src="https://ipinfo.io/ip"></iframe>
+	<br><br>
+	<a href="https://www.timeanddate.com">Click here for current time and date</a>
+	<br><br>
+	<p>Token cat picture:</p>
+	<img src="http://i0.kym-cdn.com/entries/icons/original/000/011/365/GRUMPYCAT.jpg"></img>
+	<script language="javascript">
+		var worker = new Worker('fibonacci.js');
+
+		worker.onmessage = function(event) {
+      	document.getElementById('result').textContent = event.data;
+      	dump('Got: ' + event.data + '\n');
+    	};
+
+	    worker.onerror = function(error) {
+	      dump('Worker error: ' + error.message + '\n');
+	      throw error;
+	    };
+
+    	worker.postMessage('5');
+    </script>
+	</body>
+</html>

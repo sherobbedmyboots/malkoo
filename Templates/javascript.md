@@ -36,7 +36,7 @@ social engineering to
 
 ## Basic Browser Operation
 
-On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP. The two most common ways to deliver these instructions are by using an HTML or XHTML document.
+On a basic level, a browser is used to receive and execute instructions from arbitrary servers on the Internet over IP.  The two most common ways to deliver these instructions are by using an HTML or XHTML document.
 
 
 ### HTML Document
@@ -62,12 +62,12 @@ A browser requests a web page using a HTTP/HTTPS GET request, parses the HTML co
 
 This data can be:
 	
-	- Text to read
-	- Images to view
-	- Links that can be clicked
-	- Documents that need to be loaded (HTML, CSS)
-	- Scripts that need to run (JavaScript, VBScript)
-	- Files that need to be run by a browser plugin (Flash, Silverlight, Java)
+- Text to read
+- Images to view
+- Links that can be clicked
+- Documents that need to be loaded (HTML, CSS)
+- Scripts that need to run (JavaScript, VBScript)
+- Files that need to be run by a browser plugin (Flash, Silverlight, Java)
 
 As the browser parses the HTML, retrieving and loading all this data into memory, it builds a structured representation of the web page called the Document Object Model, or DOM.
 
