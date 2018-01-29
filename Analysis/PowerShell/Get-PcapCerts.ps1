@@ -7,20 +7,31 @@ $json = gc $file | ConvertFrom-Json
 
 
 
-
-$start = '[\s]{16}\"ssl.handshake.certificate_length":'
-$finish = '[\s]{16\}\,'
-
-
-
-$results = gc .\users\pcuser\test.json -raw | sls '(?smi)(^[\s]{16}\"ssl\.handshake\.certificate_length\"\:.*?\x0D\x0A[\s]{16}\})' -AllMatches | % {$_.Matches} | % {$_.Value}
-
-$results = '[{' + $results + '}}]' 
+# cert info
+# start = ^[\s]{16}\"ssl\.handshake\.certificate_length\"\:
+# finish = \x0D\x0A[\s]{16}\}
 
 
 
- 
-$a = @()
+$results = gc $file -raw | sls '(?smi)(^[\s]{16}\"ssl\.handshake\.certificate_length\"\:.*?\x0D\x0A[\s]{16}\})' -AllMatches | % {$_.Matches} | % {$_.Value}
+
+foreach ($r in $results)
+{
+    
+    $raw = $r | sls '("x509sat.printableString":.*)|("x509sat.CountryName":.*)|("x509sat.uTF8String":.*)' -AllMatches | %{$_.Matches} | %{$_.Value}
+    $a = @()
+    $raw | %{$a += $_.split('"')[3]}
+
+    [array]::Reverse($a)
+
+    foreach ($string in $a)
+    {
+        
+    }
+
+
+    
+$b = @()
 foreach ($line in $log)
 {
     $split = $line.split(' ')

