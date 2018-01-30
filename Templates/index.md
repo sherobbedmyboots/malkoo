@@ -61,4 +61,7 @@
 - [Windows Firewall Profiles and Logging](Windows%20Firewall%20Profiles%20and%20Logging)
 - [Review of Amazon Web Services](Review%20of%20Amazon%20Web%20Services)
 - [Filtering Expected Web Traffic with Splunk](Filtering%20Expected%20Web%20Traffic%20with%20Splunk)
+- [Hunting the Network with Tshark](Hunting%20the%20Network%20with%20Tshark)
+- [JavaScript and Browser-based Malware](JavaScript%20and%20Browser-based%20Malware)
+
 
