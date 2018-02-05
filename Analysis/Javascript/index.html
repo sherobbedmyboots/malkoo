@@ -1,9 +1,23 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <title>WebAssembly Test</title>
+<script type="text/javascript" src="alert.js"></script>
 </head>
 <body>
-  <script type="text/javascript" src="wasm.js"></script>
+<button onclick="loadOriginal()">Load original.js</button>
+<button onclick="loadEncoded()">Load encoded.js</button>
+<button onclick="loadObfuscated()">Load obfuscated.js</button>
+<br><br>
+<button onclick="profileShockwave()">Run .js file</button>
+<script>
+function loadOriginal() {
+	d=document;a=d.createElement("script");a.src="original.js";d.body.appendChild(a);
+}
+function loadEncoded() {
+	d=document;b=d.createElement("script");b.src="encoded.js";d.body.appendChild(b);
+}
+function loadObfuscated() {
+	d=document;c=d.createElement("script");c.src="obfuscated.js";d.body.appendChild(c);
+}
+</script>
 </body>
 </html>
