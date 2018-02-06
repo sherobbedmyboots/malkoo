@@ -1,0 +1,109 @@
+<html>
+<head>
+<script type="text/javascript" src="alert.js"></script>
+<script type="text/javascript" src="aes.js"></script>
+</head>
+<body style="background-color: #374048">
+<label style="color: #cce6ff; font-family: 'Trebuchet MS'";><b>Options to LOAD .js File</b></label>
+<br><br>
+<button onclick="loadOriginal()">Load original.js</button>
+<br><br>
+<button onclick="loadObfuscated1()">Load obfuscated1.js</button>
+<br><br>
+<button onclick="loadObfuscated2()">Load obfuscated2.js</button>
+<br><br>
+<button onclick="loadObfuscated3()">Load obfuscated3.js</button>
+<br><br>
+<br><br>
+<label style="color: #cce6ff; font-family: 'Trebuchet MS'"><b>Options to RUN .js File</b></label>
+<br><br>
+<button onclick="runIt()">Run .js file</button>
+<br><br>
+<button onclick="checkFirst()">Check Date, then run .js file</button>
+<br><br>
+<button onclick="runEncryptedCheck()">Use Encrypted Date Check, then Run .js file</button>
+<br><br>
+<button onclick="runContextCheck()">Use Context/Encrypted Date Check, then Run .js file</button>
+<br><br><br><br>
+
+<script>
+function loadOriginal() {
+	d=document;aa=d.createElement("script");aa.src="original.js";d.body.appendChild(aa);
+}
+function loadObfuscated1() {
+	d=document;bb=d.createElement("script");bb.src="obfuscated1.js";d.body.appendChild(bb);
+}
+function loadObfuscated2() {
+	d=document;cc=d.createElement("script");cc.src="obfuscated2.js";d.body.appendChild(cc);
+}
+function loadObfuscated3() {
+	d=document;ee=d.createElement("script");ee.src="obfuscated3.js";d.body.appendChild(ee);
+}
+</script>
+
+
+<!-- Run the loaded .js file -->
+<script>
+function runIt() {
+	if ((typeof(aa) !== 'undefined')||(typeof(bb) !== 'undefined')) {
+		profileShockwave();
+	}
+	else if (typeof(cc) !== 'undefined') {
+		evawkcohSeliforp();
+	}
+	else if (typeof(ee) !== 'undefined'){
+		g();
+	}
+	else {
+		alert('You must load a .js file first');
+	}
+}
+</script>
+
+
+<!-- Check Date and run loaded .js file -->
+<script>
+function checkFirst() {
+	var killDate = 'Tue Feb 04 2018 07:08:32 GMT-0600 (Central Standard Time)';
+	var d = new Date();
+	if (d < killDate) {
+		runIt();
+	}
+	else {
+		alert('There\'s been a problem... exiting!');
+	}
+}
+</script>
+
+
+<!-- Decrypt checkFirst() function and run it -->
+<script>
+function runEncryptedCheck() {
+	var x = 'U2FsdGVkX18EccRtV54NS3nUcJi+/2lIT6cRoY1YSSQ00hCk06kMmAejpyHW888uM6E3GNviqSqJaTm00n5PF5KUlGTmFCN8oRlPMDdbj/B4MmkCWGnxWZGM1gb2uyErIWV/QPF/clz1zE8d3POpghxAc+f0OXhoQ3kN9hzbH0pSnrzkHfZqq+3B3NxqKBSgIqPA3VDTHgz/8z0Qn7DBjxKLrNo1sLWtXtJcnddJJmXn2OHi1h9869t4MwBF18hG'
+	var decrypted = CryptoJS.AES.decrypt(x, "abcdefghijklmnopqrstuvwxyz");
+	var command = decrypted.toString(CryptoJS.enc.Utf8)
+	eval(command);
+}
+</script>
+
+<script>
+function runContextCheck() {
+		
+	// The encrypted function is set to 'x'
+	var x = 'U2FsdGVkX18EccRtV54NS3nUcJi+/2lIT6cRoY1YSSQ00hCk06kMmAejpyHW888uM6E3GNviqSqJaTm00n5PF5KUlGTmFCN8oRlPMDdbj/B4MmkCWGnxWZGM1gb2uyErIWV/QPF/clz1zE8d3POpghxAc+f0OXhoQ3kN9hzbH0pSnrzkHfZqq+3B3NxqKBSgIqPA3VDTHgz/8z0Qn7DBjxKLrNo1sLWtXtJcnddJJmXn2OHi1h9869t4MwBF18hG'
+	
+	// The external script "demo_script_src.js" is downloaded from an external site
+	d=document;ee=d.createElement("script");ee.src="https://www.w3schools.com/jsref/demo_script_src.js";
+
+	// The 's' character from the loaded script is used to complete the encryption key
+	var y = 'abcdefghijklmnopqr' + ee.src.split('_src.j')[1] + 'tuvwxyz';
+	
+	// If the script was successfully downloaded, the encrypted command can be decrypted and executed
+	var decrypted = CryptoJS.AES.decrypt(x, y);
+	var command = decrypted.toString(CryptoJS.enc.Utf8)
+	eval(command);
+}
+</script>
+
+</body>
+</html>
