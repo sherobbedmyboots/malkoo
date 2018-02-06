@@ -302,7 +302,7 @@ Splitting strings into smaller chunks and rejoining them as the code executes is
 
 ![](images/JavaScript%20Evasion%20Techniques/image039.png)<br>
 
-Here is the `eval` function written as an expression that is correctly interpreted when the code executes:
+Here is the `eval` function written as an expression that is interpreted when the code executes:
 
 ![](images/JavaScript%20Evasion%20Techniques/image040.png)<br><br>
 
