@@ -30,7 +30,7 @@ Pain](http://detect-respond.blogspot.com/2013/03/the-pyramid-of-pain.html).
 It shows common indicator types and the relative "pain level" for
 adversaries when denying the use of each one.
 
-![](images/Researching%20Threat%20Indicators/image001.png)
+![](images/Providing%20Context%20For%20Indicators/image001.png)
 
 
 This does a great job of reminding us that adversaries can easily change
@@ -58,7 +58,7 @@ Here are general descriptions and examples of each type:
 is similar to the first and shows how each type fits into the big
 picture:
 
-![](images/Researching%20Threat%20Indicators/image002.jpg)
+![](images/Providing%20Context%20For%20Indicators/image002.jpg)
 
 
 Here is an example of how these types can be used to distinguish between
