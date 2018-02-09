@@ -8,6 +8,7 @@ git push -u origin master
 
 # Push an existing repository
 git remote add origin git@github.com:<user>/<repo>.git
+git remote set-url origin git@github.com:<user>/<repo>.git
 git push -u origin master
 
 # create branch and check out
