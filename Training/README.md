@@ -1,5 +1,5 @@
-|Date|Title|Sample Files|
-|-|-|-|
+|Date|Title|
+|-|-|
 [Review of Windows Scripting Technologies](./docs/Review%20of%20Windows%20Scripting%20Technologies.md)|scripts/|
 [Analysis of a Phishing Email](./docs/Analysis%20of%20a%20Phishing%20Email.md)|272861.exe, email.msg|
 [Searching, Chopping, Joining, and Replacing](./docs/Searching%20Chopping%20Joining%20and%20Replacing.md)|obfuscated1.js|
