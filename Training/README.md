@@ -1,4 +1,4 @@
-|Date|Title|
+|Title|Sample Files|
 |-|-|
 [Review of Windows Scripting Technologies](./docs/Review%20of%20Windows%20Scripting%20Technologies.md)|scripts/|
 [Analysis of a Phishing Email](./docs/Analysis%20of%20a%20Phishing%20Email.md)|272861.exe, email.msg|
