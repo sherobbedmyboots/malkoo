@@ -583,9 +583,8 @@ Use PowerShell or another tool to verify that the `run_powershell.exe` process h
 
 ![](images/Review%20of%20Windows%20Scripting%20Technologies/image043.png)<br><br>
 
-The most effective way to use this technique is not using an EXE on disk, but using a DLL with the same functionality that is reflectively loaded into a legitimate process.  This technique was used by NCATS recently by using the `guidance.hta` file created with [Cactus Torch](https://github.com/mdsecactivebreach/CACTUSTORCH) to inject a Cobalt Strike Beacon into a legitimate `rundll32.exe` process.  Once the Beacon is running in memory, it can download PowerShell modules such as [PowerView](https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerView) and [PowerUp](https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerUp) and run them without calling `powershell.exe` and without generating suspicious events in the Security logs and PowerShell Operational logs.
+The most effective way to use this technique is not using an EXE on disk, but using a DLL with the same functionality that is reflectively loaded into a legitimate process. We'll explore this technique in-depth next week.
 
-We'll explore this technique in-depth next week.
 
 ## Summary
 
