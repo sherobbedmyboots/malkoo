@@ -3,7 +3,7 @@
 verify(){
 if ! command -v $1 > /dev/null 
 then
-	echo $1 not installed
+	echo -e "\e[1;31m$1 not installed\e[0m"
 	exit
 fi
 }
@@ -11,7 +11,7 @@ fi
 pip_verify(){
 if ! pip show $1 > /dev/null
 then
-	echo $1 not installed
+	echo -e "\e[1;31m$1 not installed\e[0m"
 	exit
 fi
 }
@@ -30,7 +30,7 @@ sudo pip install --upgrade pip
 
 # Set tcpdump
 verify tcpdump
-verify apparmor-utils
+verify aa-disable
 sudo aa-disable /usr/sbin/tcpdump
 sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
 
@@ -75,7 +75,7 @@ pip_verify m2crypto
 
 wget https://pypi.python.org/packages/28/f9/8ff25a8f3edb581b5bc0efbed6382dcca22e5e7eff39464346c629105739/distorm3-3.3.4.zip#md5=bf7bba5894b478b33fa2dea47ef13c9f
 unzip distorm3-3.3.4.zip
-unzip distorm3-3.3.4.zip
+cd distorm3-3.3.4
 sudo python setup.py build install
 cd ..
 
@@ -94,7 +94,7 @@ sudo apt-get update
 sudo apt-get install virtualbox-5.1 -y
 
 # Iptables
-echo "Creating rules in Iptables..."
+echo -e "\e[1;31mCreating rules in Iptables...\e[0m"
 
 sudo iptables -t nat -A POSTROUTING -o eth0 -s 192.168.56.0/24 -j MASQUERADE
 sudo iptables -P FORWARD DROP
@@ -108,25 +108,25 @@ sudo apt-get install iptables-persistent -y
 
 
 # Create user
-echo "Creating user 'cuckoo'..."
+echo -e "\e[1;31mCreating user 'cuckoo'...\e[0m"
 sudo adduser cuckoo
 sudo usermod -a -G vboxusers cuckoo
 
 # Install cuckoo as cuckoo user
-echo "### INSTALLING CUCKOO ###"
+echo -e "\e[1;31m### INSTALLING CUCKOO ###\e[0m"
 echo ""
-echo "Open a new terminal and switch to user 'cuckoo' by typing 'su cuckoo'"
+echo -e "\e[1;31mOpen a new terminal and switch to user 'cuckoo' by typing 'su cuckoo'\e[0m"
 echo ""
-echo "Navigate to homedir by typing 'cd ~'"
+echo -e "\e[1;31mNavigate to homedir by typing 'cd ~'\e[0m"
 echo ""
-echo "Activate virtualenv by typing 'virtualenv venv && . venv/bin/activate'"
+echo -e "\e[1;31mActivate virtualenv by typing 'virtualenv venv && . venv/bin/activate'\e[0m"
 echo ""
-echo "Install Cuckoo by typing 'pip install -U pip setuptools && pip install -U cuckoo'"
+echo -e "\e[1;31mInstall Cuckoo by typing 'pip install -U pip setuptools && pip install -U cuckoo'\e[0m"
 echo ""
 
 pause 'Press [Enter] key when cuckoobox.box has been placed in /home/cuckoo/...'
 
-echo "Now run the cuckoo2.sh script as user 'cuckoo'."
+echo -e "\e[1;31mNow run the cuckoo2.sh script as user 'cuckoo'.\e[0m"
 exit
 
 

@@ -1,6 +1,6 @@
 # Install SP1, dotnet4.5, powershell
 if ($host.version.major -ne 5){
-    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "$env:TEMP\1.ps1"
+    C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\1.ps1"
     Exit 
 }
 
@@ -227,4 +227,5 @@ New-NetIpAddress -InterfaceAlias "Ethernet" -IPAddress "192.168.56.101" -PrefixL
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 8.8.8.8, 4.4.4.4
 
 
-
+# Worked
+Set-Content -Path c:\Users\jcasy\Desktop\post.txt -Value post
