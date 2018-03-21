@@ -1,4 +1,4 @@
-# Install SP1, dotnet4.5, powershell
+# Install SP1, dotnet4.5, powershell5
 if ($host.version.major -ne 5){
     C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\1.ps1"
     Exit 
@@ -188,6 +188,9 @@ Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging e
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0 -erroraction silentlycontinue
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1 -erroraction silentlycontinue
 
+#Enable PS-Remoting
+Enable-PSRemoting
+
 # Make network connection private
 try 
 {
@@ -223,9 +226,17 @@ if ((Get-Item WSMAN:\localhost\client\trustedhosts).Value -eq '*'){
 else {Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Trusted Host list not set"}
 
 # Set Networking 
-New-NetIpAddress -InterfaceAlias "Ethernet" -IPAddress "192.168.56.101" -PrefixLength 24 -DefaultGateway 192.168.56.1
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 8.8.8.8, 4.4.4.4
+# New-NetIpAddress -InterfaceAlias "Ethernet" -IPAddress "192.168.56.101" -PrefixLength 24 -DefaultGateway 192.168.56.1
+# Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 8.8.8.8, 4.4.4.4
 
+# Turn off Windows Firewall
+netsh advfirewall set allprofiles state off
 
-# Worked
-Set-Content -Path c:\Users\jcasy\Desktop\post.txt -Value post
+# Install pillow
+C:\Python27\Scripts\pip.exe install pillow
+
+#Upgrade pip
+C:\Python27\python.exe -m pip install --upgrade pip
+
+# Complete
+Set-Content -Path c:\Tools\post.txt -Value post

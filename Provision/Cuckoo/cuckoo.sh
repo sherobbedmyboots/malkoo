@@ -22,7 +22,7 @@ pause(){
 
 # Install dependencies
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install git mongodb libffi-dev build-essential apparmor-utils python-django python python-dev python-pip python-pil python-sqlalchemy python-bson python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet tcpdump autoconf libtool libjansson-dev libmagic-dev libssl-dev -y
+sudo apt-get install git mongodb libffi-dev build-essential mitmproxy apparmor-utils python-django python python-dev python-pip python-pil python-sqlalchemy python-bson python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet tcpdump autoconf libtool libjansson-dev libmagic-dev libssl-dev -y
 verify python
 
 # Upgrade pip
@@ -112,21 +112,7 @@ echo -e "\e[1;31mCreating user 'cuckoo'...\e[0m"
 sudo adduser cuckoo
 sudo usermod -a -G vboxusers cuckoo
 
-# Install cuckoo as cuckoo user
-echo -e "\e[1;31m### INSTALLING CUCKOO ###\e[0m"
-echo ""
-echo -e "\e[1;31mOpen a new terminal and switch to user 'cuckoo' by typing 'su cuckoo'\e[0m"
-echo ""
-echo -e "\e[1;31mNavigate to homedir by typing 'cd ~'\e[0m"
-echo ""
-echo -e "\e[1;31mActivate virtualenv by typing 'virtualenv venv && . venv/bin/activate'\e[0m"
-echo ""
-echo -e "\e[1;31mInstall Cuckoo by typing 'pip install -U pip setuptools && pip install -U cuckoo'\e[0m"
-echo ""
-
-pause 'Press [Enter] key when cuckoobox.box has been placed in /home/cuckoo/...'
-
-echo -e "\e[1;31mNow run the cuckoo2.sh script as user 'cuckoo'.\e[0m"
+echo -e "\e[1;31mNow build the sandbox VM you plan to use with Cuckoo.\e[0m"
 exit
 
 
