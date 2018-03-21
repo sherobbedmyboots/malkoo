@@ -27,17 +27,19 @@ pause 'Press [Enter] key when agent is running on VM...'
 
 
 
-pause 'Press [Enter] key when cuckoo1 VM is ready for snapshot...'
+pause 'Press [Enter] key when cuckoo1 VM is ready for NoOffice snapshot...'
 
 # Creating snapshot
-vboxmanage snapshot "cuckoo1" take "original" --pause
+vboxmanage snapshot "cuckoo1" take "NoOffice" --pause
+
+pause 'Press [Enter] key when cuckoo1 VM is ready for WithOffice snapshot...'
+
+# Creating snapshot
+vboxmanage snapshot "cuckoo1" take "WithOffice" --pause
 vboxmanage controlvm "cuckoo1" poweroff
 
 # Specify snapshot to use
-sed -i 's/snapshot =/snapshot = original/g' /home/cuckoo/.cuckoo/conf/virtualbox.conf
-
-# Start MongoDB
-sudo /etc/init.d/mongodb start
+sed -i 's/snapshot =/snapshot = WithOffice/g' /home/cuckoo/.cuckoo/conf/virtualbox.conf
 
 # Enable MongoDB
 sed ':a;N;$!ba;s/enabled = no/enabled = yes/4' /home/cuckoo/.cuckoo/conf/virtualbox.conf
@@ -46,11 +48,17 @@ sed ':a;N;$!ba;s/enabled = no/enabled = yes/4' /home/cuckoo/.cuckoo/conf/virtual
 sed ':a;N;$!ba;s/enabled = no/enabled = yes/1' /home/cuckoo/.cuckoo/conf/auxiliary.conf
 
 # Start cuckoo
-cd /home/cuckoo/cuckoo
-python cuckoo.py
+echo "Installing and starting Cuckoo..."
 
+cd /home/cuckoo
+virtualenv venv
+. venv/bin/activate
+pip install -U pip setuptools
+pip install -U cuckoo
+cuckoo community
+cuckoo
 
 # Start Web Server
-cd /home/cuckoo/cuckoo/web
-python manage.py runserver 0.0.0.0:8000
+echo "Open second terminal and type 'cuckoo web runserver 0.0.0.0:8000..."
+exit
 
