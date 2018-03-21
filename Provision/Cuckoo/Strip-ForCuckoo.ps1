@@ -35,7 +35,7 @@ function Strip-ForCuckoo
     $attachments | % {
         $msgFn = $_.FullName
         $msg = $outlook2.CreateItemFromTemplate($msgFn)
-        $rlink = $msg.Body | select-string -pattern '(ht|f)tp(s?)\:\/\/[\p{N}\p{L}]([-.\w]*[\p{N}\p{N1}\p{No}\p{L}])*(:(0-9)*)*(\/?)([\p{L}\p{N}\p{N1}\p{No}\-\.\?\,\/\\\+&amp;%\$#_]*)' | % {$_.Matches} | %{$_.Value}
+        $rlink = $msg.Body | select-string -pattern '(ht|f)tp(s?)\:\/\/[\p{N}\p{L}]([-.\w]*[\p{N}\p{L}])*(:(0-9)*)*(\/?)([\p{L}\p{N}\-\.\?\,\/\\\+&amp;%\$#_]*)' | % {$_.Matches} | %{$_.Value}
         if ($rlink) { $links += $rlink.trim('<>') }
     }
     if ($links) {
