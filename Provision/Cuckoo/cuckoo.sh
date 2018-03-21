@@ -22,7 +22,7 @@ pause(){
 
 # Install dependencies
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install git mongodb libffi-dev build-essential mitmproxy apparmor-utils python-django python python-dev python-pip python-pil python-sqlalchemy python-bson python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet tcpdump autoconf libtool libjansson-dev libmagic-dev libssl-dev -y
+sudo apt-get install git mongodb libffi-dev build-essential mitmproxy apparmor-utils python-django python python-dev python-pip python-pil python-sqlalchemy python-bson python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet tcpdump autoconf libtool libjansson-dev python-virtualenv libmagic-dev libssl-dev -y
 verify python
 
 # Upgrade pip
