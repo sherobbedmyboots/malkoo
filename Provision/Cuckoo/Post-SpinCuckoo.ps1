@@ -1,3 +1,8 @@
+# Copy over agent
+cp ~\Desktop\host\files\agent.pyw "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
+
+
+
 # Install SP1, dotnet4.5, powershell5
 if ($host.version.major -ne 5){
     C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\1.ps1"
@@ -238,5 +243,11 @@ C:\Python27\Scripts\pip.exe install pillow
 #Upgrade pip
 C:\Python27\python.exe -m pip install --upgrade pip
 
+# Set next startup script
+Set-Location -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
+Set-ItemProperty -Path . -Name "2" -Value 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\Post-SpinCuckoo2.ps1"'
+
+
 # Complete
-Set-Content -Path c:\Tools\post.txt -Value post
+Set-Content -Path ~\Desktop\Complete -Value complete
+Restart-Computer
