@@ -93,6 +93,23 @@ wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-
 sudo apt-get update
 sudo apt-get install virtualbox-5.1 -y
 
+
+echo -e "\e[1;31mInstalling Vagrant, Packer, and Malboxes...\e[0m"
+# install Vagrant
+wget https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
+sudo dpkg -i vagrant_2.0.3_x86_64.deb
+verify vagrant 
+
+# install packer
+wget https://releases.hashicorp.com/packer/0.12.2/packer_0.12.2_linux_amd64.zip
+sudo unzip -d /usr/local/bin packer_0.12.2_linux_amd64.zip
+verify packer
+
+# install malboxes
+sudo pip3 install git+https://github.com/GoSecure/malboxes.git#egg=malboxes
+verify malboxes
+
+
 # Iptables
 echo -e "\e[1;31mCreating rules in Iptables...\e[0m"
 
@@ -112,7 +129,10 @@ echo -e "\e[1;31mCreating user 'cuckoo'...\e[0m"
 sudo adduser cuckoo
 sudo usermod -a -G vboxusers cuckoo
 
-echo -e "\e[1;31mNow build the sandbox VM you plan to use with Cuckoo.\e[0m"
+# Copy over config.js
+cp .config/malboxes/confg.js /tmp 
+
+echo -e "\e[1;31mNow log into the cuckoo account and run cuckoo2.sh.\e[0m"
 exit
 
 
