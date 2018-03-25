@@ -1,9 +1,19 @@
 #!/bin/bash
 
+writeRed(){
+	echo -e "\e[2;91m$1\e[0m"
+}
+writeGreen(){
+	echo -e "\e[2;92m$1\e[0m"
+}
+writeYellow(){
+	echo -e "\e[2;93m$1\e[0m"
+}
+
 verify(){
 if ! command -v $1 > /dev/null 
 then
-	echo -e "\e[1;31m$1 not installed\e[0m"
+	writeRed "$1 could not be installed"
 	exit
 fi
 }
@@ -11,7 +21,7 @@ fi
 pip_verify(){
 if ! pip show $1 > /dev/null
 then
-	echo -e "\e[1;31m$1 not installed\e[0m"
+	writeRed "$1 could not be installed"
 	exit
 fi
 }
@@ -20,98 +30,285 @@ pause(){
 	read -p "$*"
 }
 
-# Install dependencies
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install git mongodb libffi-dev build-essential mitmproxy apparmor-utils python-django python python-dev python-pip python-pil python-sqlalchemy python-bson python-dpkt python-jinja2 python-magic python-pymongo python-gridfs python-libvirt python-bottle python-pefile python-chardet tcpdump autoconf libtool libjansson-dev python-virtualenv libmagic-dev libssl-dev -y
-verify python
+declare -a arr1=("git"
+    "mongodb"
+    "libffi-dev"
+    "build-essential"
+    "mitmproxy"
+    "apparmor-utils"
+    "python-django"
+    "python"
+    "python-dev"
+    "python-pip"
+    "python-pil"
+    "python-sqlalchemy"
+    "python-bson"
+    "python-dpkt"
+    "python-jinja2"
+    "python-magic"
+    "python-pymongo"
+    "python-gridfs"
+    "python-libvirt"
+    "python-bottle"
+    "python-pefile"
+    "python-chardet"
+    "tcpdump"
+    "autoconf"
+    "libtool"
+    "libjansson-dev"
+    "python-virtualenv"
+    "libmagic-dev"
+	"libssl-dev")
 
-# Upgrade pip
-sudo pip install --upgrade pip
+declare -a arr2=("yara-python"
+	"pydeep"
+	"openpyxl"
+	"ujson"
+	"pycrypto"
+	"distorm3"
+	"pytz")
+
+
+function finishCuckooSetup {
+
+cd /home/cuckoo
+
+# disable screen lock
+dconf write /org/gnome/desktop/screensaver/idle-activation-enabled false
+dconf write /org/gnome/desktop/screensaver/lock-enabled false
+
+# setup Cuckoo environment
+virtualenv venv
+. venv/bin/activate
+pip install -U pip setuptools
+pip install -U cuckoo
+cuckoo -d
+cuckoo community
+deactivate
+
+writeGreen "Copying config files from /tmp"
+if ! [ -d /home/cuckoo/.config/malboxes ];then
+	mkdir /home/cuckoo/.config/malboxes
+fi
+cp /tmp/config.js /home/cuckoo/.config/malboxes/
+cp -r /tmp/tools /home/cuckoo/
+
+writeGreen "Copying cuckoo agent to tools dir"
+cp /home/cuckoo/.cuckoo/agent/agent.py /home/cuckoo/tools/agent.pyw
+
+writeGreen "Building a Windows 7 VM Vagrant box with Malboxes"
+malboxes build win7_64_analyst
+
+pause 'If build succeeded, press [Enter] key to continue...[Ctrl + C] to Exit'
+
+
+writeGreen "Spinning up VM named cuckoo1"
+malboxes spin win7_64_analyst cuckoo1 
+vagrant up
+
+writeGreen "When VM loads up, run Post-SpinCuckoo.ps1 file in C:\Tools..."
+writeGreen "This will install SP1, DotNet4.5, PowerShell and configure various settings..."
+
+pause 'when "Complete" file appears on Desktop, press [Enter] key to continue'
+
+writeGreen "Creating host-only interface..."
+# Create HostOnly interface
+vmboxmanage controlvm "cuckoo1" poweroff
+vboxmanage hostonlyif create
+vboxmanage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1
+vboxmanage modifyvm cuckoo1 --hostonlyadapter1 vboxnet0
+vboxmanage modifyvm cuckoo1 --nic1 hostonly
+
+
+
+writeGreen "Restarting VM..."
+vboxmanage startvm "cuckoo1" --type gui
+
+pause 'If no error messages, Press [Enter] key to take NoOffice snapshot...'
+
+# Create NoOffice snapshot
+vboxmanage snapshot "cuckoo1" take "NoOffice" --pause
+
+writeGreen "Install Office on the guest using: choco install officeproplus2013 -y"
+pause 'Verify Office 2013 is installed, Press [Enter] key when ready to take WithOffice snapshot...'
+
+# Create WithOffic snapshot
+vboxmanage snapshot "cuckoo1" take "WithOffice" --pause
+vboxmanage controlvm "cuckoo1" poweroff
+
+writeGreen "Configuring settings for Cuckoo..."
+# Specify snapshot to use
+sed -i 's/snapshot =/snapshot = WithOffice/g' /home/cuckoo/.cuckoo/conf/virtualbox.conf
+
+# Enable MongoDB
+sed ':a;N;$!ba;s/enabled = no/enabled = yes/4' /home/cuckoo/.cuckoo/conf/reporting.conf
+
+# Enable mitm
+sed ':a;N;$!ba;s/enabled = no/enabled = yes/1' /home/cuckoo/.cuckoo/conf/auxiliary.conf
+
+# Start cuckoo
+writeGreen "Starting Cuckoo..."
+. venv/bin/activate
+cuckoo
+
+# Start Web Server
+pause 'Open second terminal and type: cuckoo web runserver 0.0.0.0:8000...'
+
+writeGreen "Now browse to localhost:8000 and submit a file to test."
+exit
+}
+
+
+if [  "$(whoami)" = "cuckoo" ];then
+	finishCuckooSetup
+fi
+
+writeYellow "Checking packages..."
+
+for i in "${arr1[@]}"
+do
+	dpkg -s $i &> /dev/null
+	if [ $? -eq 0 ]; then
+    	writeGreen "$i is installed..."
+	else
+    	writeYellow "$i is NOT installed, attempting to install..."
+    	sudo apt-get install $i -y
+    	verify $i
+	fi
+done
+
+
+for i in "${arr2[@]}"
+do
+	pip show $i &> /dev/null
+	if [ $? -eq 0 ]; then
+    	writeGreen "$i  is installed..."
+	else
+    	writeYellow "$i  is NOT installed, attempting to install..."
+    	sudo pip install $i
+    	pip_verify $i
+	fi
+done
+
 
 # Set tcpdump
 verify tcpdump
 verify aa-disable
-sudo aa-disable /usr/sbin/tcpdump
+# sudo aa-disable /usr/sbin/tcpdump
 sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
 
 # Install Yara
-wget https://github.com/plusvic/yara/archive/v3.4.0.tar.gz -O yara-3.4.0.tar.gz
-tar -zxf yara-3.4.0.tar.gz
-cd yara-3.4.0
-./bootstrap.sh
-./configure --with-crypto --enable-cuckoo --enable-magic
-make
-sudo make install
-verify yara
-cd ..
+if ! command -v yara > /dev/null;then
+	wget https://github.com/plusvic/yara/archive/v3.4.0.tar.gz -O yara-3.4.0.tar.gz
+	tar -zxf yara-3.4.0.tar.gz
+	cd yara-3.4.0
+	./bootstrap.sh
+	./configure --with-crypto --enable-cuckoo --enable-magic
+	make
+	sudo make install
+	verify yara
+	cd ..
+else
+	writeGreen "Yara is installed..."
+fi
 
-# Install Yara Python
-sudo pip install yara-python
-pip_verify yara-python
 
 # Install ssdeep
-wget http://sourceforge.net/projects/ssdeep/files/ssdeep-2.13/ssdeep-2.13.tar.gz/download -O ssdeep-2.13.tar.gz
-tar -zxf ssdeep-2.13.tar.gz
-cd ssdeep-2.13
-./configure
-make
-sudo make install
-verify ssdeep
-cd ..
+if ! command -v ssdeep > /dev/null;then
+	wget http://sourceforge.net/projects/ssdeep/files/ssdeep-2.13/ssdeep-2.13.tar.gz/download -O ssdeep-2.13.tar.gz
+	tar -zxf ssdeep-2.13.tar.gz
+	cd ssdeep-2.13
+	./configure
+	make
+	sudo make install
+	verify ssdeep
+	cd ..
+else
+	writeGreen "Ssdeep is installed...."
+fi
 
-# Install pydeep
-sudo pip install pydeep
-pip_verify pydeep
+
+# Install distorm3
+if ! pip show distorm3 > /dev/null;then
+	wget https://pypi.python.org/packages/28/f9/8ff25a8f3edb581b5bc0efbed6382dcca22e5e7eff39464346c629105739/distorm3-3.3.4.zip#md5=bf7bba5894b478b33fa2dea47ef13c9f
+	unzip distorm3-3.3.4.zip
+	cd distorm3-3.3.4
+	sudo python setup.py build install
+	cd ..
+else
+	writeGreen "Distorm3 is installed..."
+fi
+
 
 # Install Volatility
-sudo pip install openpyxl ujson pycrypto distorm3 pytz m2crypto==0.24.0
+if ! command -v vol.py > /dev/null;then
+	sudo pip install m2crypto==0.24.0
+	pip_verify m2crypto
 
-pip_verify openpyxl
-pip_verify ujson
-pip_verify pycrypto
-pip_verify distorm3
-pip_verify pytz
-pip_verify m2crypto
-
-wget https://pypi.python.org/packages/28/f9/8ff25a8f3edb581b5bc0efbed6382dcca22e5e7eff39464346c629105739/distorm3-3.3.4.zip#md5=bf7bba5894b478b33fa2dea47ef13c9f
-unzip distorm3-3.3.4.zip
-cd distorm3-3.3.4
-sudo python setup.py build install
-cd ..
-
-git clone https://github.com/volatilityfoundation/volatility.git
-cd volatility
-sudo python setup.py build
-sudo python setup.py install
-verify vol.py
-cd ..
+	git clone https://github.com/volatilityfoundation/volatility.git
+	cd volatility
+	sudo python setup.py build
+	sudo python setup.py install
+	verify vol.py
+	cd ..
+else
+	writeGreen "Volatility is installed..."
+fi
 
 
 # Virtualbox
-echo deb http://download.virtualbox.org/virtualbox/debian xenial contrib | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install virtualbox-5.1 -y
+if ! command -v virtualbox > /dev/null;then
+	echo deb http://download.virtualbox.org/virtualbox/debian xenial contrib | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
+	wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+	sudo apt-get update
+	sudo apt-get install virtualbox-5.1 -y
+	verify virtualbox
+else
+	writeGreen "Virtualbox is installed..."
+fi
 
 
-echo -e "\e[1;31mInstalling Vagrant, Packer, and Malboxes...\e[0m"
-# install Vagrant
-wget https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
-sudo dpkg -i vagrant_2.0.3_x86_64.deb
-verify vagrant 
+# Install Malboxes
+if ! command -v malboxes > /dev/null;then
+	writeGreen "Installing Vagrant, Packer, and Malboxes..."
 
-# install packer
-wget https://releases.hashicorp.com/packer/0.12.2/packer_0.12.2_linux_amd64.zip
-sudo unzip -d /usr/local/bin packer_0.12.2_linux_amd64.zip
-verify packer
+	# install Vagrant
+	wget https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
+	sudo dpkg -i vagrant_2.0.3_x86_64.deb
+	verify vagrant 
 
-# install malboxes
-sudo pip3 install git+https://github.com/GoSecure/malboxes.git#egg=malboxes
-verify malboxes
+	# install packer
+	wget https://releases.hashicorp.com/packer/0.12.2/packer_0.12.2_linux_amd64.zip
+	sudo unzip -d /usr/local/bin packer_0.12.2_linux_amd64.zip
+	verify packer
+
+	# install malboxes
+	sudo pip3 install git+https://github.com/GoSecure/malboxes.git#egg=malboxes
+	verify malboxes
+else
+	writeGreen "Malboxes is installed..."
+fi
+
+# Make VMs start with --type gui
+sudo sed -i 's/"headless": "true"/"headless": "false"/g' /usr/local/lib/python3.5/dist-packages/malboxes/templates/snippets/builder_virtualbox_windows.json 
+
+
+# clean up
+declare -a arr3=("rm packer_0.12.2_linux_amd64.zip"
+	"ssdeep-2.13.tar.gz"
+	"rm yara-3.4.0.tar.gz"
+	"rm distorm3-3.3.4.zip")
+
+for i in "${arr3[@]}"
+do
+	if [ -f "$i" ];then
+		rm $i
+	fi
+done
 
 
 # Iptables
-echo -e "\e[1;31mCreating rules in Iptables...\e[0m"
+writeGreen "Creating rules in Iptables..."
 
 sudo iptables -t nat -A POSTROUTING -o eth0 -s 192.168.56.0/24 -j MASQUERADE
 sudo iptables -P FORWARD DROP
@@ -121,20 +318,40 @@ sudo iptables -A FORWARD -s 192.168.56.0/24 -d 192.168.56.0/24 -j ACCEPT
 sudo iptables -A FORWARD -j LOG
 echo 1 | sudo tee -a /proc/sys/net/ipv4/ip_forward
 sudo sysctl -w net.ipv4.ip_forward=1
-sudo apt-get install iptables-persistent -y
 
+if ! dpkg -s iptables-persistent > /dev/null;then
+	sudo apt-get install iptables-persistent -y
+else writeGreen "iptables-persistent is installed..."
+fi
 
 # Create user
-echo -e "\e[1;31mCreating user 'cuckoo'...\e[0m"
-sudo adduser cuckoo
-sudo usermod -a -G vboxusers cuckoo
+if ! id -u cuckoo > /dev/null;then
+	writeGreen "Creating user 'cuckoo'..."
+	sudo adduser cuckoo
+	sudo usermod -a -G vboxusers cuckoo
+else
+	writeGreen "Cuckoo user found..."
+fi
 
-# Copy over config.js
-cp .config/malboxes/confg.js /tmp 
+writeYellow "Configure the following settings in .config/malboxes/config.js:"
+writeYellow " "
+writeYellow "     - change username				someusername"
+writeYellow "     - change password				somepassword"
+writeYellow "     - change computername			somename"
+writeYellow "     - change disk_size				51200"
+writeYellow "     - choose Chocolatey packages to install	googlechrome, adobereader"
+writeYellow "     - change tools_path			/home/cuckoo/tools"
+writeYellow " "
 
-echo -e "\e[1;31mNow log into the cuckoo account and run cuckoo2.sh.\e[0m"
+pause 'Once this file is configured, press [Enter] key to continue...'
+
+# Copy over files
+writeGreen "Copying config files to /tmp..."
+cp ./cuckoo.sh /tmp
+cp .config/malboxes/config.js /tmp
+cp -r tools /tmp
+
+writeYellow "Now log in the cuckoo user GUI and run this script again at: /home/cuckoo/cuckoo.sh."
 exit
-
-
 
 
