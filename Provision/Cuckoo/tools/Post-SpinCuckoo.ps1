@@ -153,7 +153,7 @@ reg import "c:\tools\ps.reg"
 $sbl = (Get-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging).EnableScriptBlockLogging
 if ($sbl -ne 1){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell script block logging could not be enabled"
-    Exit
+    # Exit
 }
 
 # Check Transcription
@@ -162,7 +162,7 @@ $eh = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\Po
 # $od = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription).OutputDirectory
 if ($et -ne 1 -or $eh -ne 1 ){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell transcription logging could not be enabled"
-    Exit
+    # Exit
 }
 
 # Check Module Logging
@@ -171,7 +171,7 @@ $eml = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\P
 
 if ($eml -ne 1){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell module logging could not be enabled"   
-    Exit 
+    # Exit 
 }
 
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"  
@@ -184,7 +184,7 @@ $a = cmd.exe /c 'auditpol /get /subcategory:"Process Creation"'
 $b = $a | sls "Success" | %{$_.Matches}
 if (!($b)){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Process Creation Logging not enabled"
-    Exit
+    # Exit
 }
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
 
@@ -243,10 +243,10 @@ C:\Python27\Scripts\pip.exe install pillow
 C:\Python27\python.exe -m pip install --upgrade pip
 
 # Set next startup script
+cp C:\Tools\SysPrep.ps1 "$env:TEMP\"
 Set-Location -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
-Set-ItemProperty -Path . -Name "SysPrep" -Value 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Tools\SysPrep.ps1"'
-
+Set-ItemProperty -Path . -Name "SysPrep" -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe $env:TEMP\SysPrep.ps1"
 
 # Complete
-Set-Content -Path ~\Desktop\Complete -Value complete
+Set-Content -Path $env:USERPROFILE\Desktop\Complete -Value complete
 Restart-Computer
