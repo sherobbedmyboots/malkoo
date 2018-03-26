@@ -333,12 +333,12 @@ else
 	writeGreen "Cuckoo user found..."
 fi
 
-writeYellow "Configure the following settings in .config/malboxes/config.js:"
+writeYellow "Configure the following settings in .config/malboxes/config.js:" 
 writeYellow " "
 writeYellow "     - change username				someusername"
 writeYellow "     - change password				somepassword"
 writeYellow "     - change computername			somename"
-writeYellow "     - change disk_size				51200"
+writeYellow "     - change disk_size				51200"			    
 writeYellow "     - choose Chocolatey packages to install	googlechrome, adobereader"
 writeYellow "     - change tools_path			/home/cuckoo/tools"
 writeYellow " "
@@ -348,10 +348,9 @@ pause 'Once this file is configured, press [Enter] key to continue...'
 # Copy over files
 writeGreen "Copying config files to /tmp..."
 cp ./cuckoo.sh /tmp
-cp .config/malboxes/config.js /tmp
+cp .config/malboxes/config.js /tmp 
 cp -r tools /tmp
 
-writeYellow "Now log in the cuckoo user GUI and run this script again at: /home/cuckoo/cuckoo.sh."
+writeYellow "Now log in the cuckoo user GUI and run this script again at: /tmp/cuckoo.sh."
 exit
-
 
