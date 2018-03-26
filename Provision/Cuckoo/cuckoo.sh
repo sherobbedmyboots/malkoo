@@ -155,7 +155,7 @@ writeGreen "Starting Cuckoo..."
 cuckoo
 
 # Start Web Server
-pause 'Open second terminal and type: cuckoo web runserver 0.0.0.0:8000...'
+pause 'Open second terminal [Ctrl-Alt-T] and type:  . venv/bin/activate && cuckoo web runserver 0.0.0.0:8000'
 
 writeGreen "Now browse to localhost:8000 and submit a file to test."
 exit
