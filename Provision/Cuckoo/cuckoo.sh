@@ -88,12 +88,12 @@ cuckoo -d
 cuckoo community
 deactivate
 
+# create malboxes dir
+malboxes -h > /dev/null
+
 writeGreen "Copying config files from /tmp"
-if ! [ -d /home/cuckoo/.config/malboxes ];then
-	mkdir /home/cuckoo/.config/malboxes
-fi
-cp /tmp/config.js /home/cuckoo/.config/malboxes/
 cp -r /tmp/tools /home/cuckoo/
+cp /home/cuckoo/tools/config.js /home/cuckoo/.config/malboxes/
 
 writeGreen "Copying cuckoo agent to tools dir"
 cp /home/cuckoo/.cuckoo/agent/agent.py /home/cuckoo/tools/agent.pyw
@@ -160,7 +160,6 @@ pause 'Open second terminal and type: cuckoo web runserver 0.0.0.0:8000...'
 writeGreen "Now browse to localhost:8000 and submit a file to test."
 exit
 }
-
 
 if [  "$(whoami)" = "cuckoo" ];then
 	finishCuckooSetup
@@ -279,7 +278,8 @@ if ! command -v malboxes > /dev/null;then
 
         # install malboxes
 	if ! command -v pip3;then
-           sudo apt-get install python3-pip -y
+           writeYellow "Installing python3-pip..."
+	   sudo apt-get install python3-pip -y
         fi
         sudo pip3 install git+https://github.com/GoSecure/malboxes.git#egg=malboxes
 	verify malboxes
@@ -331,7 +331,7 @@ else
 	writeGreen "Cuckoo user found..."
 fi
 
-writeYellow "Configure the following settings in .config/malboxes/config.js:"
+writeYellow "Configure the following settings in ./tools/config.js:"
 writeYellow " "
 writeYellow "     - change username				someusername"
 writeYellow "     - change password				somepassword"
@@ -346,7 +346,6 @@ pause 'Once this file is configured, press [Enter] key to continue...'
 # Copy over files
 writeGreen "Copying config files to /tmp..."
 cp ./cuckoo.sh /tmp
-cp .config/malboxes/config.js /tmp
 cp -r tools /tmp
 
 writeYellow "Now log in the cuckoo user GUI and run this script again at: /tmp/cuckoo.sh."
