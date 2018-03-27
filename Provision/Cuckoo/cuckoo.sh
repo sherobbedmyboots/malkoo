@@ -59,8 +59,10 @@ declare -a arr1=("git"
     "libjansson-dev"
     "python-virtualenv"
     "libmagic-dev"
+    "libjpeg-dev"
     "libssl-dev"
-    "swig")
+    "swig"
+    "sublime-text")
 
 declare -a arr2=("yara-python"
 	"pydeep"
@@ -91,20 +93,20 @@ deactivate
 # create malboxes dir
 malboxes -h > /dev/null
 
-writeGreen "Copying config files from /tmp"
+writeGreen "Copying config files from /tmp..."
 cp -r /tmp/tools /home/cuckoo/
 cp /home/cuckoo/tools/config.js /home/cuckoo/.config/malboxes/
 
-writeGreen "Copying cuckoo agent to tools dir"
+writeGreen "Copying cuckoo agent to tools dir..."
 cp /home/cuckoo/.cuckoo/agent/agent.py /home/cuckoo/tools/agent.pyw
 
-writeGreen "Building a Windows 7 VM Vagrant box with Malboxes"
+writeGreen "Building a Windows 7 VM Vagrant box with Malboxes..."
 malboxes build win7_64_analyst
 
 pause 'If build succeeded, press [Enter] key to continue...[Ctrl + C] to Exit'
 
 
-writeGreen "Spinning up VM named cuckoo1"
+writeGreen "Spinning up VM named cuckoo1..."
 malboxes spin win7_64_analyst cuckoo1 
 vagrant up
 
@@ -166,6 +168,12 @@ if [  "$(whoami)" = "cuckoo" ];then
 fi
 
 writeYellow "Checking packages..."
+
+# Upgrade pip, pip3
+writeYellow "Upgrading pip..."
+pip install --upgrade pip
+# sudo pip install --upgrade Pillow
+
 
 for i in "${arr1[@]}"
 do
@@ -318,6 +326,7 @@ echo 1 | sudo tee -a /proc/sys/net/ipv4/ip_forward
 sudo sysctl -w net.ipv4.ip_forward=1
 
 if ! dpkg -s iptables-persistent > /dev/null;then
+	writeYellow "Installing iptables-persistent..."
 	sudo apt-get install iptables-persistent -y
 else writeGreen "iptables-persistent is installed..."
 fi
@@ -341,7 +350,9 @@ writeYellow "     - choose Chocolatey packages to install	googlechrome, adoberea
 writeYellow "     - change tools_path			/home/cuckoo/tools"
 writeYellow " "
 
-pause 'Once this file is configured, press [Enter] key to continue...'
+subl ./tools/config.js
+
+pause 'Once this file is configured, save it and press [Enter] key to continue...'
 
 # Copy over files
 writeGreen "Copying config files to /tmp..."
