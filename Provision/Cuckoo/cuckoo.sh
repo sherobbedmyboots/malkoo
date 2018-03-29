@@ -151,6 +151,11 @@ sed ':a;N;$!ba;s/enabled = no/enabled = yes/4' /home/cuckoo/.cuckoo/conf/reporti
 # Enable mitm
 sed ':a;N;$!ba;s/enabled = no/enabled = yes/1' /home/cuckoo/.cuckoo/conf/auxiliary.conf
 
+# Enable html/pdf reporting
+sed -i 's/html = no/html = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
+sed -i 's/pdf = no/pdf = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
+sed ':a;N;$!ba;s/enabled = no/enabled = yes/2' /home/cuckoo/.cuckoo/conf/reporting.conf
+
 # Start cuckoo
 writeGreen "Starting Cuckoo..."
 . venv/bin/activate
