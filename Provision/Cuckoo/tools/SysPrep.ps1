@@ -41,7 +41,6 @@ else {Write-Host -Fore Green "[-] " -NoNewLine; Write-Host "Cuckoo agent running
 
 # Clean up
 Write-Host -Fore Yellow "[-] " -NoNewLine; Write-Host "Cleaning up..."
-Remove-Item -Force ~\Desktop\Complete
 Remove-Item -Recurse -Force C:\Tools
 if ((!(Test-Path ~\Desktop\Complete)) -and (!(Test-Path C:\Tools))){
     Write-Host -Fore Green "[-] " -NoNewLine; Write-Host "Cleanup complete!`r`n"}
@@ -49,6 +48,13 @@ if ((!(Test-Path ~\Desktop\Complete)) -and (!(Test-Path C:\Tools))){
 else {
     Write-Host -Fore Red "[-] " -NoNewLine; Write-Host "Could not delete all files...`r`n"
     Write-Host -Fore Yellow "[-] " -NoNewLine; Write-Host "Ensure ~\Desktop\Complete and C:\Tools get deleted."
-    Exit	
 }
+
+# Delete self
+Set-Location -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+Remove-ItemProperty -Path . -Name "SysPrep"
+Set-Content -path $env:TEMP\complete.bat -value "@ECHO OFF"
+Add-Content -path $env:TEMP\complete.bat -value "del %TEMP%\SysPrep.ps1"
+Add-Content -path $env:TEMP\complete.bat -value '(goto) 2>nul & del "%~f0"'
+$env:TEMP\complete.bat
 
