@@ -31,13 +31,35 @@ pause(){
 	read -p "$*"
 }
 
-declare -a arr1=("git"
-    "libffi-dev"
+declare -a arr1=("apparmor-utils"
+    "autoconf"
+    "build-dep"
     "build-essential"
+    "clamav"
+    "clamav-daemon"
+    "clamav-freshclam"
+    "exiftool"
+    "git"
+    "genisoimage"
+    "libboost-python-dev"
+    "libtool"
+    "libpq-dev"
+    "libjansson-dev"
+    "libmagic-dev"
+    "libjpeg-dev"
+    "libssl-dev"
+    "libffi-dev"
+    "libfuzzy-dev"
+    "libgeoip-dev"
+    "libcap2-bin"
+    "libpcre3"
+    "libpcre3-dev"
+    "libyara-dev"
     "mitmproxy"
-    "apparmor-utils"
-    "python-django"
+    "mongodb"
     "python"
+    "python-psycopg2"
+    "python-django"
     "python-dev"
     "python-pip"
     "python-pil"
@@ -47,30 +69,64 @@ declare -a arr1=("git"
     "python-jinja2"
     "python-magic"
     "python-pymongo"
+    "python-mako"
     "python-gridfs"
     "python-libvirt"
     "python-bottle"
     "python-pefile"
     "python-chardet"
-    "tcpdump"
-    "ssdeep"
-    "autoconf"
-    "libtool"
-    "libjansson-dev"
     "python-virtualenv"
-    "libmagic-dev"
-    "libjpeg-dev"
-    "libssl-dev"
+    "python-yara"
+    "tcpdump"
+    "snort"
+    "ssdeep"
+    "sublime-text"
+    "subversion"
     "swig"
-    "sublime-text")
+    "postgresql-9.4"
+    "postgresql-contrib-9.4"
+    "libpq-dev"
+    "openjdk-7-jre-headless"
+    "volatility"
+    "volatility-tools"
+    "mysql-server"
+    "python-mysqldb")
 
-declare -a arr2=("yara-python"
+declare -a arr2=("distorm3"
+	"bson"
+	"sqlalchemy"
+	"jinja"
+	"markupsafe"
+	"libvirt-python"
+	"pymongo"
+	"bottle"
+	"pefile"
+	"django"
+	"chardet"
+	"pygal"
+	"clamd"
+	"django-ratelimit"
+	"rarfile"
+	"jsbeautifier"
+	"dpkt"
+	"nose"
+	"dnspython"
+	"requests"
+	"python-magic"
+	"geoip"
+	"pillow"
+	"elasticsearch"
+	"java-random"
+	"python-whois"
+	"ssdeep"
+	"yara-python"
 	"pydeep"
 	"openpyxl"
 	"ujson"
 	"pycrypto"
-	"distorm3"
-	"pytz")
+	"weasyprint"
+	"pytz"
+	"python-psycopg2")
 
 
 function finishCuckooSetup {
@@ -85,6 +141,8 @@ dconf write /org/gnome/desktop/screensaver/lock-enabled false
 virtualenv venv
 . venv/bin/activate
 pip install -U pip setuptools
+pip install --upgrade pip
+pip install weasyprint
 pip install -U cuckoo
 cuckoo -d
 cuckoo community
@@ -96,6 +154,7 @@ malboxes -h > /dev/null
 writeGreen "Copying config files from /tmp..."
 cp -r /tmp/tools /home/cuckoo/
 cp /home/cuckoo/tools/config.js /home/cuckoo/.config/malboxes/
+mv /home/cuckoo/tools 
 
 writeGreen "Copying cuckoo agent to tools dir..."
 cp /home/cuckoo/.cuckoo/agent/agent.py /home/cuckoo/tools/agent.pyw
@@ -113,7 +172,7 @@ vagrant up
 writeGreen "When VM loads up, run Post-SpinCuckoo.ps1 file in C:\Tools..."
 writeGreen "This will install SP1, DotNet4.5, PowerShell and configure various settings..."
 
-pause 'when "Complete" file appears on Desktop, press [Enter] key to continue'
+pause 'when "Complete" file appears on Desktop, delete it and press [Enter] key to continue'
 
 writeGreen "Creating host-only interface..."
 # Create HostOnly interface
@@ -134,7 +193,14 @@ pause 'If no error messages, Press [Enter] key to take NoOffice snapshot...'
 # Create NoOffice snapshot
 vboxmanage snapshot "cuckoo1" take "NoOffice" --pause
 
-writeGreen "Install Office on the guest using: choco install officeproplus2013 -y"
+writeGreen "Install Office on the guest using: choco install officeproplus2013 -y --force"
+writeGreen "-----------------------------------------------------------------------------"
+writeGreen "If this doesn't work, download installation file from:"
+writeYellow "        http://care.dlservice.microsoft.com/dl/download/2/9/C/29CC45EF-4CDA-4710-9FB3-1489786570A1/OfficeProfessionalPlus_x86_en-us.img        "
+writeGreen "Then double click and install manually"
+writeGreen "-----------------------------------------------------------------------------"
+writeGreen ""
+
 pause 'Verify Office 2013 is installed, Press [Enter] key when ready to take WithOffice snapshot...'
 
 # Create WithOffic snapshot
@@ -155,6 +221,11 @@ sed ':a;N;$!ba;s/enabled = no/enabled = yes/1' /home/cuckoo/.cuckoo/conf/auxilia
 sed -i 's/html = no/html = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
 sed -i 's/pdf = no/pdf = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
 sed ':a;N;$!ba;s/enabled = no/enabled = yes/2' /home/cuckoo/.cuckoo/conf/reporting.conf
+
+# Enable VT/signatures
+sed -i 's/show_virustotal = no/show_virustotal = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
+sed -i 's/show_signatures = no/show_signatures = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
+sed -i 's/show_urls = no/show_urls = yes/g' /home/cuckoo/.cuckoo/conf/reporting.conf
 
 # Start cuckoo
 writeGreen "Starting Cuckoo..."
@@ -178,6 +249,18 @@ writeYellow "Checking packages..."
 writeYellow "Upgrading pip..."
 pip install --upgrade pip
 # sudo pip install --upgrade Pillow
+
+
+sudo wget -qO – https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add –
+sudo echo “deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main” | sudo tee -a /etc/apt/sources.list.d/elasticsearch-1.7.list
+sudo apt-get update -qq
+sudo apt-get install elasticsearch -qq
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo service elasticsearch start
+
+sudo apt-get install wkhtmltopdf xvfb xfonts-100dpi -qq
+
 
 
 for i in "${arr1[@]}"
@@ -361,6 +444,9 @@ pause 'Once this file is configured, save it and press [Enter] key to continue..
 
 # Copy over files
 writeGreen "Copying config files to /tmp..."
+mitmproxy -h 
+cp ./mitmproxy/mitmproxy-ca-cert.p12 ./tools/
+cp ./mitmproxy/mitmproxy-ca-cert.p12 ./tools/cert.p12
 cp ./cuckoo.sh /tmp
 cp -r tools /tmp
 
