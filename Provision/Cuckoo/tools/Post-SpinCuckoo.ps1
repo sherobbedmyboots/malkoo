@@ -153,7 +153,7 @@ reg import "c:\tools\ps.reg"
 $sbl = (Get-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging).EnableScriptBlockLogging
 if ($sbl -ne 1){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell script block logging could not be enabled"
-    # Exit
+    Exit
 }
 
 # Check Transcription
@@ -162,7 +162,7 @@ $eh = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\Po
 # $od = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription).OutputDirectory
 if ($et -ne 1 -or $eh -ne 1 ){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell transcription logging could not be enabled"
-    # Exit
+    Exit
 }
 
 # Check Module Logging
@@ -171,7 +171,7 @@ $eml = (Get-ItemProperty HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\P
 
 if ($eml -ne 1){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "PowerShell module logging could not be enabled"   
-    # Exit 
+    Exit 
 }
 
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "PowerShell module, script block, transcription logging enabled"  
@@ -184,7 +184,7 @@ $a = cmd.exe /c 'auditpol /get /subcategory:"Process Creation"'
 $b = $a | sls "Success" | %{$_.Matches}
 if (!($b)){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Process Creation Logging not enabled"
-    # Exit
+    Exit
 }
 Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
 
@@ -241,6 +241,15 @@ C:\Python27\Scripts\pip.exe install pillow
 
 #Upgrade pip
 C:\Python27\python.exe -m pip install --upgrade pip
+
+# Install updates / Use SSL 3.0 and TLS 1.2
+
+# Install mitm cert 
+certutil -importpfx "C:\Tools\mitmproxy-ca-cert.p12"
+
+# Disable active probing
+Set-Location -Path 'HKLM:\SYSTEM\CurrentControlSet\services\NlaSvc\Parameters\Internet'
+Set-ItemProperty -Path . -Name "EnableActiveProbing" -Value '1'
 
 # Set next startup script
 cp C:\Tools\SysPrep.ps1 "$env:TEMP\"
