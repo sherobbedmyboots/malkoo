@@ -57,7 +57,7 @@ $list = @(
 	'update.googleapis.com'
 )
 foreach ($l in $list) {
-	Add-Content -Path C:\Windows\System32\drivers\etc\hosts -Value "255.255.255.255    $l" -Encoding ASCII
+	Add-Content -Path C:\Windows\System32\drivers\etc\hosts -Value "0.0.0.0 $l" -Encoding ASCII
 }
 
 # Restart 
