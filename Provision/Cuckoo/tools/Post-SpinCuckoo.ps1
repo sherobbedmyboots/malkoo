@@ -186,7 +186,9 @@ if (!($b)){
     Write-Host -Fore Red "[+] " -NoNewLine; Write-Host "Process Creation Logging not enabled"
     Exit
 }
-Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
+else {
+    Write-Host -Fore Green "[+] " -NoNewLine; Write-Host "Process Creation Logging enabled"
+}
 
 # Enable RDP
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0 -erroraction silentlycontinue
