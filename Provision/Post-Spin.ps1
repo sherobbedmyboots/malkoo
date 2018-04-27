@@ -313,83 +313,47 @@ Function MakeShortcut ($name, $filepath) {
         $lnk.Save()
 }
 
-$toolnames = @(
-    "Tools",
-    "PowerShell",
-    "Command Prompt",
-    "Firefox",
-    "Chrome",
-    "Internet Explorer",
-    "x96dbg",
-    "Ollydbg",
-    "IDA Pro",
-    "Wireshark",
-    "Fiddler",
-    "Network Monitor",
-    "PEStudio",
-    "CFF Explorer",
-    "PE Detective",
-    "EXEInfo",
-    "BinText",
-    "HXD",
-    "Node.js",
-    "Notepad++",
-    "Sublime",
-    "Process Hacker",
-    "ProcMon",
-    "HashMyFiles",
-    "DNSQuerySniffer",
-    "Regshot",
-    "API Monitor",
-    "API Monitor x86",
-    "Autoruns64",
-    "Malzilla",
-    "ProcDot",
-    "FLOSS",
-    "Dependency Walker",
-    "Folder Changes View"
-)
-
-$shortcuts = @(
-    "C:\Tools",
-    "$PSHome\powershell.exe",
-    "%windir%\system32\cmd.exe",
-    "C:\Program Files\Mozilla Firefox\firefox.exe",
-    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-    "C:\Program Files\Internet Explorer\iexplore.exe",
-    "C:\ProgramData\chocolatey\bin\x96dbg.exe",
-    "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE",
-    "C:\Program Files (x86)\IDA Free\idag.exe",
-    "C:\Program Files\Wireshark\Wireshark.exe",
-    "C:\Users\$env:username\AppData\Local\Programs\Fiddler\Fiddler.exe",
-    "C:\Program Files\Microsoft Network Monitor 3\netmon.exe",
-    "C:\Tools\pestudio\pestudio.exe",
-    "C:\Program Files\NTCore\Explorer Suite\CFF Explorer.exe",
-    "C:\Program Files\NTCore\Explorer Suite\PE Detective.exe",
-    "C:\Tools\exeinfope\exeinfope.exe",
-    "C:\Tools\bintext\bintext.exe",
-    "C:\Program Files (x86)\HxD\HxD.exe",
-    "C:\Program Files\nodejs\node.exe",
-    "C:\Program Files\Notepad++\notepad++.exe",
-    "C:\Program Files\Sublime Text 3\sublime_text.exe",
-    "C:\Program Files\Process Hacker 2\ProcessHacker.exe",
-    "C:\ProgramData\chocolatey\bin\procmon.exe",
-    "C:\ProgramData\chocolatey\bin\HashMyFiles.exe",
-    "C:\ProgramData\chocolatey\bin\DNSQuerySniffer.exe",
-    "C:\ProgramData\chocolatey\lib\RegShot\bin\Regshot-x64-Unicode.exe",
-    "C:\ProgramData\chocolatey\bin\apimonitor-x64.exe",
-    "C:\ProgramData\chocolatey\bin\apimonitor-x86.exe",
-    "C:\ProgramData\chocolatey\bin\autoruns64.exe",
-    "C:\Tools\malzilla\malzilla.exe",
-    "C:\Tools\procdot\procdot.exe",
-    "C:\Tools\floss\floss64.exe",
-    "C:\ProgramData\chocolatey\bin\depends.exe",
-    "C:\ProgramData\chocolatey\bin\FolderChangesView.exe"
-)
-
-for ($i=0; $i -lt $toolnames.length; $i++) {
-    MakeShortcut $toolnames[$i] $shortcuts[$i]
+$tools = @{
+    'FLOSS'                 = "C:\Tools\floss\floss64.exe"
+    'x96dbg'                = "C:\ProgramData\chocolatey\bin\x96dbg.exe"
+    'Fiddler'               = "C:\Users\pcuser\AppData\Local\Programs\Fiddler\Fiddler.exe"
+    'DNSQuerySniffer'       = "C:\ProgramData\chocolatey\bin\DNSQuerySniffer.exe"
+    'Tools'                 = "C:\Tools"
+    'EXEInfo'               = "C:\Tools\exeinfope\exeinfope.exe"
+    'Ollydbg'               = "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE"
+    'Process Hacker'        = "C:\Program Files\Process Hacker 2\ProcessHacker.exe"
+    'PE Detective'          = "C:\Program Files\NTCore\Explorer Suite\PE Detective.exe"
+    'Sublime'               = "C:\Program Files\Sublime Text 3\sublime_text.exe"
+    'API Monitor'           = "C:\ProgramData\chocolatey\bin\apimonitor-x64.exe"
+    'Malzilla'              = "C:\Tools\malzilla\malzilla.exe"
+    'BinText'               = "C:\Tools\bintext\bintext.exe"
+    'Regshot'               = "C:\ProgramData\chocolatey\lib\RegShot\bin\Regshot-x64-Unicode.exe"
+    'Notepad++'             = "C:\Program Files\Notepad++\notepad++.exe"
+    'Firefox'               = "C:\Program Files\Mozilla Firefox\firefox.exe"
+    'ProcMon'               = "C:\ProgramData\chocolatey\bin\procmon.exe"
+    'PEStudio'              = "C:\Tools\pestudio\pestudio.exe"
+    'Autoruns64'            = "C:\ProgramData\chocolatey\bin\autoruns64.exe"
+    'Dependency Walker'     = "C:\ProgramData\chocolatey\bin\depends.exe"
+    'IDA Pro'               = "C:\Program Files (x86)\IDA Free\idag.exe"
+    'ProcDot'               = "C:\Tools\procdot\procdot.exe"
+    'API Monitor x86'       = "C:\ProgramData\chocolatey\bin\apimonitor-x86.exe"
+    'Node.js'               = "C:\Program Files\nodejs\node.exe"
+    'CFF Explorer'          = "C:\Program Files\NTCore\Explorer Suite\CFF Explorer.exe"
+    'HashMyFiles'           = "C:\ProgramData\chocolatey\bin\HashMyFiles.exe"
+    'Wireshark'             = "C:\Program Files\Wireshark\Wireshark.exe"
+    'Chrome'                = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    'PowerShell'            = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+    'Internet Explorer'     = "C:\Program Files\Internet Explorer\iexplore.exe"
+    'HXD'                   = "C:\Program Files (x86)\HxD\HxD.exe"
+    'Command Prompt'        = "%windir%\system32\cmd.exe"
+    'Folder Changes View'   = "C:\ProgramData\chocolatey\bin\FolderChangesView.exe"
+    'Network Monitor'       = "C:\Program Files\Microsoft Network Monitor 3\netmon.exe"
 }
+
+$tools.keys % {
+    MakeShortcut $_ $tools.Item($_)
+}
+
 
 # Clean up
 try {choco} catch {$env:PATH += ";C:\ProgramData\chocolatey"}
