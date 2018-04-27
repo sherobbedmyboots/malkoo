@@ -1,0 +1,16 @@
+<?XML version="1.0"?>
+<scriptlet>
+<registration         
+progid="Pentest"       
+classid="{F0001111-0000-0000-0000-0000FEEDACDC}" >
+<script language="VBScript">
+ 
+<![CDATA[   
+	Dim r 
+	Set r = CreateObject("WScript.Shell")
+	r.popup("VBScript executed")
+]]>
+ 
+</script>
+</registration>
+</scriptlet>

@@ -10,9 +10,16 @@
     AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
 	<Task>
 	  <Reference Include="System.Management.Automation" />
-      <Code Language="JavaScript">
+ <!--     <Code Language="JavaScript">
         <![CDATA[		
 				var r = new ActiveXObject("WScript.Shell").popup("JavaScript executed");
+        ]]>
+      </Code>  -->
+	  <Code Language="VBScript">
+        <![CDATA[		
+				Dim r;
+				r = CreateObject("WScript.Shell");
+				r.popup("VBScript executed");
         ]]>
       </Code>
     </Task>
