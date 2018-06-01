@@ -1,9 +1,6 @@
 # TODO
-# IE shortcut for win7
-# Blank home page for IE, 
 # Disable script debugging (Internet Explorer)
 # Audit object tracking
-# Powershell script at https://pennprovenance.net/index.php?n=Tracker.Config will specify folders to audit
 # auditpol /Set /subcategory:"File System" /Success:Enable
 # SYSMON
 # Winlogbeat
@@ -350,7 +347,7 @@ $tools = @{
     'Network Monitor'       = "C:\Program Files\Microsoft Network Monitor 3\netmon.exe"
 }
 
-$tools.keys % {
+$tools.keys | % {
     MakeShortcut $_ $tools.Item($_)
 }
 
