@@ -1,5 +1,15 @@
 |Title|Sample Files|
 |-|-|
+[JavaScript Analysis with NodeJs and DevTools](./docs/JavaScript%20Analysis%20with%20NodeJs%20and%20DevTools.md)|c.min[1].js, check.js|
+[Introduction to Kali Linux](./docs/Introduction%20to%20Kali%20Linux.md)|-|
+[Web Authentication and Session Management](./docs/Web%20Authentication%20and%20Session%20Management.md)|Get-TempAWSCreds.ps1|
+[Deploying and Using Cuckoo Sandbox](./docs/Deploying%20and%20Using%20Cuckoo%20Sandbox.md)|272861.exe|
+[Static Analysis of a Windows PE](./docs/Static%20Analysis%20of%20a%20Windows%20PE.md)|guidance.dll, artifact.exe|
+[Creating Analysis and Sandbox VMs](./docs/Creating%20Analysis%20and%20Sandbox%20VMs.md)|Prepare-PackageVM.ps1|
+[Memory Analysis with Volatility](./docs/Memory%20Analysis%20with%20Volatility.md)|-|
+[Tracking Lateral Movement By Authenticated RCE](./docs/Tracking%20Lateral%20Movement%20By%20Authenticated%20RCE.md)|-|
+[Moving From Detection To Containment](./docs/Moving%20From%20Detection%20To%20Containment.md)|Get-InjectionFunctions.ps1|
+[Working with PowerShell Script Modules](./docs/Working%20with%20PowerShell%20Script%20Modules.md)|Interrogate-Endpoint/, Invoke-Greeting/|
 [Review of Windows Scripting Technologies](./docs/Review%20of%20Windows%20Scripting%20Technologies.md)|scripts/|
 [Analysis of a Phishing Email](./docs/Analysis%20of%20a%20Phishing%20Email.md)|272861.exe email.msg|
 [Searching Chopping Joining and Replacing](./docs/Searching%20Chopping%20Joining%20and%20Replacing.md)|obfuscated1.js|
