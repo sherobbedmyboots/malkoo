@@ -409,7 +409,7 @@ Verify that this meterpreter agent is also running in a PowerShell process:
 
 #### Process Migration
 
-As soon as NCATS had control of a target host with their agent, they migrated out of the `powershell.exe` process to a less suspicious process such as `iexplore.exe` or `dwm.exe`.  We can simulate this with meterpreter.
+As soon as X had control of a target host with their agent, they migrated out of the `powershell.exe` process to a less suspicious process such as `iexplore.exe` or `dwm.exe`.  We can simulate this with meterpreter.
 
 Get a list of processes on the target machine with `ps`:
 
