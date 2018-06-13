@@ -1,10 +1,9 @@
-# Jiu-Jitsu
+# Gracie Jiu-Jitsu
 
 ## KEYS
-
-Survival before submission
-Make your enemies your friends
 Position before submission
+
+**DEFEND** --> ESCAPE --> **CONTROL** --> SUBMIT
 
 ## CHAINS
 
