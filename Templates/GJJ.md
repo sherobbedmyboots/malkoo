@@ -1,9 +1,13 @@
 # Gracie Jiu-Jitsu
 
 ## KEYS
-Position before submission
 
-**DEFEND** --> ESCAPE --> **CONTROL** --> SUBMIT
+1. **SURVIVAL** before submission
+
+2. **DEFEND** --> ESCAPE --> **CONTROL** --> SUBMIT
+
+3. Minimize your natural talent... **THINK** your way out
+
 
 ## CHAINS
 
