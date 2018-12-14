@@ -66,4 +66,4 @@
 - Use Metasploit framework exploit and Veil-Evasion framework staged Meterpreter listener-less payload (reverse_https with all Paranoid mode configurations set)
 - Also requiring an Empire listener and the Empire launcher.dll stager
 - Also could use this technique in a dropper (stand alone executable) but AV/HIPS would get a chance to scan it first
-- Good droppers are TheShellterProject Stealth mode, infecting known-good PE file with one or more payloads (meterpreter, empire)
+- Good droppers are TheShellterProject Stealth mode, infecting known-good PE file with one or more payloads (meterpreter, empire)Add
