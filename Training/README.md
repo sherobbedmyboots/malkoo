@@ -1,5 +1,21 @@
 |Title|Sample Files|
 |-|-|
+[Working with Git Repositories](./docs/Working%20with%20Git%20Repositories.md)|-|
+[Using the AWS Module](./docs/Using%20the%20AWS%20Module.md)|AWSmodule.psm1|
+[Postmortem Forensics in the Cloud](./docs/Postmortem%20Forensics%20in%20the%20Cloud.md)|Get-AWSLambdaCode.ps1, Get-AWSCloudTrailLogs.ps1|
+[Hardening AWS Environments Using External Accounts](./docs/Hardening%20AWS%20Environments%20Using%20External%20Accounts.md)|Get-ExtTempAWSCreds.ps1|
+[Investigating AWS Internet Gateways](./docs/Investigating%20AWS%20Internet%20Gateways.md)|Get-AWSFlowLogs.ps1|
+[Authentication Using Smart Cards and Public Key Kerberos](./docs/Authentication%20Using%20Smart%20Cards%20and%20Public%20Key%20Kerberos.md)|logon.pcapng|
+[AWS IAM Best Practices](./docs/AWS%20IAM%20Best%20Practices.md)|Get-TempAWSCreds.ps1|
+[Common Functions and Data Sources in Splunk](./docs/Common%20Functions%20and%20Data%20Sources%20in%20Splunk.md)|-|
+[Postmortem Forensics with SIFT Workstation](./docs/Postmortem%20Forensics%20with%20SIFT%20Workstation.md)|-|
+[Analysis of Fareit Malware](./docs/Analysis%20of%20Fareit%20Malware.md)|RFQ.exe|
+[Windows Mitigations and Defenses](./docs/Windows%20Mitigations%20and%20Defenses.md)|Backup-Files.ps1, Check-MitigationsDefenses.ps1|
+[Evasion Techniques on Disk](./docs/Evasion%20Techniques%20on%20Disk.md)|-|
+[Evasion Techniques on the Network](./docs/Evasion%20Techniques%20on%20the%20Network.md)|-|
+[Using Docker on Windows](./docs/Using%20Docker%20on%20Windows.md)|friendlyhello.tar.xz|
+[Using a Threat-based Approach For Detection](./docs/Using%20a%20Threat-based%20Approach%20For%20Detection.md)|-|
+[Overview of Operations and Intelligence Cycle](./docs/Overview%20of%20Operations%20and%20Intelligence%20Cycle.md)|-|
 [JavaScript Analysis with NodeJs and DevTools](./docs/JavaScript%20Analysis%20with%20NodeJs%20and%20DevTools.md)|c.min[1].js, check.js|
 [Introduction to Kali Linux](./docs/Introduction%20to%20Kali%20Linux.md)|-|
 [Web Authentication and Session Management](./docs/Web%20Authentication%20and%20Session%20Management.md)|Get-TempAWSCreds.ps1|
