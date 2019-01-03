@@ -284,3 +284,32 @@ Now filter and search based on any of the properties (source IP, dest IP, ports,
 ## Summary
 
 Try using the [AWSPowerShell](https://www.powershellgallery.com/packages/AWSPowerShell/3.3.365.0) cmdlets and [Get-AWSFlowLogs.ps1](scripts/Get-AWSFlowLogs.ps1) script to pull flow logs for Elastic Network Interfaces (ENI) and store them in objects for easier filtering and searching.
+
+
+## Update
+
+As discussed, when an IGW is attached to a VPC there are four things required for an instance to use the IGW:
+
+-   The instance is on a VPC that contains a Route Table with a route to the IGW
+-   The instance is on a VPC that has a Network Access Control List (NACL) allowing the traffic
+-   The instance has an ENI with a public IP or an Elastic IP address
+-   The instance has a Security Group allowing the traffic
+
+
+The [Get-IGWInfo]() function has been added to the [AWSmodule](scripts/AWSmodule.psm1) to quickly check for these four requirements when we receive an alert and identify:
+
+-   VPCs that are allowing traffic to the IGW
+-   Instances on these VPCs that can use the IGW
+
+
+If this function is run and the IGW has already been terminated, you will get this message:
+
+```powershell
+Get-IGWInfo -accountid 12345667890 -GatewayId igw-abcdefg1234567890
+```
+
+![](images/Investigating%20AWS%20Internet%20Gateways/image023.png)<br><br>
+
+But if the IGW is still up, and there are VPCs and/or instances able to use the IGW, you will get information necessary for further investigation and monitoring:
+
+![](images/Investigating%20AWS%20Internet%20Gateways/image024.png)<br><br>
