@@ -1,8 +1,0 @@
-<!-- Configure install options for MS Office Professional Plus 2013 -->
-<Configuration Product="ProPlus">
-
-  <Display Level="none" CompletionNotice="no" SupressModal="yes" AcceptEula="yes"  />
-
-  <Setting Id="SETUP_REBOOT" Value="Never"  />
-
-</Configuration>
