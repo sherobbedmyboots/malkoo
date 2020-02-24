@@ -25,7 +25,6 @@
 [Review of Process Injection Techniques](./docs/Review%20of%20Process%20Injection%20Techniques.md)|GoTeamInC.exe, DotnetJob.exe, PsJob.exe, rdi.dll, inject_test.dll, inject_refl_test.dll|
 [Simulating Advanced Post-Exploitation Agents](./docs/Simulating%20Advanced%20Post-Exploitation%20Agents.md)|AgentSim.exe|
 [Working With Python](./docs/Working%20With%20Python.md)|queryIsight.py|
-
 [OOB Analysis of a WebShell](./docs/OOB%20Analysis%20of%20a%20WebShell.md)||
 [PowerShell Greatest Hits Vol. 1](./docs/PowerShell%20Greatest%20Hits%20Vol%201.md)|GoTeam.exe, GoTeam.ps1, GoTeam.cs, RunPS.cs, RunPS.exe, assembly.xml|
 [JavaScript Analysis Tools and Methodology](./docs/JavaScript%20Analysis%20Tools%20and%20Methodology.md)|jslab.tar.gpg|
