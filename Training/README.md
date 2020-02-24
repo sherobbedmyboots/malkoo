@@ -1,5 +1,31 @@
 |Title|Sample Files|
 |-|-|
+[Emulating A Threat Actor - APT 39](./docs/Emulating%20A%20Threat%20Actor%20-%20APT%2039.md)|-|
+[Web Application Attack Tactics](./docs/Web%20Application%20Attack%20Tactics.md)|-|
+[Emulating Threat Methodologies 2](./docs/Emulating%20Threat%20Methodologies%202.md)|-|
+[Exploring DNS and WHOIS Data](./docs/Exploring%20DNS%20and%20WHOIS%20Data.md)|Resolve-NameExt, Get-WHOISData, Get-WHOISDazzle|
+[Behavioral Vs Atomic Indicators](./docs/Behavioral%20Vs%20Atomic%20Indicators.md)|-|
+[NCATS Pentest Walkthrough](./docs/NCATS%20Walkthrough.md)|-|
+[Kerberoasting Revisited](./docs/Kerberoasting%20Revisited.md)|-|
+[Using Cloud Resources to Support Investigations](./docs/Using%20Cloud%20Resources%20to%20Support%20Investigations.md)|Get-AmazonAddressSpace, Get-GoogleCloudAddressSpace, Get-AzureAddressSpace|
+[Exploring Identity Requirements For Cloud Resources](./docs/Exploring%20Identity%20Requirements%20For%20Cloud%20Resources.md)|-|
+[Searching For Credentials With Splunk](./docs/Searching%20For%20Credentials%20With%20Splunk.md)|-|
+[Using and Abusing Cookies and Tokens](./docs/Using%20and%20Abusing%20Cookies%20and%20Tokens.md)|Get-JWT|
+[Review Of Web Authentication Methods](./docs/Review%20Of%20Web%20Authentication%20Methods.md)|-|
+[Working with Portable Scripts and Programs](./docs/Working%20with%20Portable%20Scripts%20and%20Programs.md)|-|
+[Identifying Accounts Vulnerable To Kerberoasting](./docs/Identifying%20Accounts%20Vulnerable%20To%20Kerberoasting.md)|Get-SpnEncryptedTicket|
+[Privilege Escalation Using Active Directory](./docs/Privilege%20Escalation%20Using%20Active%20Directory.md)|ADmodule.psm1|
+[Automating Parts of the Investigation Process](./docs/Automating%20Parts%20of%20the%20Investigation%20Process.md)|reposearch, Dockerfile|
+[Dealing With Ads Trackers and Script Servers](./docs/Dealing%20With%20Ads%20Trackers%20and%20Script%20Servers.md)||
+[Emulating Threat Methodologies](./docs/Emulating%20Threat%20Methodologies.md)||
+[Exploring Threat Methodologies](./docs/Exploring%20Threat%20Methodologies.md)||
+[Exploring the Docker API](./docs/Exploring%20the%20Docker%20API.md)|Find-DockerHostsOnline|
+[Assessing Impact Of Exposed Resources](./docs/Assessing%20Impact%20Of%20Exposed%20Resources.md)|-|
+[Static Code Analysis Using IDA](./docs/Static%20Code%20Analysis%20Using%20IDA.md)|GoTeam.exe, AgentSim.exe|
+[Review of Process Injection Techniques](./docs/Review%20of%20Process%20Injection%20Techniques.md)|GoTeamInC.exe, DotnetJob.exe, PsJob.exe, rdi.dll, inject_test.dll, inject_refl_test.dll|
+[Simulating Advanced Post-Exploitation Agents](./docs/Simulating%20Advanced%20Post-Exploitation%20Agents.md)|AgentSim.exe|
+[Working With Python](./docs/Working%20With%20Python.md)|queryIsight.py|
+
 [OOB Analysis of a WebShell](./docs/OOB%20Analysis%20of%20a%20WebShell.md)||
 [PowerShell Greatest Hits Vol. 1](./docs/PowerShell%20Greatest%20Hits%20Vol%201.md)|GoTeam.exe, GoTeam.ps1, GoTeam.cs, RunPS.cs, RunPS.exe, assembly.xml|
 [JavaScript Analysis Tools and Methodology](./docs/JavaScript%20Analysis%20Tools%20and%20Methodology.md)|jslab.tar.gpg|
