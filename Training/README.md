@@ -5,7 +5,6 @@
 [Emulating Threat Methodologies 2](./docs/Emulating%20Threat%20Methodologies%202.md)|-|
 [Exploring DNS and WHOIS Data](./docs/Exploring%20DNS%20and%20WHOIS%20Data.md)|Resolve-NameExt, Get-WHOISData, Get-WHOISDazzle|
 [Behavioral Vs Atomic Indicators](./docs/Behavioral%20Vs%20Atomic%20Indicators.md)|-|
-[NCATS Pentest Walkthrough](./docs/NCATS%20Walkthrough.md)|-|
 [Kerberoasting Revisited](./docs/Kerberoasting%20Revisited.md)|-|
 [Using Cloud Resources to Support Investigations](./docs/Using%20Cloud%20Resources%20to%20Support%20Investigations.md)|Get-AmazonAddressSpace, Get-GoogleCloudAddressSpace, Get-AzureAddressSpace|
 [Exploring Identity Requirements For Cloud Resources](./docs/Exploring%20Identity%20Requirements%20For%20Cloud%20Resources.md)|-|
