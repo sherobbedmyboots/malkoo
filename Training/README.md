@@ -1,5 +1,7 @@
 |Title|Sample Files|
 |-|-|
+|[Exploring Web Application Attacks Using DVWA](./docs/Exploring%20Web%20Application%20Attacks%20Using%20DVWA.md)|-|
+|[Threat Hunting 101](./docs/Threat%20Hunting%20101.md)|SIMmodule.psm1|
 [Emulating A Threat Actor - APT 39](./docs/Emulating%20A%20Threat%20Actor%20-%20APT%2039.md)|-|
 [Web Application Attack Tactics](./docs/Web%20Application%20Attack%20Tactics.md)|-|
 [Emulating Threat Methodologies 2](./docs/Emulating%20Threat%20Methodologies%202.md)|-|
