@@ -50,7 +50,7 @@
 [Evasion Techniques on the Network](./docs/Evasion%20Techniques%20on%20the%20Network.md)|-|
 [Using Docker on Windows](./docs/Using%20Docker%20on%20Windows.md)|friendlyhello.tar.xz|
 [Using a Threat-based Approach For Detection](./docs/Using%20a%20Threat-based%20Approach%20For%20Detection.md)|-|
-[Overview of Operations and Intelligence Cycle](./docs/Overview%20of%20Operations%20and%20Intelligence%20Cycle.md)|-|
+[Overview of Incident Response and Intelligence Cycle](./docs/Overview%20of%20Incident%20Response%20and%20Intelligence%20Cycle.md)|-|
 [JavaScript Analysis with NodeJs and DevTools](./docs/JavaScript%20Analysis%20with%20NodeJs%20and%20DevTools.md)|c.min[1].js, check.js|
 [Introduction to Kali Linux](./docs/Introduction%20to%20Kali%20Linux.md)|-|
 [Web Authentication and Session Management](./docs/Web%20Authentication%20and%20Session%20Management.md)|Get-TempAWSCreds.ps1|
