@@ -99,8 +99,6 @@ Search through the histogram files looking for matches to sensitive strings/patt
 
 ```bash
 grep -h 'mydomain\|yourdomain' $results/*histogram.txt
-
-grep -R -h 'password=' $name/*
 ```
 
 ![](images/Automating%20Parts%20of%20the%20Investigation%20Process/image008.png)<br><br>
@@ -133,6 +131,10 @@ grep -h 'domain\.com' $results/email_histogram.txt
 
 Search for passwords:
 
+```bash
+grep -R -h 'password=' $name/*
+```
+
 ![](images/Automating%20Parts%20of%20the%20Investigation%20Process/image012.png)<br><br>
 
 Search for AWS creds:
@@ -143,6 +145,7 @@ grep -R -P -h '(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])' $name/*
 
 ![](images/Automating%20Parts%20of%20the%20Investigation%20Process/image013.png)<br><br>
 
+```bash
 grep -R -P -h '(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])' $name/*
 ```
 
