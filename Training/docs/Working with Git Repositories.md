@@ -107,21 +107,30 @@ With username and email set, when you try to push you will be prompted for a pas
 
 ### Configure SSH Access
 
-Use `git-bash.exe` to create an SSH key pair. Run it to open a bash shell:
+Use `bash` or `git-bash.exe` to create an SSH key pair. Run it to open a bash shell:
 
 ![](images/Working%20with%20Git%20Repositories/image005.png)<br><br>
 
 Create an SSH key and accept the default settings:
 
-![](images/Working%20with%20Git%20Repositories/image006.png)<br><br>
+```
+ssh-keygen -t rsa -b 4096 -C "<email address>" 
+```
+<br>
 
 Start the ssh-agent in the background:
 
-![](images/Working%20with%20Git%20Repositories/image009.png)<br><br>
+```
+eval "$(ssh-agent -s)"
+```
+<br>
 
 And add the private key to the ssh-agent:
 
-![](images/Working%20with%20Git%20Repositories/image010.png)<br><br>
+```
+ssh-add ~/.ssh/id_rsa
+```
+<br>
 
 Now we need to put the public key on the Git repo.  
 
