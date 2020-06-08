@@ -140,7 +140,7 @@ date, associated malware families, and links to relevant blogs or reports:
 ![](images/Behavioral%20Vs%20Atomic%20Indicators/image016.png)<br><br>
 
 Context can also be a threat rating, a confidence rating, the source of the indicator
-or other various attributes as seen in [ThreatConnect](https://https://app..png).com/):
+or other various attributes as seen in [ThreatConnect](https://threatconnect.com/):
 
 ![](images/Behavioral%20Vs%20Atomic%20Indicators/image017.png)<br><br>
 
@@ -219,7 +219,7 @@ and piece together data across intrusions.
 
 Here's a quick example:
 
-> DHS ESOC reports host `192.168.2[.]177` is beaconing to a known malicious IP address `35.163.126[.]190`
+> Mgmt reports host `192.168.2[.]177` is beaconing to a known malicious IP address `35.163.126[.]190`
 
 The indicator we've been provided is a C2 IP address, so
 we know we can search with it across our proxy logs to identify other
@@ -880,7 +880,7 @@ addresses.
 
 For malware using the network:
 
-- If the host has a FireEye HX agent, contain with FireEye
+- If the host has an endpoint agent, contain 
 - If not, PowerShell can be used to change network settings
 - If neither, advise ISSO/request to have port disabled
 - If AWS, advise ISSO/request isolation via security group or vpc
