@@ -191,6 +191,10 @@ $n | Select ProcessId,ProcessName,Src_Address,Src_Port,Dst_Address,Dst_Port,Prot
 
 Use `Get-NetworkConnectionProfile` to list the networks being used on a host along with their firewall profile category, IP address, and status.
 
+```powershell
+$c = Get-Credential
+Invoke-Command -ComputerName $target -ScriptBlock ${Function:Get-NetworkConnectionProfile} -Credential $c
+```
 
 ![](images/Using%20the%20IR%20Module/image017.png)<br><br>
 
@@ -339,6 +343,10 @@ Find latest written:
 
 Sort by category:
 
+```powershell
+$ar | Group Category -NoElement | Sort Count
+```
+
 ![](images/Using%20the%20IR%20Module/image033.png)<br><br>
 
 ### Get-ShadowCopies
@@ -362,6 +370,10 @@ cmd /c mklink /d C:\ShadowCopy "$dv"
 ![](images/Using%20the%20IR%20Module/image030.png)<br><br>
 
 You can now access the filesystem as it was on that day:
+
+```powershell
+ls C:\ShadowCopy\Users\<user> | Sort -Desc LastWriteTime
+```
 
 ![](images/Using%20the%20IR%20Module/image031.png)<br><br>
 
