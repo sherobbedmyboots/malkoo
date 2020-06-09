@@ -16,17 +16,24 @@ See [Authentication Using Smart Cards and Public Key Kerberos](./docs/Authentica
 
 In order to access a host or service on our network, an entity must prove their identity to the KDC and receive a Ticket Granting Ticket (TGT). The TGT is valid for 10 hours and proves that the entity has successfully authenticated with the KDC.  In the event a low-privileged account is compromised, it already has a TGT:
 
-![](images/Identifying%20Accounts%20Vulnerable%20To%20Kerberoasting/image003.png)<br><br>
+```powershell
+klist
+```
+
+<br>
 
 
 To use a service, an entity requests a Service Ticket for the desired service from the KDC.  Any user can request a TGS for any service that has a registered SPN in an AD user or computer account.
 
 When this happens, the KDC sends back a TGS-REP, part of which is encrypted with the NTLM hash of the service account's plaintext password.  For most services that are associated with computer accounts, this is no big deal since these passwords are typically changed every 30 days.  But when the SPN is associated with a user account, the user's plaintext password is used which sometimes remains unchanged for years.  
 
-Here are some of our user accounts that have associated SPNs:
+Find accounts that have associated SPNs:
 
-![](images/Identifying%20Accounts%20Vulnerable%20To%20Kerberoasting/image001.png)<br><br>
+```powershell
+Get-NNetUUser | Where-Object ($_.servicePrincipalName) | Select samaccountname,description
+```
 
+<br>
 
 By requesting tickets for for user accounts which are associated with SPNs (usually service accounts), a compromised, low privilege account can be used to obtain a large collection of NTLM hashes.  Accounts that allow RC4 encryption to be used will be targeted before those that only allow AES128 and AES256 as the latter are much more difficult to crack.
 
