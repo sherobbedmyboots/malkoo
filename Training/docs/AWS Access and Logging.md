@@ -70,7 +70,7 @@ Under the NETWORK & SECURITY section there is also good info:
 | | |
 |-|-|
 |Security Groups|these are similar to a host-based firewall which defines rules allowing inbound and outbound traffic|
-|Elastic IPs|these stay assigned to a DHS AWS account rather than being randomly selected from a pool and released when the instance stops|
+|Elastic IPs|these stay assigned to an AWS account rather than being randomly selected from a pool and released when the instance stops|
 |Network Interfaces|the public, private, and secondary private IP addresses for each instance|
 
 ## Logging
