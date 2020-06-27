@@ -231,9 +231,7 @@ Learn to recognize and verify these critical processes along with their respecti
 |Load Session Manager|lsm.exe|-|0|NTAUTHORITY\SYSTEM|Manages the state of terminal server sessions|
 |Local Security Authority|lsass.exe|-|0|NTAUTHORITY\SYSTEM|Enforces the security policy, verifies passwords, creates access tokens, etc|
 |Service Control Manager|services.exe|-|0|NTAUTHORITY\SYSTEM|Loads and manages services|
-|Service Hosting|svchost.exe|-|0|NTAUTHORITY\SYSTEM|Provides a container for DLLs that implement services|
-|Service Hosting|svchost.exe|-|0|NTAUTHORITY\LOCAL SYSTEM|Provides a container for DLLs that implement services|
-|Service Hosting|svchost.exe|-|0|NTAUTHORITY\NETWORK SERVICE|Provides a container for DLLs that implement services|
+|Service Hosting|svchost.exe|-|0|NTAUTHORITY\SYSTEM<br>NTAUTHORITY\LOCAL SYSTEM<br>NTAUTHORITY\NETWORK SERVICE|Provides a container for DLLs that implement services|
 |Windows Logon|winlogon.exe|-|1|NTAUTHORITY\SYSTEM|Presents the interactive logon prompt, screen saver, loads user profiles|
 |Windows Explorer|explorer.exe|-|1|DOMAIN\USER|Handles GUI-based folder navigation, start menu, etc|
 |Windows Logon|winlogon.exe|-|1|DOMAIN\USER|Presents the interactive logon prompt, screen saver, loads user profiles|

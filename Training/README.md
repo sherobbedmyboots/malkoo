@@ -72,24 +72,23 @@
 [Advanced C2 Techniques](./docs/Advanced%20C2%20Techniques.md)|CSIRT-pcap-7.pcapng|
 [Filtering Expected Web Traffic in Splunk](./docs/Filtering%20Expected%20Web%20Traffic%20in%20Splunk.md)|webfilter.csv webfilter macro|
 [Review of Amazon Web Services](./docs/Review%20of%20Amazon%20Web%20Services.md)|-|
-[Windows Firewall Rules Profiles and Logging](./docs/Windows%20Firewall%20Rules%20Profiles%20Logging.md)|Get-FirewallLog.ps1|
+[Windows Firewall Rules Profiles and Logging](./docs/Windows%20Firewall%20Rules%20Profiles%20and%20Logging.md)|Get-FirewallLog.ps1|
 [Verifying Digital Signatures of PE Files](./docs/Verifying%20Digital%20Signatures%20of%20PE%20Files.md)|Check-FileSignature.ps1|
 [Debugging a Windows Program](./docs/Debugging%20a%20Windows%20Program.md)|GoTeam.exe GoTeam.c|
-[Endpoint Interrogation with PowerShell Part 2](./docs/Endpoint%20Interrogation%20PowerShell%202.md)|Get-ShadowCopies.ps1 Get-AlternateDataStreams.ps1|
-[Endpoint Interrogation with PowerShell](./docs/Endpoint%20Interrogation%20PowerShell%201.md)|Get-ActiveProcesses.ps1 Get-Netstat.ps1 Get-LogonDetails.ps1 Get-FilesystemChanges.ps1 Get-PSAutoRun.ps1|
+[Endpoint Interrogation with PowerShell Part 2](./docs/Endpoint%20Interrogation%20with%20PowerShell%202.md)|Get-ShadowCopies.ps1 Get-AlternateDataStreams.ps1|
+[Endpoint Interrogation with PowerShell](./docs/Endpoint%20Interrogation%20with%20PowerShell%201.md)|Get-ActiveProcesses.ps1 Get-Netstat.ps1 Get-LogonDetails.ps1 Get-FilesystemChanges.ps1 Get-PSAutoRun.ps1|
 [Persistence Using WMI Event Subscriptions](./docs/Persistence%20Using%20WMI%20Event%20Subscriptions.md)|Test-WMIPersistence.ps1|
 [Detecting Unmanaged PowerShell](./docs/Detecting%20Unmanaged%20Powershell.md)|umps.exe umps.dll|
 [Application Whitelisting Bypasses](./docs/Application%20Whitelisting%20Bypasses.md)|bypass.bat/cmd/dll/exe/hta/ps1/sct/vbs/xml dotnet-bypass.exe mimikatz.exe assembly.xml|
 [Pivoting and Link Analysis](./docs/Pivoting%20and%20Link%20Analysis.md)|-|
 [Developing TTP-based Responses](./docs/Developing%20TTP-based%20Responses.md)|9b57.exe|
-[Improved Detections Using YARA Rules](./docs/Improved%20Detections%20YARA%20rules.md)|Canada Post notice Card.doc|
+[Improved Detections With YARA Rules](./docs/Improved%20Detections%20with%20YARA%20Rules.md)|Canada Post notice Card.doc|
 [Indicator Context and Pivoting](./docs/Indicator%20Context%20and%20Pivoting.md)|-|
 [Dynamic Analysis Walkthrough](./docs/Dynamic%20Analysis%20Walkthrough.md)|topmovies2017.xls|
 [REMnux Refresher](./docs/REMnux%20Refresher.md)|-|
-[Obfuscation Encryption and Anti-Analysis Techniques](./docs/Obfuscation%20Encryption%20Anti-Analysis%20Techniques.md)|memupdaterpro.exe|
+[Obfuscation Encryption and Anti-Analysis Techniques](./docs/Obfuscation%20Encryption%20and%20Anti-Analysis%20Techniques.md)|memupdaterpro.exe|
 [Analyzing Malicious Websites with Thug](./docs/Analyzing%20Malicious%20Websites%20with%20Thug.md)|-|
 [Using PowerShell for Efficiency](./docs/Using%20PowerShell%20for%20Efficiency.md)|-|
-[Updates to Windows VMs](./docs/Updates%20to%20Windows%20VMs.md)|win7.box win10.box|
 [Analyzing Malicious VBScript](./docs/Analyzing%20Malicious%20VBScript.md)|fo_exercise.pcapng vbe from INC0744592|
 [Overview of Common Adversary Tactics and Techniques](./docs/Overview%20of%20Common%20Adversary%20Tactics%20and%20Techniques.md)|-|
 [Code Signing Certificates](./docs/Code%20Signing%20Certificates.md)|-|
@@ -97,10 +96,10 @@
 [Privilege Escalation in Windows](./docs/Privilege%20Escalation%20in%20Windows.md)|-|
 [Identifying Trojan Executables](./docs/Identifying%20Trojan%20Executables.md)|WinSCP.exe|
 [Analyzing Excel Documents with Macros](./docs/Analyzing%20Excel%20Doc%20Macros.md)|Crispy_Bacon_Coupon.xls Important_Message.xls|
-[Privilege Escalation in macOS](./docs/Privilege%20Escalation%20in%20macOS.md)|macOS Vagrant box csirt_mac|
+[Privilege Escalation on macOS](./docs/Privilege%20Escalation%20on%20macOS.md)|macOS Vagrant box csirt_mac|
 [Bits Bytes and Encoding](./docs/Bits%20Bytes%20and%20Encoding.md)|-|
 [Identifying Web Application Attacks](./docs/Identifying%20Web%20Application%20Attacks.md)|-|
-[Gathering Information on a Rogue System](./docs/Gathering%20Information%20on%20Rogue%20System.md)|-|
+[Gathering Information on a Rogue System](./docs/Gathering%20Information%20on%20a%20Rogue%20System.md)|-|
 [Traffic Analysis with Wireshark](./docs/Traffic%20Analysis%20with%20Wireshark.md)|wireshark_exercise.pcapng|
 [Building Analysis VMs with Packer Vagrant Malboxes](./docs/Building%20Analysis%20VMs.md)|win7/win10 Vagrant boxes jdeeres-pc|
 [Using Indicators for Detection](./docs/Using%20Indicators%20For%20Detection.md)|launcher.bat|
