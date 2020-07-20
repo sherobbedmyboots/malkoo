@@ -195,23 +195,27 @@ function Get-DockerImage {
     
     if (!($endpoint)) {
         $endpoint = "index.docker.io"
-        if (!($repoimagetag.contains('/'))) {
-            $repoimagetag = "library/" + $repoimagetag
-        }
-        if (!($repoimagetag.contains(':'))) {
-            $repoimagetag = $repoimagetag + ":latest"
-        }
     }
 
-    $repoimage = $repoimagetag.split(':')[0]
+    if (!($repoimagetag.contains('/'))){
+        $repoimagetag = "library/" + $repoimagetag
+    }
+
+    if (!($repoimagetag.contains(':'))) {
+        $repoimagetag = $repoimagetag + ":latest"
+    }
+
+    $repo = $repoimagetag.split('/')[0]
     $imagetag = $repoimagetag.split('/')[1]
-    $tag = $repoimagetag.split(':')[1]
-    $repo = $repoimage.split('/')[0]
-    if ($repoimage -contains '/'){$image = $repoimage.split('/')[1]}else{$image=$repoimage}
-    
+    $repoimage = $repoimagetag.split(':')[0]
+    $image = $imagetag.split(':')[0]
+    $tag = $imagetag.split(':')[1]
+
+   
     $origpath = $pwd.Path
-    $working_dir = $origpath + '\' + $image
-    New-Item -Type Directory -Name $image -Force | Out-Null
+    $image_dir = $origpath + '\' + $repo + '\' + $image
+    New-Item -Type Directory -Name $repo -Force | Out-Null
+    New-Item -Type Directory -Name "$repo\$image" -Force | Out-Null
 
     # Get sha256 hash of string
     Function Get-StringHash([String] $String) { 
@@ -265,7 +269,7 @@ function Get-DockerImage {
             $config_data = $config_obj | ConvertTo-Json
             $config_name = Get-StringHash($config_data)
             $config_name += ".json"
-            $config_path = "$working_dir\$config_name"
+            $config_path = "$image_dir\$config_name"
             Set-Content -Value $config_data -Path $config_path
         }
         
@@ -281,7 +285,7 @@ function Get-DockerImage {
             }
             $config_name = $config.Name
             $config_data = $config.Data
-            $config_path = "$working_dir\$config_name"
+            $config_path = "$image_dir\$config_name"
             [System.IO.File]::WriteAllBytes($config_path,$config_data)
         }
         
@@ -308,9 +312,10 @@ function Get-DockerImage {
         
         $layer_name = $layer.Name
         $layer_data = $layer.Data
-        
-        New-Item -Type Directory -Name "$image\$layer_name" -Force | Out-Null
-        $zipped = "$working_dir\$layer_name\layer.tar.gz"
+        $layer_dir ="$repo\$image\$layer_name"
+
+        New-Item -Type Directory -Name $layer_dir -Force | Out-Null
+        $zipped = $layer_dir + "\layer.tar.gz"
         
         [System.IO.File]::WriteAllBytes($zipped,$layer_data)
        
@@ -323,7 +328,7 @@ function Get-DockerImage {
             Break
         }
 
-        $layerpath = "$working_dir\$layer_name"
+        $layerpath = "$image_dir\$layer_name"
         $gzpath = $layerpath -replace '\\','/' -replace ':',''
         Start-Process -WindowStyle Hidden "C:\Program Files\Git\bin\bash.exe" -ArgumentList "gunzip /$gzpath/layer.tar.gz"
         $combined_layers += "$layer_name/layer.tar"
@@ -332,13 +337,12 @@ function Get-DockerImage {
     # Build manifest file
     # Write-Host -Fore DarkRed "=> " -NoNewLine; Write-Host "Creating manifest file " -NoNewLine; Write-Host -Fore DarkGreen "manifest.json"
     $combined_tars = $combined_layers -join "`", `""
-    Set-Content -Path "$working_dir\manifest.json" -Value "[{" 
-    Add-Content -Path "$working_dir\manifest.json" -Value "    `"Config`": `"$config_name`","
-    Add-Content -Path "$working_dir\manifest.json" -Value "    `"RepoTags`" : [`"$imagetag`"],"
-    Add-Content -Path "$working_dir\manifest.json" -Value "    `"Layers`" : [`"$combined_tars`"]"
-    Add-Content -Path "$working_dir\manifest.json" -Value "}]"
+    Set-Content -Path "$image_dir\manifest.json" -Value "[{" 
+    Add-Content -Path "$image_dir\manifest.json" -Value "    `"Config`": `"$config_name`","
+    Add-Content -Path "$image_dir\manifest.json" -Value "    `"RepoTags`" : [`"$imagetag`"],"
+    Add-Content -Path "$image_dir\manifest.json" -Value "    `"Layers`" : [`"$combined_tars`"]"
+    Add-Content -Path "$image_dir\manifest.json" -Value "}]"
     
-
     # Create tar file
     $tarname = $image + ".tar"
 
@@ -349,8 +353,7 @@ function Get-DockerImage {
     
     # Write-Host -Fore DarkRed "=> " -NoNewLine; Write-Host "Creating tar file " -NoNewLine; Write-Host -Fore DarkGreen $tarname
 
-
-    $arguments = @("$working_dir","$tarname")
+    $arguments = @("$image_dir","$tarname")
     $scriptblock = {cd $($args[0]); tar -cvf $($args[1]) $(Get-ChildItem . -Exclude *.tar).Name}
     $j = Start-Job -ScriptBlock $scriptblock -ArgumentList $arguments | Wait-Job
     if ($j.State -eq "Completed") {
@@ -358,7 +361,7 @@ function Get-DockerImage {
         # Write-Host "Docker image " -NoNewLine; `
         # Write-Host -Fore DarkGreen $repoimagetag -NoNewLine;  `
         # Write-Host " saved to " -NoNewLine; `
-        # Write-Host -Fore DarkGreen "$working_dir\$tarname"
+        # Write-Host -Fore DarkGreen "$image_dir\$tarname"
     }
     else {
         Write-Host -Fore Red "=> " -NoNewLine; Write-Host "Job to create tar file failed. Exiting"
@@ -374,10 +377,10 @@ function Get-DockerImage {
         
         # Write-Host -Fore DarkRed "=> " -NoNewLine; `
         # Write-Host "Loading " -NoNewLine; `
-        # Write-Host -Fore DarkGreen "$working_dir\$tarname" -NoNewLine; `
+        # Write-Host -Fore DarkGreen "$image_dir\$tarname" -NoNewLine; `
         # Write-Host " into Docker" 
         
-        $arguments = @("$working_dir","$tarname")
+        $arguments = @("$image_dir","$tarname")
         $scriptblock = {cd $($args[0]); docker load -i $($args[1])}
         $k = Start-Job -ScriptBlock $scriptblock -ArgumentList $arguments | Wait-Job
         if ($k.State -eq "Completed") {
