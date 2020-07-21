@@ -115,10 +115,10 @@
 [Identifying Tor Use on the Network](./docs/Identifying%20Tor%20Use%20on%20the%20Network.md)|CSIRT-pcap-5.pcapng|
 [Detecting Lateral Movement with Splunk](./docs/Detecting%20Lateral%20Movement%20with%20Splunk.md)|-|
 [Windows Authentication and Lateral Movement](./docs/Windows%20Authentication%20and%20Lateral%20Movement.md)|-|
-[Intrusion Analysis Using the Kill Chain Solution](./docs/Intrusion%20Analysis%20Using%20Kill%20Chain%20Solution.md)|-|
+[Intrusion Analysis Using the Kill Chain Solution](./docs/Intrusion%20Analysis%20Using%20the%20Kill%20Chain%20Solution.md)|-|
 [Analyzing PDFs with REMnux](./docs/Analyzing%20PDFs%20with%20REMnux.md)|InfosecCheatSheet.pdf|
 [Identifying Persistence Techniques Solutions](./docs/Identifying%20Persistence%20Techniques%20Solutions.md)|-|
-[Intrusion Analysis Using the Kill Chain](./docs/Intrusion%20Analysis%20Using%20Kill%20Chain.md)|CSIRT-pcap-4.pcap|
+[Intrusion Analysis Using the Kill Chain](./docs/Intrusion%20Analysis%20Using%20the%20Kill%20Chain.md)|CSIRT-pcap-4.pcap|
 [Identifying Persistence Techniques](./docs/Identifying%20Persistence%20Techniques.md)|Persistence-VM.ova|
 [Identifying C2 on the Network](./docs/Identifying%20C2%20on%20Network.md)|C2_Examples dashboard|
 [Investigating Malware on Macs](./docs/Investigating%20Malware%20on%20Macs.md)|CSIRT-pcap-3.pcap|
