@@ -108,7 +108,7 @@ Get-AppxPackage -AllUsers | Remove-AppxPackage
 # Telemetry
 $regkeys = @{
     'HKLM:\SOFTWARE\Policies\Microsoft\Windows'     = 'DataCollection';
-    'HKLM:\SOFTWARE\Policies\Microsoft\Windows'     = 'AppCompat';
+#    'HKLM:\SOFTWARE\Policies\Microsoft\Windows'     = 'AppCompat';
     'HKLM:\SOFTWARE\Policies\Microsoft'             = 'SQMClient';
     'HKLM:\SOFTWARE\Policies\Microsoft\SQMClient'   = 'Windows'
 }
