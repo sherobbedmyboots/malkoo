@@ -1,0 +1,17 @@
+<html>
+<head>
+<script language="vbscript">
+Dim objExcel, s
+
+Set s = CreateObject("WScript.Shell")
+
+s.popup("ERROR 0x73e9a047d43: Document failed to open.")
+
+Set objExcel = CreateObject("Excel.Application")
+objExcel.Visible = False
+objExcel.DisplayAlerts = False
+
+self.close
+</script>
+</head>
+</html>
