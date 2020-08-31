@@ -4,7 +4,7 @@ Hardening the technical environment increases our ability to resist intrusions a
 
 - [Mitigations and Defenses](#mitigations-and-defenses)
 - [Countering Malware](#countering-malware)
-	- [Application Whitelisting](#application-whitelisting)
+	- [Application Allow-listing](#application-allow-listing)
 		- [AppLocker](#applocker)
 		- [Device Guard](#device-guard)
 	- [Patch Management](#patch-management)
@@ -44,17 +44,17 @@ Using the [ATT&CK Technique Matrix](https://attack.mitre.org/wiki/Technique_Matr
 
 |Tactics|Techniques|Mitigations and Defenses|
 |-|-|-|
-|[Initial Access](https://attack.mitre.org/wiki/Initial_Access)				|[Drive-by](https://attack.mitre.org/wiki/Technique/T1189), [Spearphishing](https://attack.mitre.org/wiki/Technique/T1193), [Removable Media](https://attack.mitre.org/wiki/Technique/T1091)				|[App Whitelisting](#application-whitelisting), [Disable Untrusted Office Features](#disable-untrusted-office-features), [Patch Management](#patch-management), [Sandbox-VM Isolation](#sandbox-vm-isolation), [EMET](), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay)|
-|[Execution](https://attack.mitre.org/wiki/Execution)						|[CLI](https://attack.mitre.org/wiki/Technique/T1059), [GUI](https://attack.mitre.org/wiki/Technique/T1061), [PowerShell](https://attack.mitre.org/wiki/Technique/T1086), [WMI](https://attack.mitre.org/wiki/Technique/T1047), [WinRM](https://attack.mitre.org/wiki/Technique/T1028), [Tasks](https://attack.mitre.org/wiki/Technique/T1053) 				|[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay)|
-|[Persistence](https://attack.mitre.org/wiki/Persistence) 					|[Logon Scripts](https://attack.mitre.org/wiki/Technique/T1037), [Run Keys](https://attack.mitre.org/wiki/Technique/T1060), [Services](https://attack.mitre.org/wiki/Technique/T1058), [Tasks](https://attack.mitre.org/wiki/Technique/T1053), [WMI](https://attack.mitre.org/wiki/Technique/T1084)|[App Whitelisting](#application-whitelisting), [Credential Hygiene](), [Least Privilege]()|
-|[Privilege Escalation](https://attack.mitre.org/wiki/Privilege_Escalation)	|[Permissions Weakness](), [Exploit](), [Valid Account]() 					|[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Patch Management](#patch-management)|
-|[Defense Evasion](https://attack.mitre.org/wiki/Defense_Evasion) 			|[Binary Padding](https://attack.mitre.org/wiki/Technique/T1009), [Token Manipulation](https://attack.mitre.org/wiki/Technique/T1134), [DLL Search Order Hijacking](https://attack.mitre.org/wiki/Technique/T1038), [Indirect Command Execution](https://attack.mitre.org/wiki/Technique/T1202)|[App Whitelisting](), [Least Privilege](), [Patch Management](#patch-management)
-|[Credential Access](https://attack.mitre.org/wiki/Credential_Access)		|[Brute Force](https://attack.mitre.org/wiki/Technique/T1110), [Dumping](https://attack.mitre.org/wiki/Technique/T1003), [Discovery](https://attack.mitre.org/wiki/Technique/T1081), [Capture](https://attack.mitre.org/wiki/Technique/T1056)			|[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Strong Password Policy](),  [Type3 Logons/Restricted Admin mode RDP]()|
-|[Discovery](https://attack.mitre.org/wiki/Discovery)  						|[Account](https://attack.mitre.org/wiki/Technique/T1087), [File](https://attack.mitre.org/wiki/Technique/T1083), [Share](https://attack.mitre.org/wiki/Technique/T1135), [System](https://attack.mitre.org/wiki/Technique/T1018), [System Info](https://attack.mitre.org/wiki/Technique/T1082)						|[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos]()|
-|[Lateral Movement](https://attack.mitre.org/wiki/Lateral_Movement) 		|[DCOM](https://attack.mitre.org/wiki/Technique/T1175), [WinRM](https://attack.mitre.org/wiki/Technique/T1028), [File Copy](https://attack.mitre.org/wiki/Technique/T1105), [Pass Ticket/Hash](https://attack.mitre.org/wiki/Technique/T1097), [Removable Media](https://attack.mitre.org/wiki/Technique/T1091)  |[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos]()|
-|[Collection](https://attack.mitre.org/wiki/Collection)|[Automated Collection](https://attack.mitre.org/wiki/Technique/T1119), [Input Capture](https://attack.mitre.org/wiki/Technique/T1056), [Screen Capture](https://attack.mitre.org/wiki/Technique/T1113)|[App Whitelisting](#application-whitelisting), [MFA](#multi-factor-authentication), [Encryption]()|
-|[Exfiltration](https://attack.mitre.org/wiki/Exfiltration)  				|[Automated Exfiltration](https://attack.mitre.org/wiki/Technique/T1020), [Physical Medium]()|[App Whitelisting](#application-whitelisting), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay), [IDPS](), [Proxy Firewall]()|
-|[Command and Control](https://attack.mitre.org/wiki/Command_and_Control) 	|[Connection Proxy](https://attack.mitre.org/wiki/Technique/T1090), [Multiband](https://attack.mitre.org/wiki/Technique/T1026), [Removable Media](https://attack.mitre.org/wiki/Technique/T1092), [RAT](https://attack.mitre.org/wiki/Technique/T1219)|[App Whitelisting](#application-whitelisting), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay), [IDPS](), [Proxy Firewall]()|
+|[Initial Access](https://attack.mitre.org/wiki/Initial_Access)				|[Drive-by](https://attack.mitre.org/wiki/Technique/T1189), [Spearphishing](https://attack.mitre.org/wiki/Technique/T1193), [Removable Media](https://attack.mitre.org/wiki/Technique/T1091)				|[App Allow-listing](#application-allow-listing), [Disable Untrusted Office Features](#disable-untrusted-office-features), [Patch Management](#patch-management), [Sandbox-VM Isolation](#sandbox-vm-isolation), [EMET](), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay)|
+|[Execution](https://attack.mitre.org/wiki/Execution)						|[CLI](https://attack.mitre.org/wiki/Technique/T1059), [GUI](https://attack.mitre.org/wiki/Technique/T1061), [PowerShell](https://attack.mitre.org/wiki/Technique/T1086), [WMI](https://attack.mitre.org/wiki/Technique/T1047), [WinRM](https://attack.mitre.org/wiki/Technique/T1028), [Tasks](https://attack.mitre.org/wiki/Technique/T1053) 				|[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay)|
+|[Persistence](https://attack.mitre.org/wiki/Persistence) 					|[Logon Scripts](https://attack.mitre.org/wiki/Technique/T1037), [Run Keys](https://attack.mitre.org/wiki/Technique/T1060), [Services](https://attack.mitre.org/wiki/Technique/T1058), [Tasks](https://attack.mitre.org/wiki/Technique/T1053), [WMI](https://attack.mitre.org/wiki/Technique/T1084)|[App Allow-listing](#application-allow-listing), [Credential Hygiene](), [Least Privilege]()|
+|[Privilege Escalation](https://attack.mitre.org/wiki/Privilege_Escalation)	|[Permissions Weakness](), [Exploit](), [Valid Account]() 					|[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Patch Management](#patch-management)|
+|[Defense Evasion](https://attack.mitre.org/wiki/Defense_Evasion) 			|[Binary Padding](https://attack.mitre.org/wiki/Technique/T1009), [Token Manipulation](https://attack.mitre.org/wiki/Technique/T1134), [DLL Search Order Hijacking](https://attack.mitre.org/wiki/Technique/T1038), [Indirect Command Execution](https://attack.mitre.org/wiki/Technique/T1202)|[App Allow-listing](), [Least Privilege](), [Patch Management](#patch-management)
+|[Credential Access](https://attack.mitre.org/wiki/Credential_Access)		|[Brute Force](https://attack.mitre.org/wiki/Technique/T1110), [Dumping](https://attack.mitre.org/wiki/Technique/T1003), [Discovery](https://attack.mitre.org/wiki/Technique/T1081), [Capture](https://attack.mitre.org/wiki/Technique/T1056)			|[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos](), [Strong Password Policy](),  [Type3 Logons/Restricted Admin mode RDP]()|
+|[Discovery](https://attack.mitre.org/wiki/Discovery)  						|[Account](https://attack.mitre.org/wiki/Technique/T1087), [File](https://attack.mitre.org/wiki/Technique/T1083), [Share](https://attack.mitre.org/wiki/Technique/T1135), [System](https://attack.mitre.org/wiki/Technique/T1018), [System Info](https://attack.mitre.org/wiki/Technique/T1082)						|[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos]()|
+|[Lateral Movement](https://attack.mitre.org/wiki/Lateral_Movement) 		|[DCOM](https://attack.mitre.org/wiki/Technique/T1175), [WinRM](https://attack.mitre.org/wiki/Technique/T1028), [File Copy](https://attack.mitre.org/wiki/Technique/T1105), [Pass Ticket/Hash](https://attack.mitre.org/wiki/Technique/T1097), [Removable Media](https://attack.mitre.org/wiki/Technique/T1091)  |[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Disable NTLM/Only Use Kerberos]()|
+|[Collection](https://attack.mitre.org/wiki/Collection)|[Automated Collection](https://attack.mitre.org/wiki/Technique/T1119), [Input Capture](https://attack.mitre.org/wiki/Technique/T1056), [Screen Capture](https://attack.mitre.org/wiki/Technique/T1113)|[App Allow-listing](#application-allow-listing), [MFA](#multi-factor-authentication), [Encryption]()|
+|[Exfiltration](https://attack.mitre.org/wiki/Exfiltration)  				|[Automated Exfiltration](https://attack.mitre.org/wiki/Technique/T1020), [Physical Medium]()|[App Allow-listing](#application-allow-listing), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay), [IDPS](), [Proxy Firewall]()|
+|[Command and Control](https://attack.mitre.org/wiki/Command_and_Control) 	|[Connection Proxy](https://attack.mitre.org/wiki/Technique/T1090), [Multiband](https://attack.mitre.org/wiki/Technique/T1026), [Removable Media](https://attack.mitre.org/wiki/Technique/T1092), [RAT](https://attack.mitre.org/wiki/Technique/T1219)|[App Allow-listing](#application-allow-listing), [Disable AutoRun-AutoPlay](#disable-autorun-autoplay), [IDPS](), [Proxy Firewall]()|
 
 
 <br>
@@ -68,13 +68,13 @@ Using this table, let's look at some of the most useful mitigation techniques or
 
 |Mitigation|Description|
 |-|-|
-|[Application Whitelisting](#application-whitelisting)|Allow and deny drivers, programs, and scripts from running based on characteristics|
+|[Application Allow-listing](#application-allow-listing)|Allow and deny drivers, programs, and scripts from running based on characteristics|
 |[Patch Management](#patch-management)|Keep operating system and applications at latest versions|
 |[Disable Untrusted Office Features](#disable-untrusted-office-features)|Disable features that can run untrusted code such as Macros, OLE Object Execution, ActiveX, DDE|
 |[Disable AutoRun-AutoPlay](#disable-autorun-autoplay)|Prevent applicatons from automatically executing when a device is plugged into the computer|
 
 
-### Application Whitelisting
+### Application Allow-listing
 
 Over the years, Microsoft Windows has provided different functions for countering the execution of arbitrary code---Software Restriction Policies, AppLocker, and Device Guard which is now called [Windows Defender Application Control](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/windows-defender-application-control) (WDAC).  
 
@@ -87,7 +87,7 @@ Let's look at two of these options:
 
 AppLocker restricts the execution of executables, DLLs, scripts, and installer files.  By defining rules with an AppLocker policy, we can prevent and allow the execution of applications and scripts based on their path, hash value, or digital signature.
 
-- Whitelist batch scripts, vbscript/javascript, java, block VBA macros
+- Allow-list batch scripts, vbscript/javascript, java, block VBA macros
 - Restrict PowerShell execution policy to administrators and to only execute signed scripts
 - Disable/restrict the WinRM Service to help prevent uses of PowerShell for remote execution
 - Use third party solutions such as Bit9, McAfee
@@ -570,7 +570,7 @@ Credential dumpers use several methods to obtain passwords and hashes:
 - Open the Security Accounts Manager (SAM) on the local file system (`%SystemRoot%/system32/config/SAM`)
 - Create a dump of the Registry SAM key
 
-[Application whitelisting](#application-whitelisting) will help prevent tools running that are designed to do this, but there are several other things we can do that will help secure credentials:
+[Application allow-listing](#application-allow-listing) will help prevent tools running that are designed to do this, but there are several other things we can do that will help secure credentials:
 
 - [Use Unique and Complex Passwords](#use-unique-and-complex-passwords)
 - [Monitor for Credential Exposure](#monitor-for-credential-exposure)

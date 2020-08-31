@@ -71,7 +71,7 @@ Evaluate the environment for the presence of attacker activity or compromise.  M
 |-|-|
 |[Hunting with Volatility](Hunting%20on%20the%20Endpoint%20with%20Volatility.md)|Unpacked/unencrypted form, Injected code not on disk, Hidden/exited processes, Closed connections/sockets, Cached/deleted files|
 |[Hunting with TShark](Hunting%20on%20the%20Network%20with%20Tshark.md)|Looking for payload deliveries, C2, lateral movement, exfil, etc.|
-|[Hunting with Splunk](Filtering%20Expected%20Web%20Traffic%20in%20Splunk.md)|Eliminating Whitelisted Sites/Tools, Cert checks, Ads/Analytics, Safebrowsing, Connectivity checks, Google/MS services from results|
+|[Hunting with Splunk](Filtering%20Expected%20Web%20Traffic%20in%20Splunk.md)|Eliminating Allow-listed Sites/Tools, Cert checks, Ads/Analytics, Safebrowsing, Connectivity checks, Google/MS services from results|
 |[Hunting in AWS](Review%20of%20Amazon%20Web%20Services.md)|Compute (EC2, Beanstalk, Lambda), Networking/Storage (VPC, Route 53, S3), Access Control (IAM), Logging (CloudTrail, S3 Access)|
 |[Verifying Digital Signatures](Verifying%20Digital%20Signatures%20of%20PE%20Files.md)|Embedded (inside the PE), Catalog (hash of the PE is listed in catalog file)|
 |[Examining Code Signing Certificates](Code%20Signing%20Certificates.md)|Hash and digital signature confirms file wasn't altered and identity of the software publisher|
@@ -258,7 +258,7 @@ Researching and replicating malware and adversary tradecraft to test tools/analy
 
 **Examples:**
 
-- Simulate application whitelisting bypasses and check endpoint detection capabilities
+- Simulate application allow-listing bypasses and check endpoint detection capabilities
 - Simulate exploit on a system to produce logs and conditions that would allow detection
 - Generate benign C2 traffic using different techniques to test tools and analysts
 - Perform lateral movement using authenticated RCE techniques to examine logs and create search content
@@ -268,7 +268,7 @@ Researching and replicating malware and adversary tradecraft to test tools/analy
 |Task|Description|
 |-|-|
 |[WMI Event Subscriptions](Persistence%20Using%20WMI%20Event%20Subscriptions.md)|Event Filters, Event Consumers, Filter-Consumer Bindings used for persistence|
-|[Application Whitelisting Bypasses](Application%20Whitelisting%20Bypasses.md)|Path Rules, Publisher Rules, Leveraging Trusted Programs|
+|[Application Allow-listing Bypasses](Application%20Allow-listing%20Bypasses.md)|Path Rules, Publisher Rules, Leveraging Trusted Programs|
 |[Windows Privilege Escalation Techniques](Privilege%20Escalation%20in%20Windows.md)|Unquoted Service Paths, DLL Order Hijacking, Auto-Elevation|
 |[MacOs Privilege Escalation Techniques](Privilege%20Escalation%20in%20macOS.md)|Sudo Commands, SUID/SGID Permissions, Wildcards|
 |[Lateral Movement by RCE](Tracking%20Lateral%20Movement%20By%20Authenticated%20RCE.md)|WMI, SCM, WinRm, Remote Registry, Remote File Access, Task Scheduler, RDP, MMC20.Application DCOM|

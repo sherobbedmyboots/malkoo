@@ -1441,7 +1441,7 @@ this message:
 
 ![](images/Developing%20TTP-based%20Responses/image045.png)<br><br>
 
-Whitelisting publishers or creating exception rules for legitimate
+Allow-listing publishers or creating exception rules for legitimate
 unsigned executables are other ways we implement this.
 
 In all three examples, we're using what we know about how the adversary

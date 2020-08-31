@@ -2,11 +2,11 @@
 
 | |Ubuntu|Windows|
 |-|-|-|
-|Web Content Filtering/Internet White-listing|Squid with DansGuardian|Bluecoat, Websense|
-|Application White-listing/MAC|AppArmor, SELinux, Grsecurity|SRP, AppLocker|
+|Web Content Filtering/Internet Allow-listing|Squid with DansGuardian|Bluecoat, Websense|
+|Application Allow-listing/MAC|AppArmor, SELinux, Grsecurity|SRP, AppLocker|
 |Connection data/threat analytics|Pfsense, RITA|Microsoft Threat Analytics, FireEye TAP, Kansa|
 |Cached malicious domains|Dns-blacklists.py, Malware Domain List ||
-|Lockdown Firewalls/Admin-net white-list|UFW, iptables|Windows Advanced Firewall|
+|Lockdown Firewalls/Admin-net allow-list|UFW, iptables|Windows Advanced Firewall|
 |Remote system logging|Syslog-NG|Syslog-NG|
 
 ## Defense Tools
@@ -79,7 +79,7 @@ Encrypted communications|GnuPG|GnuPG|
 |Memory/BO protection|PaX, Pro Police, EMET||
 |Brute force blockers|Fail2Ban, DenyHosts, Cyberarms, Syspeace, RdpGuard||
 |Data Loss Prevention|MyDLP, Bluecoat, Websense||
-|AppWhite-listing/MAC|AppArmor, SELinux, Grsecurity, SRP, AppLocker, DeviceGuard||
+|AppAllow-listing/MAC|AppArmor, SELinux, Grsecurity, SRP, AppLocker, DeviceGuard||
 |Cached malicious domains|Dns-blacklists.py, Malware Domain List||	
 
 ## Encryption			

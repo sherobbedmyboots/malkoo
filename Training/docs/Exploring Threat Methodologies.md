@@ -374,7 +374,7 @@ Defensive controls and best practices can present several different types of obs
 
 ### Configurations
 
-Overcoming defenses such as Application whitelisting, Constrained Language Mode, and interacting with Windows technologies from Kali Linux.
+Overcoming defenses such as Application allow-listing, Constrained Language Mode, and interacting with Windows technologies from Kali Linux.
 
 Interfacing with Windows technologies from Kali Linux can present different challenges.  Installing Docker on Kali provides an easy way to quickly load different environments that may be required: 
 

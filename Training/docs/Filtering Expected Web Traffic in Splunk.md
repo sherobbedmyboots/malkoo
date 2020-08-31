@@ -17,7 +17,7 @@ You can view it by going to **Settings** --> **Advanced Search** --> **Search ma
 
 The webfilter lookup and the macro can be used to filter out expected traffic such as:
 
-- [Whitelisted Websites and Tools](#whitelisted-websites-and-tools)
+- [Allow-listed Websites and Tools](#allow-listed-websites-and-tools)
 - [Certificate Checks](#certificate-checks)
 - [Advertisements and Analytics](#advertisements-and-analytics)
 - [Safebrowsing Updates](#safebrowsing-updates)
@@ -27,7 +27,7 @@ The webfilter lookup and the macro can be used to filter out expected traffic su
 - [Google and Microsoft Services](#google-and-microsoft-services)
 
 
-## Whitelisted Websites and Tools
+## Allow-listed Websites and Tools
 
 When searching for malicious infrastructure, we need to filter out traffic to authorized infrastructure and external services.
 

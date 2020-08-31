@@ -31,7 +31,7 @@
 - Implement client certificates to validate and authenticate systems prior to connecting to the private network
 ## Software Inventory	
 - Maintain a list of software and versions authorized for each type of server, workstation, network device in the organization
-- Implement application whitelisting to prevent execution of unauthorized software on all systems
+- Implement application allow-listing to prevent execution of unauthorized software on all systems
 - Deploy software inventory system to track OS version and installed applications installed on all assets
 - Isolate and run higher risk appliations in a virtual or air-gapped environment
 ## Secure Configurations	
@@ -64,7 +64,7 @@
 - Configure network boundary devices, including firewalls, network-based IPS, and inbound and outbound proxies, to verbosely log all traffic (both allowed and blocked) arriving at the device.
 - Aggregate and consolidate logs from multiple systems and devices for log correlation and analysis with a SIEM
 ## Web and Email Clients	
-- Whitelist approved web browsers and email clients, keep up to date, implement application / URL whitelisting for pligins and add-on applications
+- Allow-list approved web browsers and email clients, keep up to date, implement application / URL allow-listing for pligins and add-on applications
 - Control use of languages such as ActiveX and JavaScript
 -  from each of the organization's systems, whether onsite or a mobile device, in order to identify potentially malicious activity and assist incident handlers with identifying potentially compromised systems.
 - Create two separate browser configurations for each system---one with limited functionality for general web browsing and one for specific websites that require the use of such functionality
@@ -72,7 +72,7 @@
 - Implement the Sender Policy Framework (SPF) to mitigate spoofed emails by deploying SPF records in DNS and enabling receiver-side verification in mail servers
 - Use e-mail content filtering and web content filtering, scan and block all e-mail attachments containing malicious code or unnecessary file types at the gateway
 ## Malware Defenses	
-- Deploy automated tools and countermeasures such as anti-virus, anti-spyware, HIPS, personal firewalls, DLP, and white-listing.
+- Deploy automated tools and countermeasures such as anti-virus, anti-spyware, HIPS, personal firewalls, DLP, and allow-listing.
 - Centralize the management of tools, ensure adequate event logging, and keep signatures and file reputations updated regularly
 - Monitor and limit the use of external devices and configure all systems to automatically scan removable media for malware when inserted, c
 - Disable auto-run functionality on all systems for all types of removable media including USB drives, external hard drives, CDs and DVDs, other external devices and mounted network shares.
@@ -101,7 +101,7 @@
 - Use a dedicated machine, isolated from primary network, for all administrative tasks or tasks requiring elevated access.
 - Use dedicated network connections (either physical or separate VLANs) to manage the network devices and infrastructure.
 ## Perimeter Defense	
-- Implement domain and IP addresss blacklisting or whitelisting and test frequently to ensure proper functionality
+- Implement domain and IP addresss blacklisting or allow-listing and test frequently to ensure proper functionality
 - Capture full packet header and payloads of the traffic to and from Internet and DMZ and feed to SIEM for log correlation and analysis.
 - Deploy network-based IDS sensors on Internet and extranet DMZ systems and networks that look for unusual attack mechanisms and detect compromise of these systems. These network-based IDS sensors may detect attacks through the use of signatures, network behavior analysis, or other mechanisms to analyze traffic.
 - Deploy NIPS to provide automation for blocking known bad traffic detected via virtual machine or sandbox-based tools

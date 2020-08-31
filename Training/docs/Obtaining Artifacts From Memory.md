@@ -45,7 +45,7 @@ It may also be helpful to review some of these other training documents related 
 - [Review of Windows Scripting Technologies](./Review%20of%20Windows%20Scripting%20Technologies.md)
 - [Debugging a Windows Program](./Debugging%20a%20Windows%20Program.md)
 - [Detecting Unmanaged PowerShell](./Detecting%20Unmanaged%20Powershell.md)
-- [Application Whitelisting Bypasses](./Application%20Whitelisting%20Bypasses.md)
+- [Application Allow-listing Bypasses](./Application%20Allow-listing%20Bypasses.md)
 - [Bits, Bytes, and Encoding](./Bits%20Bytes%20and%20Encoding.md)
 - [Memory-based Attack Techniques](./Memory-based%20Attack%20Techniques.md)
 - [Windows Processes and Memory Analysis](./Windows%20Processes%20and%20Memory%20Analysis.md)
@@ -53,13 +53,13 @@ It may also be helpful to review some of these other training documents related 
 
 ## Identifying In-Memory DotNet Assemblies
 
-[DotNet assemblies](https://www.endgame.com/blog/technical-blog/hunting-memory-net-attacks) can be dynamically loaded into memory using the `Assembly.Load(byte[])` function to run untrusted programs to bypass application whitelisting and avoid writing artifacts to disk.
+[DotNet assemblies](https://www.endgame.com/blog/technical-blog/hunting-memory-net-attacks) can be dynamically loaded into memory using the `Assembly.Load(byte[])` function to run untrusted programs to bypass application allow-listing and avoid writing artifacts to disk.
 
 Here are several examples:
 
 - Post-Exploitation tools such as [Empire](https://github.com/EmpireProject/Empire) and [Cobalt Strike](https://www.cobaltstrike.com/) can inject .NET assemblies (PowerShell runner DLLs) into any process in memory 
 
-- Multiple [Application Whitelisting Bypasses](https://github.com/api0cradle/UltimateAppLockerByPassList) exist where signed applications that call the `Assembly.Load()` method like `MSBuild.exe` and `InstallUtil.exe` are made to run unsigned .NET assemblies which can access Windows APIs
+- Multiple [Application Allow-listing Bypasses](https://github.com/api0cradle/UltimateAppLockerByPassList) exist where signed applications that call the `Assembly.Load()` method like `MSBuild.exe` and `InstallUtil.exe` are made to run unsigned .NET assemblies which can access Windows APIs
 
 - JScript tools such as [DotNetToJScript](https://github.com/tyranid/DotNetToJScript), [Starfighters](https://github.com/Cn33liz/StarFighters), and [CactusTorch](https://github.com/mdsecactivebreach/CACTUSTORCH) run .NET assemblies in memory providing Windows API access
 

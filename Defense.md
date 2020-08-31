@@ -6,18 +6,18 @@
 	Safely log on remotely without placing credentials on target machine
 	Deny privilege accounts from authenticating to lower trust systems
 	
-## Code whitelisting	
-	Whitelist batch scripts, vbscript/javascript, java, block VBA macros
+## Code allow-listing	
+	Allow-list batch scripts, vbscript/javascript, java, block VBA macros
  	Lock down powershell
-	Bit9/Kapersky/Applocker…. Whitelists
+	Bit9/Kapersky/Applocker…. Allow-lists
 	
  	
 ## External	
 | | |
 |-|-| 	
 |External server attack (web/sqli exploit, pw attack)|Web application auditing, web restrictions, DB user privs|
-|Client-side exploit (Java, PDF readers, Office, Browsers via Exploit Kits)|VM isolation of vulnerable apps, DEP, ASLR, EMET, SEHOP, Whitelist Java, Whitelist web, secure webapp coding/patching|
-|Social Engineering (Java applet, macros, executables via email or website)|Disable macros, Whitelist Java, exe’s, DLL’s, and scripts with AppLocker, SRP, Bit9|
+|Client-side exploit (Java, PDF readers, Office, Browsers via Exploit Kits)|VM isolation of vulnerable apps, DEP, ASLR, EMET, SEHOP, Allow-list Java, Allow-list web, secure webapp coding/patching|
+|Social Engineering (Java applet, macros, executables via email or website)|Disable macros, Allow-list Java, exe’s, DLL’s, and scripts with AppLocker, SRP, Bit9|
 |Physical Item Drop (thumb drives, CDs, lnk files or exe’s, HID-spoofing, RD)|Disable USB mass storage, train users|
 |Physical access (Unlocked laptops, hard drive access, hardware backdoors)|Physical security, Full disk encryption|
 	
@@ -59,10 +59,10 @@
 | | |
 |-|-|  	
 |Direct TCP/IP|Block direct connections out from internal hosts, force proxy use|
-|HTTP/S to dynamic DNS or malicious domains, TOR|Whitelist, categorically block at proxy|
-|DNS-based channels|Whitelist DNS domains at DNS server|
+|HTTP/S to dynamic DNS or malicious domains, TOR|Allow-list, categorically block at proxy|
+|DNS-based channels|Allow-list DNS domains at DNS server|
 |USB drives|Disable USB mass storage, train users|
 |Webmail, data-sharing sites|Categorical block of file sharing, pasting, social media|
 |Compromised sites (comments used for C2)|No good defenses except air gap|
 |Shares Block inter-workstation / ARP-spoofing|
-|FTP/HTTP/HTTPS|Whitelist web/ftp|
+|FTP/HTTP/HTTPS|Allow-list web/ftp|

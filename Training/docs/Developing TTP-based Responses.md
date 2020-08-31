@@ -579,7 +579,7 @@ this message:
 ![](images/Developing%20TTP-based%20Responses/image042.png)
 
 
-Whitelisting publishers or creating exception rules for legitimate
+Allow-listing publishers or creating exception rules for legitimate
 unsigned executables are other ways we implement this.
 
 ## Summary

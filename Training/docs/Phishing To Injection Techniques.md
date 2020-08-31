@@ -267,7 +267,7 @@ Here are several examples of .NET assemblies being used to access the Windows AP
 
 - Post-Exploitation tools such as [Empire](https://github.com/EmpireProject/Empire) and [Cobalt Strike](https://www.cobaltstrike.com/) can inject a .NET assemblies (PowerShell runner DLLs) into any process in memory 
 
-- Multiple [Application Whitelisting Bypasses](https://github.com/api0cradle/UltimateAppLockerByPassList) exist where signed applications that call the `Assembly.Load()` method like `MSBuild.exe` and `InstallUtil.exe` are made to run unsigned .NET assemblies which can access Windows APIs
+- Multiple [Application Allow-listing Bypasses](https://github.com/api0cradle/UltimateAppLockerByPassList) exist where signed applications that call the `Assembly.Load()` method like `MSBuild.exe` and `InstallUtil.exe` are made to run unsigned .NET assemblies which can access Windows APIs
 
 - JScript tools such as [DotNetToJScript](https://github.com/tyranid/DotNetToJScript), [Starfighters](https://github.com/Cn33liz/StarFighters), and [CactusTorch](https://github.com/mdsecactivebreach/CACTUSTORCH) run .NET assemblies in memory providing Windows API access
 

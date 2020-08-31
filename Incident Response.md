@@ -77,7 +77,7 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 - Network flow collection (SiLK) collection of connection and session metadata for anomaly detection and retrospective analysis																								
 - Network framework analysis (Bro) for collecting connection/specific application data and alerting on anomalies																								
 - Full Packet Capture (tcpdump) for full content data including header and payload for session reconstruction and analysis																								
-- Strictly control outgoing traffic using proxies wherever possible, internet white-listing, network traffic decryption and inspection, sufficient sensor placement																								
+- Strictly control outgoing traffic using proxies wherever possible, internet allow-listing, network traffic decryption and inspection, sufficient sensor placement																								
 - Synchronize the clocks on all systems and network equipment
 
 - Aggregate and index all system logs, alert data, flow data, and packet data ensuring all sources are searchable																								
@@ -89,7 +89,7 @@ Get team ready to handle incidents, Understand organization's risk profile and s
 
 - Constantly train and assess the workforce on protecting the enterprise, test quarterly and track improvements and deficiencies																								
 - Provide users with policy, procedures, training and convenient reporting and response capabilities such as phone, email, or website																								
-- Harden the technical environment with configuration and vulnerability management and automated countermeasures such as firewalls, AV, DLP, and white-listing																								
+- Harden the technical environment with configuration and vulnerability management and automated countermeasures such as firewalls, AV, DLP, and allow-listing																								
 - Develop and improve SOC and IRT capabilities by implementing a proactive, mission-focused program aligned with business requirements																								
 - Test enterprise security posture using the same tools, techniques, and procedures (TTPs) as current, advanced attackers																								
 - Funding and resources to perform extended investigations to allow continued IR work throughout sustained response																								
